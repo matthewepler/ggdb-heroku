@@ -1,0 +1,22 @@
+p.dot {
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 50%;
+  color: white;
+  margin: 1rem;
+  padding: 1rem 1.6rem;
+
+  &:hover, &:active{
+    background-color: white;
+    color: darkturquoise;
+  }
+} 
+
+p.dot-selected {
+  background-color: white;
+  color: darkturquoise;
+}
+
+p.dot-fat {
+  padding: 1rem 1.3rem;
+}

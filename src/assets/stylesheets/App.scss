@@ -1,0 +1,165 @@
+//-- VARIABLES --//
+$lg-screen:  960;
+$med-screen: 768;
+$sm-screen:  640;
+$base-color-lt: #D3F0F4; //#E6F9FF
+$base-text: darkslategrey;
+$base-font: Raleway;
+$highlight: white;
+$circle-size: 9rem;
+$sm-circle-size: 4rem;
+
+@mixin forLargeScreens($media) {
+  @media (min-width: $media/16+em) { @content; }
+}
+
+@mixin forSmallScreens($media) {
+    @media (max-width: $media/16+em) { @content; }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #315481;
+  background-image: linear-gradient(to bottom, darkturquoise, $base-color-lt  160%);
+  background-attachment: fixed;
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+ }
+
+ .app-container {
+  display: flex;
+  min-height: 100%;
+  background: rgba(0, 0, 0, 0); 
+
+  .app-left-col {
+    flex: 1;
+    @include forSmallScreens($sm-screen) {
+      flex: 0;
+    }
+    max-width: 15%;
+  }
+
+  .app-mid-col {
+    flex: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+
+    .title-wrapper {
+      text-align: center;
+      h1.title {
+        color: white;
+        font-family: Raleway;
+        font-size: 6rem;
+        font-weight: 100;
+        margin-top: 2rem;
+        width: 100%;
+      }
+
+      p.subtitle {
+        color: white;
+        font-family: $base-font;
+        font-size: 2rem;
+        font-weight: 200;
+        letter-spacing: 0.5px;
+        width: 100%;
+
+        span a {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .nav-selectors {
+      text-align: center;
+      margin: 2rem auto;
+
+      h2 {
+        color: $base-text;
+        font-family: "Source Sans Pro";
+        font-size: 2.5rem;
+      }
+  
+      .panel-title {
+        width: 100%;
+
+        @include forSmallScreens($sm-screen) {
+          margin: 0;
+        }
+
+         a {
+          background-color: white;
+          border-radius: 40px;
+          color: darkturquoise;
+          font-family: $base-font;
+          font-size: 4rem;
+          font-weight: 200;
+          margin: 0 2rem;
+          padding: 0 2.25rem;
+          padding-bottom: 0.25rem;
+          width: 100%;
+
+          &:hover {
+            border: 8px solid white;
+          }
+         }
+      }
+
+      .nav-panel {
+        .season-dots {
+          display: flex;
+          justify-content: center;
+        }
+
+         .episode-dots {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin: 0 12rem;
+        }
+      }
+    }
+
+    div.toolbar-wrapper {
+      @include forSmallScreens($sm-screen) {
+        margin: 0;
+        text-align: center;
+      }
+      button.addButton {
+        @include forSmallScreens($sm-screen) {
+          margin: 0;
+          width: 90%;
+        }
+      }
+    }
+  }
+
+  .app-right-col {
+    flex: 1;
+    @include forSmallScreens($sm-screen) {
+      flex: 0;
+    }
+    max-width: 15%;
+  }
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:active:focus {
+  background-color: transparent;
+  outline: none;
+  color: white;
+  box-shadow: none;
+}

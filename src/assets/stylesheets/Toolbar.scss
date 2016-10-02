@@ -1,0 +1,42 @@
+@import 'App';
+
+.addButton {
+	background-color: transparent;
+	color: paleturquoise;
+	border: 2px solid paleturquoise;
+	width: 100%;
+	box-shadow: none;
+	margin: 0 2rem;
+
+	&:focus {
+		border: 2px solid paleturquoise;
+		box-shadow: none;
+		background-color: transparent;
+		color: white;
+	}
+
+	&:active {
+		background-color: white;
+		color: darkturquoise;
+		box-shadow: none;
+		border: none;
+	}
+
+	&:hover {
+		background-color: transparent;
+		border: 3px solid white;
+		color: white;
+		box-shadow: none;
+	}
+
+	&:active:focus {
+		background-color: white;
+	}
+
+	&:active:focus:hover {
+		background-color: white;
+		color: darkturquoise;
+		box-shadow: none;
+		border: none;
+	}
+}

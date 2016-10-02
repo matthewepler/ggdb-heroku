@@ -1,21 +1,45 @@
-# React + Node Starter (for [Heroku](https://www.heroku.com/) deployment)
+# TO DO
+* port to express
+	* font-awesome not working
+	* font sizes in RefDetail and buttons, etc.
+*	hookup firebase & google cloud
 
-### UP & RUNNING
-* `npm install`
-* `npm start`
-* visit `http://localhost:8080/`
+* test form
+	-> check validation
+			- refThumb (C://fakepath)?
+			- screengrab (C://fakepath)?
 
-### CHANGELOG
-**v.0.2.0**
-This app has been updated to use React v15 and Babel v6! I have also updated the file structure to reflect naming conventions you'll most likely see in other applications. If you'd like to go back to v.0.0.1 (which should've been named 0.1.0), you can find go back to [this commit](https://github.com/alanbsmith/react-node-example/commit/dd6d745c4b7066fd12104d5005b805afaf469d91).
+* input dummy data to firebase
 
-### DEPLOYING TO HEROKU
-This app is set up for deployment to Heroku!
+* dataViz charts default open
+* dataviz
 
-Heroku will follow the `postinstall` command in your `package.json` and compile assets with `webpack.prod.config.js`. It runs the Express web server in `server.js`. You'll notice there's a special section set up for running in development.
+* accounts and permissions
 
-If you've never deployed a Node app to Heroku (or just need a refresher), they have a really great walkthrough [here](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction). 
+* contribution testing
+	- do I need to insert escape characters to avoid breaking strings with " in them?
 
-### REDUX STARTER
-If you're looking for a similar, minimalistic Redux starter, I would recommend Marc Garreau's [here](https://github.com/marcgarreau/redux-starter)
+* add page "Contributor's Reference Guide"
+* add page "About"
+
+* API - return JSON with keywords? - quick tutorial or read-up suggested.
+
+## NON-CRITICAL
+* links for each entry
+
+
+## GUIDE
+For years, 
+1.)try to make the first date the year in which the person released their first major public work 
+2.) the second year is not required. if used, it indicates that the person, place, or thing extended beyond the first year and had a definite end. 
+3.) If the person, place, thing is still ongoing, enter "now." Works of art are the excecption. ALthought ongoing (see "is/was"), only their date of creation matters. 
+
+Example: Britney Spears' "...Baby One More Time" released in 1999 and she's still alive, so the years would be "1999" and "now".
+
+* was/is - any works of art that are still generally available are considered part of the present and therefore should be refered to with "is" or "are." 
+
+* refName should appear exactly as it did in the quote. If it is a nickname, or shortened to just a first name, then address this in is/was. Ex" Flo Jo (instead of Florence Griffith Joyner) or Melville (instead of Herman Melville)
+or "Oprah" -> Oprah (Winfrey) is a popular talk show host."
+
+* link to the guide in the public "about" page
 
