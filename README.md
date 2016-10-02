@@ -1,7 +1,5 @@
 # TO DO
-* port to express
-	* font-awesome not working
-	* font sizes in RefDetail and buttons, etc.
+* click error in nav space
 *	hookup firebase & google cloud
 
 * test form

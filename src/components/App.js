@@ -46,11 +46,15 @@ class App extends Component {
   }
 
   handleSeasonClick(e) {
-    this.setState({season: e.target.innerHTML});
+    if (e.target.tagName == 'P') {
+      this.setState({season: e.target.innerHTML});  
+    }
   }
 
   handleEpisodeClick(e) {
-    this.setState({episode: e.target.innerHTML});
+    if (e.target.tagName == 'P') {
+      this.setState({episode: e.target.innerHTML});
+    }
   }
 
 
