@@ -8,7 +8,7 @@ const config = {
 	    apiKey: process.env.FIREBASE_API_KEY,
 	    authDomain: "ggdb-af77a.firebaseapp.com",
 	    databaseURL: "https://ggdb-af77a.firebaseio.com",
-	    storageBucket: "",
+	    storageBucket: "gs://ggdb-af77a.appspot.com",
 	  };
 firebase.initializeApp(config);
 

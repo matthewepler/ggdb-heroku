@@ -18,17 +18,18 @@ class AddRefForm extends Component {
 		this.state = {
 			currScreengrab: null,
 			currRefThumb: null,
+			errors: null,
 		};
 	}
 
 	componentDidMount() {
-		const screengrabBox = this.screengrabElement.getBoundingClientRect();
-		this.screengrabUploadElement.style.top = ((screengrabBox.height/2) * -1) - 30 + "px";
-		this.screengrabUploadElement.style.left= (screengrabBox.width/2) - 35 + "px";
+		// const screengrabBox = this.screengrabElement.getBoundingClientRect();
+		// this.screengrabUploadElement.style.top = ((screengrabBox.height/2) * -1) - 30 + "px";
+		// this.screengrabUploadElement.style.left= (screengrabBox.width/2) - 35 + "px";
 		
-		const refThumbBox = this.refThumbElement.getBoundingClientRect();
-		this.refThumbUploadElement.style.top = ((refThumbBox.height/2) * -1) - 25 + "px";
-		this.refThumbUploadElement.style.left= (refThumbBox.width/2) - 85 + "px";
+		// const refThumbBox = this.refThumbElement.getBoundingClientRect();
+		// this.refThumbUploadElement.style.top = ((refThumbBox.height/2) * -1) - 25 + "px";
+		// this.refThumbUploadElement.style.left= (refThumbBox.width/2) - 85 + "px";
 	}
 
 	uploadChange(e) {
@@ -82,18 +83,49 @@ class AddRefForm extends Component {
 		formData.refNotes =  this.refNotes.value;
 
 		const validData = validate(formData);
+
+		let errors = [];
 		for (let obj in validData) {
-			console.log(obj, validData[obj]);
+			if (validData[obj].value === false) {
+				// console.log("input error: ", obj);
+				// console.log(validData[obj].msg);
+				if (obj === 'screengrab') {
+					this.setState({currScreengrab: null});
+					this.screengrabElement.src = "";
+				}
+
+				if (obj === 'refThumb') {
+					this.setState({currRefThumb: null});
+					this.refThumbElement.src = "";
+				}
+
+				errors.push(validData[obj].msg);
+			}
 		}
 		
-		// if any object has a value == 'false', clear any error objects in state add classes to the elements with bad values and add their object names to an array in state
-		// if true, clear all error objects in state and submit to firebase
+		if (errors.length > 0) {
+			this.setState({errors});
+		} else {
+			this.setState({errors: null});
+			this.sendToFirebase(validData);
+		}
+	}
+
+	sendToFirebase(data) {
+		// close form (Send the function to do that from parent component)
+		//var storage = firebase.storage();
+		console.log("All good! Sending validData to Firebase");
 	}
 
 
 	render() {
 		return (
 			<div className="add-ref-form-wrapper">
+
+			<div className="submit-error">
+				{this.state.errors === null ? "" : this.state.errors.map( e => (<p>{e}</p>))}
+			</div>
+
 			<form onSubmit={this.formSubmit.bind(this)}>
 				<div className="rf-headline-wrapper" >
 	        <div className="rf-person-thumb">
@@ -122,7 +154,7 @@ class AddRefForm extends Component {
 								<div className="select-wrap">
 									<select className="season-select rf-button-link" ref={c => this.season = c}>
 										{_.range(7).map( (s, index) => {
-											return <option value={s} key={index}> {s + 1} </option>
+											return <option value={s+1} key={index}> {s + 1} </option>
 										})}
 									</select>
 								</div>
@@ -130,7 +162,7 @@ class AddRefForm extends Component {
 								<div className="select-wrap">
 									<select className="episode-select rf-button-link" ref={c => this.episode = c}>
 										{_.range(23).map( (e, index) => {
-											return <option value={e} key={index}> {e + 1} </option>
+											return <option value={e+1} key={index}> {e + 1} </option>
 										})}
 									</select>
 								</div>
@@ -219,7 +251,7 @@ class AddRefForm extends Component {
 									</li>
 									<li className="years">
 										<input className="rf-ref-tags-year" type="text" placeholder="year" ref={c => this.refYear1 = c}/>
-										-
+											<span className="year-dash"> - </span>
 										<input className="rf-ref-tags-year" type="text" placeholder="year" ref={c => this.refYear2 = c}/>
 									</li> 
 									
@@ -235,7 +267,7 @@ class AddRefForm extends Component {
 
 									<li className="rf-ref-tags-link">
 										<i className="fa fa-video-camera" aria-hidden="true"></i>
-										<input className="rf-ref-tags-media" type="text" placeholder="video link (search results or direct link)" ref={c => this.video = c}/>
+										<input className="rf-ref-tags-media" type="text" placeholder="YouTube link (search results or direct link)" ref={c => this.video = c}/>
 									</li>
 								</ul>
 
@@ -245,6 +277,9 @@ class AddRefForm extends Component {
 							</div>
 						</div>
 					</div> 
+					<div className="submit-error">
+						{this.state.errors === null ? "" : <p>Eek, errors! Please see above for details.</p>}
+					</div>
 					<input className="submit-button" type="submit" value="Submit"/>
 				</div> 
 			</form>

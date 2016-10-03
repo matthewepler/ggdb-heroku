@@ -1,12 +1,8 @@
 # TO DO
-* click error in nav space
+validData.refIs.value = false;
+			- add "Errors, see above for details" message above Submit button.
+
 *	hookup firebase & google cloud
-
-* test form
-	-> check validation
-			- refThumb (C://fakepath)?
-			- screengrab (C://fakepath)?
-
 * input dummy data to firebase
 
 * dataViz charts default open
@@ -16,9 +12,18 @@
 
 * contribution testing
 	- do I need to insert escape characters to avoid breaking strings with " in them?
+	- edit mode
+	- update firebase record & google cloud too
 
 * add page "Contributor's Reference Guide"
 * add page "About"
+
+* check responsive layout for everything.
+* finish people seeding.
+ - if no match, put smiley
+
+* disable s1e1 toggle. Add note re: open to contributors, send email. 
+ -> change when contributors full and put countdown to launch. 
 
 * API - return JSON with keywords? - quick tutorial or read-up suggested.
 

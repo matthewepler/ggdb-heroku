@@ -4,7 +4,7 @@ $med-screen: 768;
 $sm-screen:  640;
 $base-color-lt: #D3F0F4; //#E6F9FF
 $base-text: darkslategrey;
-$base-font: Raleway;
+$base-font: Source Sans Pro;
 $highlight: white;
 $circle-size: 9rem;
 $sm-circle-size: 4rem;
@@ -56,7 +56,9 @@ body {
     width: 100%;
 
     .title-wrapper {
+      margin-top: 3rem;
       text-align: center;
+
       h1.title {
         color: white;
         font-family: Raleway;
@@ -68,7 +70,7 @@ body {
 
       p.subtitle {
         color: white;
-        font-family: $base-font;
+        font-family: Raleway;
         font-size: 2rem;
         font-weight: 200;
         letter-spacing: 0.5px;
@@ -83,6 +85,7 @@ body {
     .nav-selectors {
       text-align: center;
       margin: 2rem auto;
+      margin-top: 5rem;
 
       h2 {
         color: $base-text;

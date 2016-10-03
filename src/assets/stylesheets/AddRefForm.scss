@@ -30,6 +30,7 @@
   .rf-quote-box {
     display: flex;
     flex-direction: row;
+    font-size: 16px;
     align-items: center;
     padding-left: 1rem; 
     width: 100%;
@@ -38,7 +39,6 @@
       background-color: $base-color-lt;
       color: #2F2F2F;
       padding: 1rem 1rem;
-      font-size: 2.5rem;
       font-weight: 300;
       letter-spacing: 1.25px;
       border-radius: 5px;
@@ -73,9 +73,16 @@
 .rf-ref-detail-wrapper {
   display: flex;
   flex-direction: column;
-  max-width: 88%;
+  max-width: 800px;
   padding-left: 13rem;
   font-family: 'Source Sans Pro', sans-serif;
+
+  @include forSmallScreens($med-screen) {
+    margin-left: 1rem;
+    max-width: 500px;
+    padding-left: 0;
+    text-align: left;
+  }
 
   p {
     font-size: 13pt;
@@ -131,16 +138,27 @@
     margin-bottom: 8rem;
     
     img {
-      max-height: 432px;
       margin-top: 2rem;
       margin-bottom: 2rem;
+      max-height: 432px;
+      max-width: 640px;
       background-image: linear-gradient(to bottom, darkturquoise, $base-color-lt  160%);
+      @include forSmallScreens($med-screen) {
+        max-height: 350px;
+        max-width: 500px;
+      }
     }
 
     label {
-      text-align: center;
+      left: 280px;
+      font-size: 16px;
       position: relative;
-
+      text-align: center;
+      top: -270px;
+      @include forSmallScreens($med-screen) {
+        left: 230px;
+      }
+      
       i {
         font-size: 5rem;
       }
@@ -148,6 +166,11 @@
 
     .rf-screengrab-input {
       height: 450px; 
+      width: 640px;
+      @include forSmallScreens($med-screen) {
+        height: 370px;
+        width: 500px;
+      }
 
       input {
         display: none;
@@ -155,18 +178,17 @@
         top: 0;
       }
 
-      label: {
-        top: -262px;
-        left: 285px;
-      }
-
       .empty-screengrab {
         width: 640px;
         height: 432px;
+        @include forSmallScreens($med-screen) {
+          height: 350px;
+          width: 500px;
+        }
       }
 
       .user-screengrab {
-        width: 640px;
+        max-width: 640px;
       }
 
     }
@@ -224,8 +246,12 @@
 
       label {
         display: block;
+        font-size: 16px;
         position: relative;
+        right: 6px;
         text-align: center;
+        top: -100px;
+
         i {
           display: block;
           font-size: 3rem;
@@ -241,7 +267,11 @@
     }
     
     .rf-ref-items {
-      width: 100%;
+      max-width: 475px;
+
+      @include forSmallScreens($med-screen) {
+        max-width: 335px;
+      }
 
       .rf-ref-descrip {
         display: block;
@@ -306,6 +336,10 @@
             margin-left: 2rem;
             margin-top: 0.5rem;
           }
+
+          span.year-dash {
+            margin-top: 10px;
+          }
         }
 
         p {
@@ -313,14 +347,19 @@
         }
 
         li.rf-ref-tags-link {
-          display: flex;
           align-items: center;
+          display: flex;
+          font-size: 16px;
           padding-top: 15px;
           width: 100%;
 
           input[type="text"] {
             color: $base-text;
             width: 100%;
+          }
+
+          i {
+            margin-right: 1rem;
           }
         }
 
@@ -370,6 +409,7 @@
 input[type=text] {
   background-color: transparent;
   color: white;
+  font-size: 16px;
   width: inherit;
   border: none;
 
@@ -387,6 +427,7 @@ textarea {
   border-left: transparent;
   border-right: transparent;
   border-top: transparent;
+  font-size: 16px;
   height: 100%;
   resize: none;
   width: 100%;
@@ -399,6 +440,7 @@ textarea {
 
 .rf-ref-quote {
   textarea {
+    font-size: 22px;
     border: none;
   }
 }
@@ -422,12 +464,13 @@ select {
 }
 
 input[type="submit"] {
-  margin-top: 50px;
+  margin-top: 20px;
   height: 50px;
   background-color: darkturquoise;
   border: 3px solid white;
   border-radius: 10px;
   color: white;
+  font-size: 16px;
 
   &:hover {
     background-color: white;
@@ -468,6 +511,7 @@ select option:hover {
  position: absolute;
  right: 10px;
  top: 18px;
+ font-size: 16px;
 }
 
 .select-wrap select {
@@ -484,6 +528,7 @@ select option:hover {
   margin: 1rem 0;
   border: 2px solid white;
   width: 220px;
+  font-size: 16px;
 }
 
 option {
@@ -491,3 +536,15 @@ option {
   color: rgba(0,0,0,0.7);
 }
 
+.submit-error {
+  background-color: red;
+  border-radius: 10px;
+  color: white;
+  margin-top: 2rem;
+  text-align: center;
+
+  p {
+    font-size: 16px;
+    padding: 1rem;
+  }
+}

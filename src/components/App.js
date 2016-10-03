@@ -23,7 +23,7 @@ class App extends Component {
     this.state = {
       formOpen: false,
       selectorOpen: true,
-      showButton: false,
+      showButton: true,
       season: "1",
       episode: "1",
     };

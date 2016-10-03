@@ -23,13 +23,18 @@ export default function(data) {
 	};
 	
 	// console.log("quote", data.quote);
-	if (/(?:\/\/)/g.test(data.quote) === false)  { // cheap search for links
-		validData.quote.value = data.quote;
+	if (data.quote.length > 1) {
+		if (/(?:\/\/)/g.test(data.quote) === false)  { // cheap search for links
+			validData.quote.value = data.quote;
+		} else {
+			validData.quote.value = false;
+			validData.quote.msg = "Your quote appears to have a link in it. Please remove it."
+		}	
 	} else {
 		validData.quote.value = false;
-		validData.quote.msg = "Your quote appears to have a link in it. Please remove it."
+		validData.quote.msg = "Please provide a quote."
 	}
-
+	
 	// console.log("season", data.season);
 	// no validation needed since it's coming from a pre-defined list
 	validData.season.value = data.season;
@@ -67,11 +72,16 @@ export default function(data) {
 	validData.location.value = data.location;
 
 	// console.log("scene description", data.description);
-	if (/(?:\/\/)/g.test(data.description) === false)  { // cheap search for links
-		validData.description.value = data.description;
+	if (data.description.length > 1) {
+			if (/(?:\/\/)/g.test(data.description) === false)  { // cheap search for links
+			validData.description.value = data.description;
+		} else {
+			validData.description.value = false;
+			validData.description.msg = "Your scene description appears to have a link in it. Please remove it."
+		}
 	} else {
-		validData.description.value = false;
-		validData.description.msg = "Your scene description appears to have a link in it. Please remove it."
+		  validData.description.value = false;
+			validData.description.msg = "Please provide a description for your screengrab."
 	}
 
 	// console.log("refThumb", data.refThumb);
@@ -83,43 +93,54 @@ export default function(data) {
 	}
 
 	// console.log("refName", data.refName);
-	if (/(?:\/\/)/g.test(data.quote) === false) {
-		validData.refName.value = data.refName.charAt(0).toUpperCase() + data.refName.slice(1); // force upper-case at char 0
-	} else {
-		validData.refName.value = false;
-		validData.refThumb.msg = "Your reference name appears to contain a link. Nice try."
-	}
+	if (data.refName.length > 1) {
+			if (/(?:\/\/)/g.test(data.quote) === false) {
+				validData.refName.value = data.refName.charAt(0).toUpperCase() + data.refName.slice(1); // force upper-case at char 0
+			} else {
+				validData.refName.value = false;
+				validData.refThumb.msg = "Your reference name appears to contain a link. Please remove it."
+			}
+		} else {
+				validData.refName.value = false;
+				validData.refThumb.msg = "Please provide a name for the person, place, or thing referenced in the quote."
+		}
 
 	// console.log("refIs", data.refIs);
 	// starts with 'is, was, are, were'.
-	if (data.refIs.indexOf('...') >= 0) {
-		data.refIs = data.refIs.split('...')[1].trim();
-	}
-	if (/^(is)|^(was)|^(are)|^(were)/i.test(data.refIs)) {
-		validData.refIs.value = data.refIs.charAt(0).toLowerCase() + data.refIs.slice(1); // force lower-case at char 0
+	if (data.refIs.length > 1) {
+		if (data.refIs.indexOf('...') >= 0) {
+			data.refIs = data.refIs.split('...')[1].trim();
+		}
+		if (/^(is)|^(was)|^(are)|^(were)/i.test(data.refIs)) {
+			validData.refIs.value = data.refIs.charAt(0).toLowerCase() + data.refIs.slice(1); // force lower-case at char 0
+		} else {
+			validData.refIs.value = false;
+			validData.refIs.msg = "This should start with is/was or are/were";
+		}
 	} else {
-		validData.refIs.value = false;
-		validData.refIs.msg = "This should start with is/was or are/were";
+			validData.refIs.value = false;
+			validData.refIs.msg = "Please provide a description of the person, place, or thing. It should start with \"is,\" \"was,\" \"are\", or \"were.\"";
 	}
+	
 
 	// console.log("refCategory", data.refCategory);
 	// no validation needed since it's coming from a pre-defined list
 	validData.refCategory.value = data.refCategory;
 
 	// console.log("refYear1", data.refYear);
-	if (/-?\d{4}/.test(data.refYear)) {
+	if (/-?\d{4}/.test(data.refYear1)) {
 		validData.refYear1.value = data.refYear1;
 	} else {
 		validData.refYear1.value = false;
-		validData.refYear1.msg = "Years should be 4 digits. If 'B.C.', make it negative (and still 4 digits, so 45 B.C. is -0045.";
+		validData.refYear1.msg = "Check 2nd date. Years should be 4 digits. If 'B.C.', make it negative (and still 4 digits, so 45 B.C. is -0045.";
 	}
 
 	// console.log("refYear2", data.refYear);
-	if (/-?\d{4}/.test(data.refYear)) {
+	if (/-?\d{4}/.test(data.refYear2) || data.refYear2 === 'now') {
 		validData.refYear2.value = data.refYear2;
 	} else {
 		validData.refYear2.value = false;
-		validData.refYear2.msg = "Years should be 4 digits. If 'B.C.', make it negative (and still 4 digits, so 45 B.C. is -0045.";
+		validData.refYear2.msg = "Check 1st date. Years should be 4 digits. If 'B.C.', make it negative (and still 4 digits, so 45 B.C. is -0045.";
 	}
 
 	// console.log("wikipedia", data.wikipedia);
@@ -131,11 +152,11 @@ export default function(data) {
 	}
 
 	// console.log("images", data.images);
-  if (/^(https:\/\/www.google.com\/search\?)/.test(data.images) && /(tbm=isch)$/.test(data.images)) {
+  if (/^(https:\/\/www.google.com\/search\?)/.test(data.images) && data.images.includes("tbm=isch")) {
   	validData.images.value = data.images;
   } else {
   	validData.images.value = false;
-  	validData.images.msg = "Your Google images link doesn't look right. It should start with 'https://www.google.com/search?' and end with 'tbm=isch'"
+  	validData.images.msg = "Your Google images link doesn't look right. It should start with 'https://www.google.com/search?' and contain 'tbm=isch'"
   }
 
 	// console.log("video", data.video);
