@@ -160,12 +160,17 @@ export default function(data) {
   }
 
 	// console.log("video", data.video);
-	if (/^(https:\/\/www.youtube.com)/.test(data.video)) {
-		validData.video.value = data.video;
+	if (data.video.length > 1) {
+		if (/^(https:\/\/www.youtube.com)/.test(data.video)) {
+			validData.video.value = data.video;
+		} else {
+			validData.video.value = false;
+			validData.video.msg = "Your YouTube link doesn't look right. It should start with 'https://www.youtube.com'"
+		}
 	} else {
-		validData.video.value = false;
-		validData.video.msg = "Your YouTube link doesn't look right. It should start with 'https://www.youtube.com'"
+		validData.video.value = '';
 	}
+	
 
 	// console.log("refNotes", data.refNotes);
 	validData.refNotes.value = data.refNotes;

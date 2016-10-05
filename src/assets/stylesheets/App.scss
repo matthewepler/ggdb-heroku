@@ -2,7 +2,7 @@
 $lg-screen:  960;
 $med-screen: 768;
 $sm-screen:  640;
-$base-color-lt: #D3F0F4; //#E6F9FF
+$base-color-lt: lighten(#D3F0F4, 10%); //#E6F9FF
 $base-text: darkslategrey;
 $base-font: Source Sans Pro;
 $highlight: white;
@@ -101,7 +101,7 @@ body {
         }
 
          a {
-          background-color: white;
+          background-color: $base-color-lt;
           border-radius: 40px;
           color: darkturquoise;
           font-family: $base-font;

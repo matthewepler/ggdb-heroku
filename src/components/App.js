@@ -22,7 +22,7 @@ class App extends Component {
     super();
     this.state = {
       formOpen: false,
-      selectorOpen: true,
+      selectorOpen: false,
       showButton: true,
       season: "1",
       episode: "1",
@@ -55,6 +55,14 @@ class App extends Component {
     if (e.target.tagName == 'P') {
       this.setState({episode: e.target.innerHTML});
     }
+  }
+
+  closeForm(season, episode) {
+    this.setState({
+      formOpen: false,
+      season: season,
+      episode: episode,
+    });
   }
 
 
@@ -102,7 +110,7 @@ class App extends Component {
               </div>
             </Panel>
           </div>
-          {this.state.showButton ? <Toolbar /> : ""}
+          {this.state.showButton ? <Toolbar closeForm={this.closeForm.bind(this)}/> : ""}
           <ul>
             {refs}
           </ul>

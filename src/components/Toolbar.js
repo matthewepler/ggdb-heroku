@@ -20,12 +20,17 @@ class Toolbar extends Component {
 		this.setState({ open: !this.state.open });
 	}
 
+	formClose(season, episode) {
+		this.setState({open: false});
+		this.props.closeForm(season, episode);
+	}
+
 	render() {
 		return (
 			<div className="toolbar-wrapper">
       	<Button className="addButton" bsSize="large" onClick={this.handleClick.bind(this)}>+</Button>
       	<Panel collapsible expanded={this.state.open}>
-						<AddRefForm formOpen={this.state.formOpen}/>
+						<AddRefForm formOpen={this.state.formOpen} formClose={this.formClose.bind(this)}/>
 				</Panel>
     	</div>
 		);

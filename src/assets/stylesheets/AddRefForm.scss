@@ -7,8 +7,6 @@
   align-items: center;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 300;
-
-
   
   .rf-person-thumb {
     display: block;
@@ -546,5 +544,40 @@ option {
   p {
     font-size: 16px;
     padding: 1rem;
+  }
+}
+
+.uploading-modal {
+  background-color: white;
+  border-radius: 20px;
+  width: 15rem;
+  height: 15rem;
+  position: fixed;
+  top: calc(50% - 5rem);
+  left: calc(50% - 5rem);
+  font-size: 10rem;
+  z-index: 10000;
+  
+  i {
+    color: darkturquoise;
+    margin-left: 2.5rem;
+  }
+}
+
+.error-modal {
+  font-size: 22px;
+
+  .modal-dialog {
+    .modal-content {
+      h4 {
+        color: red;
+      }
+    }
+
+    p {
+      color: red;
+      font-size: 16px;
+      text-align: center;
+    }
   }
 }

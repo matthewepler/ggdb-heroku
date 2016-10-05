@@ -1,9 +1,10 @@
 # TO DO
-validData.refIs.value = false;
-			- add "Errors, see above for details" message above Submit button.
-
-*	hookup firebase & google cloud
+* should take user to wherever their addition was posted. 
+    - after submission, send back the season and episode of the post to the App
+    - app filters based on that info. that's as good as I can do for now.
+    
 * input dummy data to firebase
+* editing data
 
 * dataViz charts default open
 * dataviz
@@ -29,6 +30,7 @@ validData.refIs.value = false;
 
 ## NON-CRITICAL
 * links for each entry
+* add drag-and drop: https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
 
 
 ## GUIDE

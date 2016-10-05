@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { Modal, Button } from 'react-bootstrap';
 import validate from './helpers/validate.js'; 
+import firebase from 'firebase';
 import _ from 'underscore'; 
 
 // api
@@ -19,17 +21,17 @@ class AddRefForm extends Component {
 			currScreengrab: null,
 			currRefThumb: null,
 			errors: null,
+			storageRef: firebase.storage().ref(),
+			validData: null,
+			uploading: false,
+			showModal: false,
+			screengrabURL: null,
+			refThumbURL: null,
 		};
 	}
 
 	componentDidMount() {
-		// const screengrabBox = this.screengrabElement.getBoundingClientRect();
-		// this.screengrabUploadElement.style.top = ((screengrabBox.height/2) * -1) - 30 + "px";
-		// this.screengrabUploadElement.style.left= (screengrabBox.width/2) - 35 + "px";
-		
-		// const refThumbBox = this.refThumbElement.getBoundingClientRect();
-		// this.refThumbUploadElement.style.top = ((refThumbBox.height/2) * -1) - 25 + "px";
-		// this.refThumbUploadElement.style.left= (refThumbBox.width/2) - 85 + "px";
+		console.log(this.props.closeForm);
 	}
 
 	uploadChange(e) {
@@ -61,12 +63,14 @@ class AddRefForm extends Component {
 
 	formSubmit(e) {
 		e.preventDefault();
+		this.setState({erros: null});
+
 		let formData = {};
 		formData.season = this.season.value;
 		formData.episode = this.episode.value;
 		formData.quote =  this.quote.value;
 		formData.timecode =  this.timecode.value;
-		formData.screengrab =  this.screengrab.value;
+		formData.screengrab =  this.screengrabInput.value;
 		formData.from =  this.from.value;
 		formData.to =  this.to.value;
 		formData.location =  this.location.value;
@@ -105,25 +109,104 @@ class AddRefForm extends Component {
 		
 		if (errors.length > 0) {
 			this.setState({errors});
+			this.openModal();
 		} else {
-			this.setState({errors: null});
-			this.sendToFirebase(validData);
+			this.setState({errors: null, validData});
+			this.uploadImage(this.screengrabInput.files[0], 'screengrab');
+			this.uploadImage(this.refThumb.files[0], 'thumb');
 		}
 	}
 
-	sendToFirebase(data) {
-		// close form (Send the function to do that from parent component)
-		//var storage = firebase.storage();
-		console.log("All good! Sending validData to Firebase");
+	uploadImage(file, type) {
+		this.setState({uploading: true});
+		var url = '';
+		var uploadTask = this.state.storageRef.child('images/' + file.name).put(file);
+		var self = this;
+		uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, null, 
+			function(error) {
+				console.log("upload error (" + file.name + ": ", error.code);
+				var errors = this.state.errors;
+				if (type === 'screengrab') {
+					self.setState({screengrabURL: false});
+					errors.push("There was an error uploading your screengrab. \
+						Please check your file and try again.");
+					self.setState({errors});
+					this.openModal();
+				} else if (type === 'thumb') {
+					self.setState({thumbURL: false});
+					errors.push("There was an error uploading your reference \
+						image. Please check your file and try again.");
+					self.setState({errors});
+					this.openModal();
+				}
+			},
+			function() {
+				url = uploadTask.snapshot.downloadURL;
+				console.log('url created: ', url)
+				if (type === 'screengrab') {
+					self.setState({screengrabURL: url});
+				} else if (type === 'thumb') {
+					self.setState({refThumbURL: url});
+				}
+				self.sendToFirebase();
+			});
 	}
+
+	sendToFirebase() {
+		if (this.state.screengrabURL && this.state.refThumbURL) {
+			this.setState({uploading: false});
+			//console.log('ready to send to firebase');
+			
+			let cleanData = {};
+			for (let obj in this.state.validData) {
+				cleanData[obj] = this.state.validData[obj].value;
+			}
+
+			cleanData.screengrab = this.state.screengrabURL;
+			cleanData.refThumb = this.state.refThumbURL;
+
+			const dateStamp = new Date();
+    		const filename = dateStamp.getTime();
+
+    		const self = this;
+
+			firebase.database().ref('refs/' + filename).set(cleanData).then(
+				function() {
+					//console.log('firebase save success');
+					self.props.formClose(cleanData.season, cleanData.episode);
+				});
+		} else {
+			//console.log('waiting...');
+		}
+			
+	}
+
+	closeModal() {
+        this.setState({ showModal: false });
+    }
+
+ 	openModal() {
+    	this.setState({ showModal: true });
+  	}
+	
+
+	// TO DO close form (Send the function to do that from parent component)
 
 
 	render() {
 		return (
 			<div className="add-ref-form-wrapper">
 
+			<div className="uploading">
+				{this.state.uploading ? 
+					<div className="uploading-modal">
+						<i className="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i> 
+					</div>
+					: ''}
+			</div>
+
 			<div className="submit-error">
-				{this.state.errors === null ? "" : this.state.errors.map( e => (<p>{e}</p>))}
+				{this.state.errors === null ? "" : this.state.errors.map( (e, index) => (<p key={index}>{e}</p>))}
 			</div>
 
 			<form onSubmit={this.formSubmit.bind(this)}>
@@ -146,7 +229,7 @@ class AddRefForm extends Component {
 								<label htmlFor="screengrab-input" ref={c => this.screengrabUploadElement = c}><i className="fa fa-arrow-circle-up" aria-hidden="true"></i><br/>screengrab</label>
 								: ''
 							}
-							<input type="file" id="screengrab-input" ref={c => this.screengrab = c} onChange={this.uploadChange.bind(this)}/>
+							<input type="file" id="screengrab-input" ref={c => this.screengrabInput = c} onChange={this.uploadChange.bind(this)}/>
 						</div>
 						<div className="rf-time">
 							<span className="season-episode">
@@ -278,7 +361,18 @@ class AddRefForm extends Component {
 						</div>
 					</div> 
 					<div className="submit-error">
-						{this.state.errors === null ? "" : <p>Eek, errors! Please see above for details.</p>}
+						{this.state.errors === null ? "" : 
+						<Modal className="error-modal" show={this.state.showModal} onHide={this.closeModal.bind(this)}>
+							<Modal.Header closeButton>
+			          			<Modal.Title>Eek, errors! </Modal.Title>
+			            	</Modal.Header>
+			            	<Modal.Body>
+								<p>Please see details at the top of the form.</p>
+							</Modal.Body>
+							<Modal.Footer>
+					           <Button onClick={this.closeModal.bind(this)}>Close</Button>
+					        </Modal.Footer>
+						</Modal>}
 					</div>
 					<input className="submit-button" type="submit" value="Submit"/>
 				</div> 
