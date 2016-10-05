@@ -110,6 +110,14 @@ class App extends Component {
     });
   }
 
+  handleGoClick(e) {
+    this.setState({
+      season: this.season.value,
+      episode: this.episode.value,
+      selectorOpen: false,
+    });
+  }
+
 
   render() {
     //const refs = this.getDummyData();
@@ -139,22 +147,29 @@ class App extends Component {
           </div>
           <div className="nav-selectors">
             <Panel className="nav-panel" header={selector} collapsible expanded={this.state.selectorOpen} >
-              <h2>season</h2>
-              <div className="season-dots" onClick={this.handleSeasonClick.bind(this)}>
-                {
-                  _.range(8).map( (s, index) => {
-                    return <Dot key={index} val={s+1} selected={this.state.season}/>
-                  })
-                }
-              </div>
-              <h2>episode</h2>
-              <div className="episode-dots" onClick={this.handleEpisodeClick.bind(this)}>
-                {
-                  _.range(episodeMatch[this.state.season - 1]).map( (s, index) => {
-                    return <Dot key={index} val={s+1} selected={this.state.episode}/>
-                  })
-                }
-              </div>
+              <span className="season-episode">
+                <div className="season">
+                  <p>Season</p>
+                  <div className="select-wrap">
+                    <select className="season-select rf-button-link" ref={c => this.season = c}>
+                      {_.range(7).map( (s, index) => {
+                        return <option value={s+1} key={index}> {s + 1} </option>
+                      })}
+                    </select>
+                  </div>
+                </div>
+                <div className="episode">
+                  <p>Episode</p>
+                  <div className="select-wrap">
+                    <select className="episode-select rf-button-link" ref={c => this.episode = c}>
+                      {_.range(23).map( (e, index) => {
+                        return <option value={e+1} key={index}> {e + 1} </option>
+                      })}
+                    </select>
+                  </div>
+                </div>
+              </span>
+              <div className="go-button" onClick={this.handleGoClick.bind(this)}>go</div>
             </Panel>
           </div>
           {this.state.showButton ? <Toolbar closeForm={this.closeForm.bind(this)}/> : ""}

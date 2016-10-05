@@ -486,7 +486,8 @@ input[type="submit"] {
 select option {
   background: white; 
   color: rgba(0,0,0,0.7); 
-  box-shadow: inset 20px 20px white
+  box-shadow: inset 20px 20px white;
+  font-size: 16px;
 } 
 
 select option:hover {
@@ -532,6 +533,7 @@ select option:hover {
 option {
   background: white;
   color: rgba(0,0,0,0.7);
+  font-size: 16px;
 }
 
 .submit-error {
