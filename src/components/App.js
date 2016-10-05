@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Panel } from 'react-bootstrap';
 import _ from 'underscore';
 import classNames from 'classnames';
+import firebase from 'firebase';
 
 
 // components
@@ -26,18 +27,62 @@ class App extends Component {
       showButton: true,
       season: "1",
       episode: "1",
+      currRefs: [],
     };
   }
 
+  componentDidMount() {
+    this.getFirebaseData(this.state.season, this.state.episode);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.season != this.state.season || 
+      nextState.episode != this.state.episode) {
+      this.getFirebaseData(nextState.season, nextState.episode);
+    }
+  }
+
   getDummyData(filtered) {
-    if (filtered) {
-      return filtered.map( f => (
-         <Reference key={f.id} reference={f} />
-      ));
+  if (filtered) {
+    return filtered.map( f => (
+       <Reference key={f.id} reference={f} />
+    ));
+  } else {
+    return plugs.map( p => (
+      <Reference key={p.id} reference={p} />
+    ));
+  }
+}
+
+  getFirebaseData(season, episode) {
+    const dbRef = firebase.database().ref('refs/' + season + '/' + episode + '/');
+    dbRef.once('value').then((snapshot) => {
+      const refs = snapshot.val();
+      let currRefs = [];
+      for (let obj in refs) {
+        currRefs.push(refs[obj]);
+      }
+      this.setState({currRefs});
+    });
+
+    dbRef.on('child_added', data => {
+            const currRefs = this.state.currRefs;
+            currRefs.push(data.val());
+            this.setState({currRefs});
+        });
+
+    dbRef.on('child_changed', data => {
+            // not sure if this is necessary
+        });
+  }
+
+  getRefComponents(sorted) {
+    if (sorted) {
+      return sorted.map( s => {
+        return (<Reference key={s.id} reference={s} />)
+      });
     } else {
-      return plugs.map( p => (
-        <Reference key={p.id} reference={p} />
-      ));
+      return (<h2>Nothing here :(</h2>);
     }
   }
 
@@ -68,8 +113,10 @@ class App extends Component {
 
   render() {
     //const refs = this.getDummyData();
-    const filtered = _.where(plugs, {season: this.state.season, episode: this.state.episode});
-    const refs = this.getDummyData(_.sortBy(filtered, 'timecode'));
+    // const filtered = _.where(plugs, {season: this.state.season, episode: this.state.episode});
+    // const refs = this.getDummyData(_.sortBy(filtered, 'timecode'));
+
+    const refs = this.getRefComponents(_.sortBy(this.state.currRefs, 'timecode'));
     
 
     const selector = (<h1 onClick={this.handleNavClick.bind(this)}>s{this.state.season}e{this.state.episode}</h1>);

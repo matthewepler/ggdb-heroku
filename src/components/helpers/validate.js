@@ -95,7 +95,7 @@ export default function(data) {
 	// console.log("refName", data.refName);
 	if (data.refName.length > 1) {
 			if (/(?:\/\/)/g.test(data.quote) === false) {
-				validData.refName.value = data.refName.charAt(0).toUpperCase() + data.refName.slice(1); // force upper-case at char 0
+				validData.refName.value = data.refName; // no longer forcing upper-case @ char 0.
 			} else {
 				validData.refName.value = false;
 				validData.refThumb.msg = "Your reference name appears to contain a link. Please remove it."

@@ -1,10 +1,11 @@
 # TO DO
-* should take user to wherever their addition was posted. 
-    - after submission, send back the season and episode of the post to the App
-    - app filters based on that info. that's as good as I can do for now.
-    
-* input dummy data to firebase
+* change season/episode selector to drop-downs
+
 * editing data
+
+* input dummy data to firebase
+
+* size of drop down menu font
 
 * dataViz charts default open
 * dataviz
@@ -27,6 +28,7 @@
  -> change when contributors full and put countdown to launch. 
 
 * API - return JSON with keywords? - quick tutorial or read-up suggested.
+
 
 ## NON-CRITICAL
 * links for each entry

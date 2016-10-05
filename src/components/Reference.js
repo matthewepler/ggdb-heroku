@@ -30,6 +30,8 @@ class Reference extends Component {
     // TO DO - throw error? avoid in data validation if possible
     const ref = this.props.reference.refName;
     const quote = this.props.reference.quote.split(ref);
+    console.log('ref', ref);
+    console.log('quote', quote);
 
     const name = this.props.reference.from.replace(/^\s+|\s+$|\s|\./g, '').toLowerCase();
     const personThumb =  "assets/img/people/" + name + ".png";
@@ -45,7 +47,7 @@ class Reference extends Component {
           <div className={panelClasses}>
             <span>
                 {quote[0]}
-                <strong>{ref}</strong>
+                  <strong>{ref}</strong>
                 {quote[1]}
             </span>
           </div>

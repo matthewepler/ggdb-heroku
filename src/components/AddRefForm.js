@@ -153,7 +153,7 @@ class AddRefForm extends Component {
 	}
 
 	sendToFirebase() {
-		if (this.state.screengrabURL && this.state.refThumbURL) {
+		if (this.state.screengrabURL && this.state.refThumbURL && this.state.uploading) {
 			this.setState({uploading: false});
 			//console.log('ready to send to firebase');
 			
@@ -162,18 +162,48 @@ class AddRefForm extends Component {
 				cleanData[obj] = this.state.validData[obj].value;
 			}
 
-			cleanData.screengrab = this.state.screengrabURL;
-			cleanData.refThumb = this.state.refThumbURL;
-
 			const dateStamp = new Date();
     		const filename = dateStamp.getTime();
+    		cleanData.id = filename;
+    		cleanData.screengrab = this.state.screengrabURL;
+			cleanData.refThumb = this.state.refThumbURL;
 
     		const self = this;
 
-			firebase.database().ref('refs/' + filename).set(cleanData).then(
+			firebase.database().ref('refs/' + cleanData.season + "/" 
+				+ cleanData.episode + "/" + filename).set(cleanData).then(
 				function() {
 					//console.log('firebase save success');
 					self.props.formClose(cleanData.season, cleanData.episode);
+					
+					self.state.currScreengrab = null;
+					self.state.currRefThumb = null;
+					self.state.screengrabURL = null;
+					self.state.refThumbURL = null;
+
+					self.currPersonThumb.src = "assets/img/people/smiley.png";
+					self.screengrabElement.src = "";
+					self.refThumbElement.src = "";
+					self.season.value = cleanData.season;
+					self.episode.value = cleanData.episode;
+					self.quote.value = '';
+					self.timecode.value = '';
+					self.screengrabInput.value = '';
+					self.from.value = 'Rory Gilmore';
+					self.to.value = 'Lorelai Gilmore';
+					self.location.value = 'Luke\'s Diner';
+					self.description.value = '';
+					self.refThumb.value = '';
+					self.refName.value = '';
+					self.refIs.value = '';
+					self.refCategory.value = 'Brand';
+					self.refYear1.value = '';
+					self.refYear2.value = '';
+					self.wikipedia.value = '';
+					self.images.value = '';
+					self.video.value = '';
+					self.refNotes.value = '';
+
 				});
 		} else {
 			//console.log('waiting...');
@@ -258,8 +288,12 @@ class AddRefForm extends Component {
 								<span className="rf-button-link from">
 									<select className="rf-from-input" ref={c => this.from = c} onChange={this.fromChange.bind(this)} >
 							  		{characters.map( (c, index) => {
-							  					return <option value={c} key={index}> {c} </option> 
-							  			})}
+							  			if (c === "Rory Gilmore") {
+							  				return <option value={c} key={index} selected> {c} </option> 
+							  			} else {
+							  				return <option value={c} key={index}> {c} </option> 
+							  			}
+						  			})}
 									</select>
 								</span>
 							</div>
@@ -288,7 +322,7 @@ class AddRefForm extends Component {
 									<span className="rf-button-link location" >
 										<select className="rf-location-input" ref={c => this.location = c}>
 											{locations.map( (l, index) => {
-												if (l === "Lorelai's House") { 
+												if (l === "Luke's Diner") { 
 								  					return <option value={l} key={index} selected> {l} </option> 
 								  				} else {
 								  					return <option value={l} key={index}> {l} </option> 

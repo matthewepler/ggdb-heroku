@@ -30,8 +30,8 @@ class Toolbar extends Component {
 			<div className="toolbar-wrapper">
       	<Button className="addButton" bsSize="large" onClick={this.handleClick.bind(this)}>+</Button>
       	<Panel collapsible expanded={this.state.open}>
-						<AddRefForm formOpen={this.state.formOpen} formClose={this.formClose.bind(this)}/>
-				</Panel>
+			<AddRefForm formOpen={this.state.formOpen} formClose={this.formClose.bind(this)}/>
+		</Panel>
     	</div>
 		);
 	}
