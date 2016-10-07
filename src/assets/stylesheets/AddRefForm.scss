@@ -163,6 +163,7 @@
     }
 
     .rf-screengrab-input {
+      display: block;
       height: 450px; 
       width: 640px;
       @include forSmallScreens($med-screen) {
@@ -186,6 +187,7 @@
       }
 
       .user-screengrab {
+        display: block;
         max-width: 640px;
       }
 
@@ -582,4 +584,23 @@ option {
       text-align: center;
     }
   }
+}
+
+#screengrab-label-edit {
+  background-color: white;
+  border-radius: 15px 15px 15px 0;
+  color: darkturquoise;
+  left: 0;
+  top: -112px;
+  padding: 1rem;
+}
+
+#screengrab-thumb-edit {
+  background-color: white;
+  border-radius: 5px 5px 5px 0;
+  color: darkturquoise;
+  display: inline-block;
+  left: 0;
+  top: -74px;
+  padding: 1rem;
 }

@@ -17,7 +17,7 @@ class Reference extends Component {
     };
   }
 
-  handleClick() {
+  handleClick(e) {
     this.setState({ open: !this.state.open });
   }
 
@@ -30,8 +30,6 @@ class Reference extends Component {
     // TO DO - throw error? avoid in data validation if possible
     const ref = this.props.reference.refName;
     const quote = this.props.reference.quote.split(ref);
-    console.log('ref', ref);
-    console.log('quote', quote);
 
     const name = this.props.reference.from.replace(/^\s+|\s+$|\s|\./g, '').toLowerCase();
     const personThumb =  "assets/img/people/" + name + ".png";
@@ -58,12 +56,20 @@ class Reference extends Component {
   	return (headline)
   }
 
+  editOn(data) {
+    this.props.editOn(data);
+  }
+
+
   render() {
   	const header = this.renderHeader();
 
   	return (
       <Panel className="ref-panel" header={header} collapsible expanded={this.state.open}>
-        <RefDetail reference={this.props.reference} key={this.props.reference.id}/>
+        <RefDetail reference={this.props.reference} 
+                    key={this.props.reference.id} 
+                    editOn={this.editOn.bind(this)}
+                    />
       </Panel>
     )
   }

@@ -28,6 +28,7 @@ class App extends Component {
       season: "1",
       episode: "1",
       currRefs: [],
+      editData: null,
     };
   }
 
@@ -79,7 +80,7 @@ class App extends Component {
   getRefComponents(sorted) {
     if (sorted) {
       return sorted.map( s => {
-        return (<Reference key={s.id} reference={s} />)
+        return (<Reference key={s.id} reference={s} editOn={this.editOn.bind(this)}/>)
       });
     } else {
       return (<h2>Nothing here :(</h2>);
@@ -107,6 +108,7 @@ class App extends Component {
       formOpen: false,
       season: season,
       episode: episode,
+      editData: null,
     });
   }
 
@@ -118,6 +120,33 @@ class App extends Component {
     });
   }
 
+  editOn(data) {
+    this.setState({
+      editData: data,
+      formOpen: true,
+    });
+    window.scrollTo(0,300);
+  }
+
+  editSubmit(update) {
+    //console.log("update Data:", update);
+    // if the season and episode match
+    if (update.season === this.state.season && 
+        update.episode === this.state.episode) {
+     // console.log("this.state.currRefs", this.state.currRefs)
+      let currRefs = this.state.currRefs;
+      const refIndex = _.indexOf(currRefs, _.findWhere(currRefs, {id: update.id}));
+      //console.log('refIndex', refIndex);
+      currRefs[refIndex] = update;
+      //console.log('update', update);
+     // console.log('currRefs', currRefs);
+      this.state.currRefs = currRefs;
+     // console.log("this.state.currRefs NEW", this.state.currRefs)
+    } else {
+     // if not, take me to that season and episode
+      this.setState({season: update.season, episode: update.episode});
+    }
+  }
 
   render() {
     //const refs = this.getDummyData();
@@ -172,7 +201,11 @@ class App extends Component {
               <div className="go-button" onClick={this.handleGoClick.bind(this)}>go</div>
             </Panel>
           </div>
-          {this.state.showButton ? <Toolbar closeForm={this.closeForm.bind(this)}/> : ""}
+          {this.state.showButton ? <Toolbar formOpen={this.state.formOpen} 
+                                      closeForm={this.closeForm.bind(this)} 
+                                      editData={this.state.editData} 
+                                      editSubmit={this.editSubmit.bind(this)}
+                                      /> : ""}
           <ul>
             {refs}
           </ul>

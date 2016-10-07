@@ -52,7 +52,7 @@ export default function(data) {
 	}
 
 	// console.log("screengrab", data.screengrab);
-	if (/\.(?:jpe?g|png|gif)$/.test(data.screengrab)) {
+	if (/\.(?:jpe?g|png|gif)$/.test(data.screengrab) || data.screengrab.includes('firebasestorage.googleapis.com')) {
 		validData.screengrab.value = data.screengrab;
 	} else {
 		validData.screengrab.value = false;
@@ -85,7 +85,8 @@ export default function(data) {
 	}
 
 	// console.log("refThumb", data.refThumb);
-		if (/\.(?:jpe?g|png|gif)$/.test(data.refThumb)) {
+	// if it includes firebasestorage.googleapis.com
+	if (/\.(?:jpe?g|png|gif)$/.test(data.refThumb) || data.refThumb.includes('firebasestorage.googleapis.com')) {
 		validData.refThumb.value = data.refThumb;
 	} else {
 		validData.refThumb.value = false;

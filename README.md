@@ -1,31 +1,25 @@
 # TO DO
-* change season/episode selector to drop-downs
-
 * editing data
+    -> screengrab not updating somehow...same with refThumb
 
 * input dummy data to firebase
-
-* size of drop down menu font
 
 * dataViz charts default open
 * dataviz
 
 * accounts and permissions
+    -> hide/show ADD button
+    -> lock nav selector for everyone until launch
 
-* contribution testing
-	- do I need to insert escape characters to avoid breaking strings with " in them?
-	- edit mode
-	- update firebase record & google cloud too
-
-* add page "Contributor's Reference Guide"
-* add page "About"
+* testing
 
 * check responsive layout for everything.
 * finish people seeding.
  - if no match, put smiley
 
-* disable s1e1 toggle. Add note re: open to contributors, send email. 
- -> change when contributors full and put countdown to launch. 
+* add page "Contributor's Reference Guide"
+* add page "About"
+* add countdown to launch
 
 * API - return JSON with keywords? - quick tutorial or read-up suggested.
 
