@@ -1,7 +1,4 @@
 # TO DO
-* editing data
-    -> screengrab not updating somehow...same with refThumb
-
 * input dummy data to firebase
 
 * dataViz charts default open
