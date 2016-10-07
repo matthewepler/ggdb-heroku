@@ -1,4 +1,5 @@
 # TO DO
+* add Cancel button below Submit Button that just toggles the whole thing up.
 * input dummy data to firebase
 
 * dataViz charts default open

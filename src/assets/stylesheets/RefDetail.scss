@@ -126,23 +126,22 @@ $highlight: white;
 }
 
 .edit-button {
-	background-color: white;
-	border-radius: 15px;
-	color: darkturquoise;
-	font-size: 22px;
-	margin-top: 3rem;
-	padding: 1rem 0;
-	text-align: center;
+  background-color: $base-color-lt;
+  border: 3px solid white;
+  border-radius: 10px;
+  color: $base-text;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 1rem 0;
+  text-align: center;
 
-	&:hover{
-		background-color: transparent;
-		border: 3px solid white;
-		color: white;
-	}
+   &:hover {
+    padding: 1.5rem 0;
+  }
 
-	&:active {
-		border: 6px solid white;
-	}
+  &:active {
+  	background-color: darkturquoise;
+  }
 }
 
 

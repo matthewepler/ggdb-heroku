@@ -347,7 +347,9 @@ class AddRefForm extends Component {
 		this.refNotes.value = '';
 	}
 
-	// TO DO close form (Send the function to do that from parent component)
+	handleCancel() {
+		
+	}
 
 
 	render() {
@@ -464,7 +466,7 @@ class AddRefForm extends Component {
 
 					<div className="rf-ref-detail">
 						<div className="rf-ref-thumb">
-							<img className={this.state.currRefThumb === null ? 'empty-refThumb' : ''} src="" ref={c => this.refThumbElement = c}/>
+							<img className={this.state.currRefThumb === null && !this.state.editing ? 'empty-refThumb' : ''} src="" ref={c => this.refThumbElement = c}/>
 							<label htmlFor="ref-thumb-input" id="screengrab-thumb-edit" ref={c => this.refThumbUploadElement = c} ><i className="fa fa-arrow-circle-up" aria-hidden="true"></i><br/>pic</label>
 							<input type="file" id="ref-thumb-input" ref={c => this.refThumb = c}onChange={this.uploadChange.bind(this)}/>
 						</div>
@@ -527,7 +529,8 @@ class AddRefForm extends Component {
 					        </Modal.Footer>
 						</Modal>}
 					</div>
-					<input className="submit-button" type="submit" value="Submit"/>
+					<input id="submit-button" type="submit" value="Submit"/>
+					<div id="cancel-button" onClick={this.handleCancel.bind(this)}>Cancel</div>
 				</div> 
 			</form>
 			</div> 
