@@ -52,7 +52,7 @@ export default function(data) {
 	}
 
 	// console.log("screengrab", data.screengrab);
-	if (/\.(?:jpe?g|png|gif)$/.test(data.screengrab)) {
+	if (/\.(?:jpe?g|png|gif)$/.test(data.screengrab) || data.screengrab.includes('firebasestorage.googleapis.com')) {
 		validData.screengrab.value = data.screengrab;
 	} else {
 		validData.screengrab.value = false;
@@ -85,7 +85,8 @@ export default function(data) {
 	}
 
 	// console.log("refThumb", data.refThumb);
-		if (/\.(?:jpe?g|png|gif)$/.test(data.refThumb)) {
+	// if it includes firebasestorage.googleapis.com
+	if (/\.(?:jpe?g|png|gif)$/.test(data.refThumb) || data.refThumb.includes('firebasestorage.googleapis.com')) {
 		validData.refThumb.value = data.refThumb;
 	} else {
 		validData.refThumb.value = false;
@@ -95,7 +96,7 @@ export default function(data) {
 	// console.log("refName", data.refName);
 	if (data.refName.length > 1) {
 			if (/(?:\/\/)/g.test(data.quote) === false) {
-				validData.refName.value = data.refName.charAt(0).toUpperCase() + data.refName.slice(1); // force upper-case at char 0
+				validData.refName.value = data.refName; // no longer forcing upper-case @ char 0.
 			} else {
 				validData.refName.value = false;
 				validData.refThumb.msg = "Your reference name appears to contain a link. Please remove it."
@@ -160,12 +161,17 @@ export default function(data) {
   }
 
 	// console.log("video", data.video);
-	if (/^(https:\/\/www.youtube.com)/.test(data.video)) {
-		validData.video.value = data.video;
+	if (data.video.length > 1) {
+		if (/^(https:\/\/www.youtube.com)/.test(data.video)) {
+			validData.video.value = data.video;
+		} else {
+			validData.video.value = false;
+			validData.video.msg = "Your YouTube link doesn't look right. It should start with 'https://www.youtube.com'"
+		}
 	} else {
-		validData.video.value = false;
-		validData.video.msg = "Your YouTube link doesn't look right. It should start with 'https://www.youtube.com'"
+		validData.video.value = '';
 	}
+	
 
 	// console.log("refNotes", data.refNotes);
 	validData.refNotes.value = data.refNotes;

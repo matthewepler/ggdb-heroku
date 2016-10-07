@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Panel } from 'react-bootstrap';
 import _ from 'underscore';
 import classNames from 'classnames';
+import firebase from 'firebase';
 
 
 // components
@@ -22,22 +23,67 @@ class App extends Component {
     super();
     this.state = {
       formOpen: false,
-      selectorOpen: true,
+      selectorOpen: false,
       showButton: true,
       season: "1",
       episode: "1",
+      currRefs: [],
+      editData: null,
     };
   }
 
+  componentDidMount() {
+    this.getFirebaseData(this.state.season, this.state.episode);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.season != this.state.season || 
+      nextState.episode != this.state.episode) {
+      this.getFirebaseData(nextState.season, nextState.episode);
+    }
+  }
+
   getDummyData(filtered) {
-    if (filtered) {
-      return filtered.map( f => (
-         <Reference key={f.id} reference={f} />
-      ));
+  if (filtered) {
+    return filtered.map( f => (
+       <Reference key={f.id} reference={f} />
+    ));
+  } else {
+    return plugs.map( p => (
+      <Reference key={p.id} reference={p} />
+    ));
+  }
+}
+
+  getFirebaseData(season, episode) {
+    const dbRef = firebase.database().ref('refs/' + season + '/' + episode + '/');
+    dbRef.once('value').then((snapshot) => {
+      const refs = snapshot.val();
+      let currRefs = [];
+      for (let obj in refs) {
+        currRefs.push(refs[obj]);
+      }
+      this.setState({currRefs});
+    });
+
+    dbRef.on('child_added', data => {
+            const currRefs = this.state.currRefs;
+            currRefs.push(data.val());
+            this.setState({currRefs});
+        });
+
+    dbRef.on('child_changed', data => {
+            // not sure if this is necessary
+        });
+  }
+
+  getRefComponents(sorted) {
+    if (sorted) {
+      return sorted.map( s => {
+        return (<Reference key={s.id} reference={s} editOn={this.editOn.bind(this)}/>)
+      });
     } else {
-      return plugs.map( p => (
-        <Reference key={p.id} reference={p} />
-      ));
+      return (<h2>Nothing here :(</h2>);
     }
   }
 
@@ -57,11 +103,57 @@ class App extends Component {
     }
   }
 
+  closeForm(season, episode) {
+    this.setState({
+      formOpen: false,
+      season: season,
+      episode: episode,
+      editData: null,
+    });
+  }
+
+  handleGoClick(e) {
+    this.setState({
+      season: this.season.value,
+      episode: this.episode.value,
+      selectorOpen: false,
+    });
+  }
+
+  editOn(data) {
+    this.setState({
+      editData: data,
+      formOpen: true,
+    });
+    window.scrollTo(0,300);
+  }
+
+  editSubmit(update) {
+    //console.log("update Data:", update);
+    // if the season and episode match
+    if (update.season === this.state.season && 
+        update.episode === this.state.episode) {
+     // console.log("this.state.currRefs", this.state.currRefs)
+      let currRefs = this.state.currRefs;
+      const refIndex = _.indexOf(currRefs, _.findWhere(currRefs, {id: update.id}));
+      //console.log('refIndex', refIndex);
+      currRefs[refIndex] = update;
+      //console.log('update', update);
+     // console.log('currRefs', currRefs);
+      this.state.currRefs = currRefs;
+     // console.log("this.state.currRefs NEW", this.state.currRefs)
+    } else {
+     // if not, take me to that season and episode
+      this.setState({season: update.season, episode: update.episode});
+    }
+  }
 
   render() {
     //const refs = this.getDummyData();
-    const filtered = _.where(plugs, {season: this.state.season, episode: this.state.episode});
-    const refs = this.getDummyData(_.sortBy(filtered, 'timecode'));
+    // const filtered = _.where(plugs, {season: this.state.season, episode: this.state.episode});
+    // const refs = this.getDummyData(_.sortBy(filtered, 'timecode'));
+
+    const refs = this.getRefComponents(_.sortBy(this.state.currRefs, 'timecode'));
     
 
     const selector = (<h1 onClick={this.handleNavClick.bind(this)}>s{this.state.season}e{this.state.episode}</h1>);
@@ -84,25 +176,36 @@ class App extends Component {
           </div>
           <div className="nav-selectors">
             <Panel className="nav-panel" header={selector} collapsible expanded={this.state.selectorOpen} >
-              <h2>season</h2>
-              <div className="season-dots" onClick={this.handleSeasonClick.bind(this)}>
-                {
-                  _.range(8).map( (s, index) => {
-                    return <Dot key={index} val={s+1} selected={this.state.season}/>
-                  })
-                }
-              </div>
-              <h2>episode</h2>
-              <div className="episode-dots" onClick={this.handleEpisodeClick.bind(this)}>
-                {
-                  _.range(episodeMatch[this.state.season - 1]).map( (s, index) => {
-                    return <Dot key={index} val={s+1} selected={this.state.episode}/>
-                  })
-                }
-              </div>
+              <span className="season-episode">
+                <div className="season">
+                  <p>Season</p>
+                  <div className="select-wrap">
+                    <select className="season-select rf-button-link" ref={c => this.season = c}>
+                      {_.range(7).map( (s, index) => {
+                        return <option value={s+1} key={index}> {s + 1} </option>
+                      })}
+                    </select>
+                  </div>
+                </div>
+                <div className="episode">
+                  <p>Episode</p>
+                  <div className="select-wrap">
+                    <select className="episode-select rf-button-link" ref={c => this.episode = c}>
+                      {_.range(23).map( (e, index) => {
+                        return <option value={e+1} key={index}> {e + 1} </option>
+                      })}
+                    </select>
+                  </div>
+                </div>
+              </span>
+              <div className="go-button" onClick={this.handleGoClick.bind(this)}>go</div>
             </Panel>
           </div>
-          {this.state.showButton ? <Toolbar /> : ""}
+          {this.state.showButton ? <Toolbar formOpen={this.state.formOpen} 
+                                      closeForm={this.closeForm.bind(this)} 
+                                      editData={this.state.editData} 
+                                      editSubmit={this.editSubmit.bind(this)}
+                                      /> : ""}
           <ul>
             {refs}
           </ul>

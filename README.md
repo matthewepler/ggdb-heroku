@@ -1,34 +1,29 @@
 # TO DO
-validData.refIs.value = false;
-			- add "Errors, see above for details" message above Submit button.
-
-*	hookup firebase & google cloud
 * input dummy data to firebase
 
 * dataViz charts default open
 * dataviz
 
 * accounts and permissions
+    -> hide/show ADD button
+    -> lock nav selector for everyone until launch
 
-* contribution testing
-	- do I need to insert escape characters to avoid breaking strings with " in them?
-	- edit mode
-	- update firebase record & google cloud too
-
-* add page "Contributor's Reference Guide"
-* add page "About"
+* testing
 
 * check responsive layout for everything.
 * finish people seeding.
  - if no match, put smiley
 
-* disable s1e1 toggle. Add note re: open to contributors, send email. 
- -> change when contributors full and put countdown to launch. 
+* add page "Contributor's Reference Guide"
+* add page "About"
+* add countdown to launch
 
 * API - return JSON with keywords? - quick tutorial or read-up suggested.
 
+
 ## NON-CRITICAL
 * links for each entry
+* add drag-and drop: https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
 
 
 ## GUIDE
