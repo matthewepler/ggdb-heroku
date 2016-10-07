@@ -348,7 +348,7 @@ class AddRefForm extends Component {
 	}
 
 	handleCancel() {
-		
+		this.props.formClose(this.season.value, this.episode.value);
 	}
 
 
