@@ -89,6 +89,10 @@ class RefDetail extends Component {
 				<div className="screengrab">
 					<img src={this.props.reference.screengrab} alt="screengrab" />
 					
+					<div className="image-descrip">
+						<p>{this.props.reference.description} </p>
+					</div>
+					
 					<div className="screengrab-detail"> 
 						<span 
 							className="button-link from" 
@@ -119,10 +123,6 @@ class RefDetail extends Component {
 						{this.state.fromToViz == null ? '' : this.state.fromToViz.innerHTML}
 						{/* <Graph data={this.state.fromToViz} /> */}
 					</Panel>
-					
-					<div className="image-descrip">
-						<p>{this.props.reference.description} </p>
-					</div>
 				</div>
 
 				<hr className="hr-line"/>

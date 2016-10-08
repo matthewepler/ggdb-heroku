@@ -53,7 +53,13 @@ class AddRefForm extends Component {
 			this.refIs.value = nextProps.editData.refIs;
 			this.refCategory.value = nextProps.editData.refCategory;
 			this.refYear1.value = nextProps.editData.refYear1;
-			this.refYear2.value = nextProps.editData.refYear2;
+			
+			if (nextProps.editData.refYear2 == ' ') { // default value if left blank
+				this.refYear.value = '';
+			} else {
+				this.refYear2.value = nextProps.editData.refYear2;
+			}
+	
 			this.wikipedia.value = nextProps.editData.wikipedia;
 			this.images.value = nextProps.editData.images;
 			this.video.value = nextProps.editData.video;
@@ -290,7 +296,7 @@ class AddRefForm extends Component {
 					});
 			}	
 		} else {
-			console.log('waiting...'); // hold for image upload to complete
+			//console.log('waiting...'); // hold for image upload to complete
 			const self = this;
 			setTimeout(function() {
 				self.sendToFirebase(validData);
@@ -299,6 +305,7 @@ class AddRefForm extends Component {
 	}
 
 	formClose(season, episode) {
+		this.setState({errors: null});
 		this.props.formClose(season, episode);
 		this.state.currScreengrab = null;
 		this.state.currRefThumb = null;
@@ -348,7 +355,7 @@ class AddRefForm extends Component {
 	}
 
 	handleCancel() {
-		this.props.formClose(this.season.value, this.episode.value);
+		this.formClose(this.season.value, this.episode.value);
 	}
 
 

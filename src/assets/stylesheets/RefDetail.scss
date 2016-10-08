@@ -18,13 +18,15 @@ $highlight: white;
 	}
 
 	.screengrab {
-		margin-bottom: 2rem;
-
 		img {
 			max-width: 595px;
 			@include forSmallScreens($sm-screen) {
 				margin-left: -20px;
 			}
+		}
+
+		.image-descrip {
+			margin: 2rem 0;
 		}
 	}
 				
@@ -53,10 +55,6 @@ $highlight: white;
 			.ref-descrip-strong {
 				font-weight: 600;
 			}
-		}
-
-		.image-descrip {
-			margin-bottom: 3rem;
 		}
 
 		.ref-tags {

@@ -39,7 +39,7 @@
 		text-decoration: none;
 
 		.ref-marker {
-			color: white;
+			color: darkslategrey;
 			text-decoration: underline;
 		}
 
@@ -50,7 +50,7 @@
 	}
 
 	.ref-marker {
-		color: $base-color-lt;
+		color: darkslategrey;
 		min-width: 55px;
 		padding-top: 1rem;
 		font-size: 22px;

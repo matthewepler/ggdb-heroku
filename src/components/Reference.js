@@ -27,10 +27,8 @@ class Reference extends Component {
       'open' : this.state.open,
     });
 
-    // TO DO - throw error? avoid in data validation if possible
     const ref = this.props.reference.refName;
     const quote = this.props.reference.quote.split(ref);
-
     const name = this.props.reference.from.replace(/^\s+|\s+$|\s|\./g, '').toLowerCase();
     const personThumb =  "assets/img/people/" + name + ".png";
     
@@ -44,9 +42,9 @@ class Reference extends Component {
           <i className="left-arrow fa fa-caret-left" aria-hidden="true"></i>
           <div className={panelClasses}>
             <span>
-                {quote[0]}
+                {quote.length > 1 ? quote[0] : ''}
                   <strong>{ref}</strong>
-                {quote[1]}
+                {quote.length > 1 ? quote[1] : ''}
             </span>
           </div>
         </div>
@@ -63,7 +61,6 @@ class Reference extends Component {
 
   render() {
   	const header = this.renderHeader();
-
   	return (
       <Panel className="ref-panel" header={header} collapsible expanded={this.state.open}>
         <RefDetail reference={this.props.reference} 
