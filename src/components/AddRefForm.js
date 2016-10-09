@@ -53,7 +53,13 @@ class AddRefForm extends Component {
 			this.refIs.value = nextProps.editData.refIs;
 			this.refCategory.value = nextProps.editData.refCategory;
 			this.refYear1.value = nextProps.editData.refYear1;
-			this.refYear2.value = nextProps.editData.refYear2;
+			
+			if (nextProps.editData.refYear2 == ' ') { // default value if left blank
+				this.refYear.value = '';
+			} else {
+				this.refYear2.value = nextProps.editData.refYear2;
+			}
+	
 			this.wikipedia.value = nextProps.editData.wikipedia;
 			this.images.value = nextProps.editData.images;
 			this.video.value = nextProps.editData.video;
@@ -290,7 +296,7 @@ class AddRefForm extends Component {
 					});
 			}	
 		} else {
-			console.log('waiting...'); // hold for image upload to complete
+			//console.log('waiting...'); // hold for image upload to complete
 			const self = this;
 			setTimeout(function() {
 				self.sendToFirebase(validData);
@@ -299,6 +305,7 @@ class AddRefForm extends Component {
 	}
 
 	formClose(season, episode) {
+		this.setState({errors: null});
 		this.props.formClose(season, episode);
 		this.state.currScreengrab = null;
 		this.state.currRefThumb = null;
@@ -347,7 +354,9 @@ class AddRefForm extends Component {
 		this.refNotes.value = '';
 	}
 
-	// TO DO close form (Send the function to do that from parent component)
+	handleCancel() {
+		this.formClose(this.season.value, this.episode.value);
+	}
 
 
 	render() {
@@ -464,7 +473,7 @@ class AddRefForm extends Component {
 
 					<div className="rf-ref-detail">
 						<div className="rf-ref-thumb">
-							<img className={this.state.currRefThumb === null ? 'empty-refThumb' : ''} src="" ref={c => this.refThumbElement = c}/>
+							<img className={this.state.currRefThumb === null && !this.state.editing ? 'empty-refThumb' : ''} src="" ref={c => this.refThumbElement = c}/>
 							<label htmlFor="ref-thumb-input" id="screengrab-thumb-edit" ref={c => this.refThumbUploadElement = c} ><i className="fa fa-arrow-circle-up" aria-hidden="true"></i><br/>pic</label>
 							<input type="file" id="ref-thumb-input" ref={c => this.refThumb = c}onChange={this.uploadChange.bind(this)}/>
 						</div>
@@ -527,7 +536,8 @@ class AddRefForm extends Component {
 					        </Modal.Footer>
 						</Modal>}
 					</div>
-					<input className="submit-button" type="submit" value="Submit"/>
+					<input id="submit-button" type="submit" value="Submit"/>
+					<div id="cancel-button" onClick={this.handleCancel.bind(this)}>Cancel</div>
 				</div> 
 			</form>
 			</div> 

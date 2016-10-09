@@ -153,7 +153,11 @@ class App extends Component {
     // const filtered = _.where(plugs, {season: this.state.season, episode: this.state.episode});
     // const refs = this.getDummyData(_.sortBy(filtered, 'timecode'));
 
-    const refs = this.getRefComponents(_.sortBy(this.state.currRefs, 'timecode'));
+    const refs = this.getRefComponents(_.sortBy(this.state.currRefs, function(obj) {
+      // can also just use the id value since it's a timestamp
+      const timeAsNum = obj.timecode.split(':').join('');
+      return parseInt(timeAsNum);
+    }));
     
 
     const selector = (<h1 onClick={this.handleNavClick.bind(this)}>s{this.state.season}e{this.state.episode}</h1>);
@@ -171,6 +175,8 @@ class App extends Component {
                 <a href="#">About </a>
                 |
                 <a href="#"> API</a>
+                |
+                <div id="firebaseui-auth-container"></div>
               </span>
             </p>
           </div>
