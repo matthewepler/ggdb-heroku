@@ -1,18 +1,10 @@
 # TO DO
-* input dummy data to firebase
-    -> add a 0 to the ref timestamps that aren't two digits in the first part so that they sort properly
-    -> or find a way to treat them differently. 
-* remove screens, refs, and other images no longer necessary 
-* lighten lorelai
-
-http://stackoverflow.com/questions/13266746/scroll-jump-to-id-without-jquery
-
-* dataViz charts default open
-* dataviz
-
 * accounts and permissions
     -> hide/show ADD button
     -> lock nav selector for everyone until launch
+
+* dataViz charts default open
+* dataviz
 
 * testing
 
@@ -30,12 +22,14 @@ http://stackoverflow.com/questions/13266746/scroll-jump-to-id-without-jquery
 
 
 ## NON-CRITICAL
-* links for each entry
+* lighten lorelai
+* links for each entry: http://stackoverflow.com/questions/13266746/scroll-jump-to-id-without-jquery
 * add drag-and drop: https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
 * filter for seeing all mentions by a single character, in a single location
 
 
 ## GUIDE
+( put the link right above the "+" Toolbar)
 For years, 
 1.)try to make the first date the year in which the person released their first major public work 
 2.) the second year is not required. if used, it indicates that the person, place, or thing extended beyond the first year and had a definite end. 

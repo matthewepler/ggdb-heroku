@@ -175,6 +175,8 @@ class App extends Component {
                 <a href="#">About </a>
                 |
                 <a href="#"> API</a>
+                |
+                <div id="firebaseui-auth-container"></div>
               </span>
             </p>
           </div>

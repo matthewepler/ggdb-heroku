@@ -9,8 +9,19 @@ const config = {
 	    authDomain: "ggdb-af77a.firebaseapp.com",
 	    databaseURL: "https://ggdb-af77a.firebaseio.com",
 	    storageBucket: "gs://ggdb-af77a.appspot.com",
+        messagingSenderId: process.env.SENDER_ID
 	  };
 firebase.initializeApp(config);
+
+const uiConfig = {
+    'signInSuccessUrl': '/',
+    'signInOptions': [
+      //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ],
+}
+var ui = new firebaseui.auth.AuthUI(firebase.auth()); // <-- this throws the error
+ui.start('#firebaseui-auth-container', uiConfig);
 
 import App from './components/App'
 
