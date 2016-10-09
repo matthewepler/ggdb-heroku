@@ -1,12 +1,12 @@
 # TO DO
+* accounts and permissions
+    -> hide/show ADD button
+    -> lock nav selector for everyone until launch
+    
 * input dummy data to firebase
 
 * dataViz charts default open
 * dataviz
-
-* accounts and permissions
-    -> hide/show ADD button
-    -> lock nav selector for everyone until launch
 
 * testing
 

@@ -9,8 +9,10 @@ const config = {
 	    authDomain: "ggdb-af77a.firebaseapp.com",
 	    databaseURL: "https://ggdb-af77a.firebaseio.com",
 	    storageBucket: "gs://ggdb-af77a.appspot.com",
+        messagingSenderId: process.env.SENDER_ID
 	  };
 firebase.initializeApp(config);
+
 
 import App from './components/App'
 
