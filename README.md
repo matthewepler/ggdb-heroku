@@ -1,7 +1,11 @@
 # TO DO
 * accounts and permissions
-    -> hide/show ADD button
-    -> lock nav selector for everyone until launch
+    -> sign-in modal
+    -> if logged in, 
+        show username + sign-out link at top.
+        > hide/show ADD button
+        > show edit button
+        > allow nav selector open
 
 * dataViz charts default open
 * dataviz
@@ -59,3 +63,6 @@ or "Oprah" -> Oprah (Winfrey) is a popular talk show host."
 ## Dev Notes
 When you first run the app, you may get a warning about 'Synchronous XMLHttpRequest...' Don't worry. It's part of how Firebase
 works and is addressed in this [StackOverflow post](http://stackoverflow.com/questions/32467144/firebase-synchronous-xmlhttprequest-deprecated).
+
+## At launch time
+allow use of nav dropdown

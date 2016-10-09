@@ -214,3 +214,39 @@ body {
   color: white;
   box-shadow: none;
 }
+
+#signin {
+  font-family: $base-font;
+  font-size: 16px;
+  text-align: center;
+
+  h2 {
+    color: white;
+    font-size: 2em;
+  } 
+  p {
+    font-size: 1.25em;
+  }
+
+  .signin-header {
+    background-color: darkturquoise;
+  }
+
+  .signin-body {
+    display: flex;
+    justify-content: center;
+
+    input {
+      background-color: darkturquoise;
+      border: 2px solid white;
+      color:  white;
+      padding: 1em;
+      text-align: center;
+    }
+  }
+
+  #signin-button {
+    background-color: darkturquoise;
+    color: white;
+  }
+}

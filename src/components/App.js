@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Button, Modal, Panel } from 'react-bootstrap';
 import _ from 'underscore';
 import classNames from 'classnames';
 import firebase from 'firebase';
@@ -29,6 +29,7 @@ class App extends Component {
       episode: "1",
       currRefs: [],
       editData: null,
+      showSignIn: false,
     };
   }
 
@@ -148,6 +149,27 @@ class App extends Component {
     }
   }
 
+  closeSignIn() {
+    this.setState({showSignIn: false});
+  }
+
+  openSignIn() {
+    this.setState({showSignIn: true});
+  }
+
+  handlSignIn() {
+    if (firebase.auth().currentUser) {
+      firebase.auth().signOut();
+    } else {
+      firebase.auth().signInWithEmailAndPassword(this.signin_email.value, 
+      this.signin_pswd.value).catch(function(error) {
+        if (error) {
+          console.log(error.message);
+        }
+      });
+    }
+  }
+
   render() {
     //const refs = this.getDummyData();
     // const filtered = _.where(plugs, {season: this.state.season, episode: this.state.episode});
@@ -168,18 +190,32 @@ class App extends Component {
         <div className="app-left-col"></div>
         <div className="app-mid-col">
         <div className="title-wrapper">
-            <h1 className="title"> ggdb </h1>
-            <p className="subtitle">A crowd-sourced database of every pop-culture reference in the Gilmore Girls.</p>
-            <p className="subtitle">
-              <span>
-                <a href="#">About </a>
-                |
-                <a href="#"> API</a>
-                |
-                <div id="firebaseui-auth-container"></div>
-              </span>
-            </p>
-          </div>
+          <h1 className="title"> ggdb </h1>
+          <p className="subtitle">A crowd-sourced database of every pop-culture reference in the Gilmore Girls.</p>
+          <p className="subtitle">
+            <span>
+              <a href="#">About </a>
+              |
+              <a href="#"> API</a>
+              |
+              <a href="#" onClick={this.openSignIn.bind(this)}> LogIn</a>
+            </span>
+          </p>
+          <Modal id="signin" show={this.state.showSignIn} onHide={this.closeSignIn.bind(this)}>
+            <Modal.Header className="signin-header">
+              <h2>Sign in with your email and the password we sent you.</h2> 
+              <p>If you do not have a password, you can request one by sending an email to ggdb.info@gmail.com</p>
+            </Modal.Header>
+            <Modal.Body className="signin-body">
+                <input type="text" id="email" placeholder="you@email.com" ref={c => this.signin_email = c}/>
+                <input type="text" id="pswd" placeholder="abc123" ref={c => this.signin_pswd = c}/>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button id="signin-button" onClick={this.handlSignIn.bind(this)}>Sign In</Button>
+              <Button onClick={this.closeSignIn.bind(this)}>Cancel</Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
           <div className="nav-selectors">
             <Panel className="nav-panel" header={selector} collapsible expanded={this.state.selectorOpen} >
               <span className="season-episode">

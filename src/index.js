@@ -13,19 +13,6 @@ const config = {
 	  };
 firebase.initializeApp(config);
 
-<<<<<<< HEAD
-=======
-const uiConfig = {
-    'signInSuccessUrl': '/',
-    'signInOptions': [
-      //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID
-    ],
-}
-var ui = new firebaseui.auth.AuthUI(firebase.auth()); // <-- this throws the error
-ui.start('#firebaseui-auth-container', uiConfig);
->>>>>>> master
-
 import App from './components/App'
 
 const root = document.getElementById('app');
