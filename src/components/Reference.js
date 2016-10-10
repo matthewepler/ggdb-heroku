@@ -66,6 +66,7 @@ class Reference extends Component {
         <RefDetail reference={this.props.reference} 
                     key={this.props.reference.id} 
                     editOn={this.editOn.bind(this)}
+                    user={this.props.user}
                     />
       </Panel>
     )

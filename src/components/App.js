@@ -48,11 +48,11 @@ class App extends Component {
   getDummyData(filtered) {
   if (filtered) {
     return filtered.map( f => (
-       <Reference key={f.id} reference={f} />
+       <Reference key={f.id} reference={f} user={this.state.user} />
     ));
   } else {
     return plugs.map( p => (
-      <Reference key={p.id} reference={p} />
+      <Reference key={p.id} reference={p} user={this.state.user} />
     ));
   }
 }
@@ -82,7 +82,7 @@ class App extends Component {
   getRefComponents(sorted) {
     if (sorted) {
       return sorted.map( s => {
-        return (<Reference key={s.id} reference={s} editOn={this.editOn.bind(this)}/>)
+        return (<Reference key={s.id} reference={s} editOn={this.editOn.bind(this)} user={this.state.user}/>)
       });
     } else {
       return (<h2>Nothing here :(</h2>);
@@ -166,11 +166,11 @@ class App extends Component {
     var self = this;
     firebase.auth().signInWithEmailAndPassword(this.signin_email.value, 
     this.signin_pswd.value).then(function() {
-      console.log('user signed in: ', firebase.auth().currentUser);
       self.setState({
         user: true,
         showSignIn: false,
         userError: false,
+        selectorOpen: true,
       });
     }
     ,function(error) {
@@ -192,7 +192,7 @@ class App extends Component {
   }
 
   signOut() {
-    firebase.auth().signOut().then(function() {
+    firebase.auth().signOut().then( () => {
       this.setState({
         user: false,
         showSignIn: false,
@@ -252,39 +252,50 @@ class App extends Component {
               <Button onClick={this.closeSignIn.bind(this)}>Close</Button>
             </Modal.Footer>
           </Modal>
-        </div>
-          <div className="nav-selectors">
-            <Panel className="nav-panel" header={selector} collapsible expanded={this.state.selectorOpen} >
-              <span className="season-episode">
-                <div className="season">
-                  <p>Season</p>
-                  <div className="select-wrap">
-                    <select className="season-select rf-button-link" ref={c => this.season = c}>
-                      {_.range(7).map( (s, index) => {
-                        return <option value={s+1} key={index}> {s + 1} </option>
-                      })}
-                    </select>
-                  </div>
-                </div>
-                <div className="episode">
-                  <p>Episode</p>
-                  <div className="select-wrap">
-                    <select className="episode-select rf-button-link" ref={c => this.episode = c}>
-                      {_.range(23).map( (e, index) => {
-                        return <option value={e+1} key={index}> {e + 1} </option>
-                      })}
-                    </select>
-                  </div>
-                </div>
-              </span>
-              <div className="go-button" onClick={this.handleGoClick.bind(this)}>go</div>
-            </Panel>
-          </div>
           {this.state.user ? <Toolbar formOpen={this.state.formOpen} 
                                       closeForm={this.closeForm.bind(this)} 
                                       editData={this.state.editData} 
                                       editSubmit={this.editSubmit.bind(this)}
                                       /> : ""}
+        </div>
+          <div className="nav-selectors">
+            <Panel className="nav-panel" header={selector} collapsible expanded={this.state.selectorOpen} >
+            {
+              this.state.user ? 
+                (<div>
+                  <span className="season-episode">
+                    <div className="season">
+                      <p>Season</p>
+                      <div className="select-wrap">
+                        <select className="season-select rf-button-link" ref={c => this.season = c}>
+                          {_.range(7).map( (s, index) => {
+                            return <option value={s+1} key={index}> {s + 1} </option>
+                          })}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="episode">
+                      <p>Episode</p>
+                      <div className="select-wrap">
+                        <select className="episode-select rf-button-link" ref={c => this.episode = c}>
+                          {_.range(23).map( (e, index) => {
+                            return <option value={e+1} key={index}> {e + 1} </option>
+                          })}
+                        </select>
+                      </div>
+                    </div>
+                  </span>
+                  <div className="go-button" onClick={this.handleGoClick.bind(this)}>go</div>
+                </div>)
+                : 
+                (<div id="more-coming">
+                  <h2>More coming...</h2>
+                  <p>Launching Nov. 1, 2016</p>
+                  </div>)
+              }
+
+            </Panel>
+          </div>
           <ul>
             {refs}
           </ul>

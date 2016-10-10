@@ -83,6 +83,7 @@ class RefDetail extends Component {
 	}
 
 	render() {
+		console.log(this.props.user);
 		return (
 			<div className="ref-detail-wrapper">
 				
@@ -185,7 +186,9 @@ class RefDetail extends Component {
 						</div>
 					</div>
 				</div> 
-				<div className="edit-button" onClick={this.editOn.bind(this)}>Edit</div>
+				{
+					this.props.user ? (<div className="edit-button" onClick={this.editOn.bind(this)}>Edit</div>) : ''
+				}
 				
 			</div> 
 		)

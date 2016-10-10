@@ -158,10 +158,10 @@ body {
         }
 
         .go-button {
-          background-color: transparent;
+          background-color: white;
           border: 2px solid white;
           border-radius: 12px;
-          color: white;
+          color: darkturquoise;
           font-size: 18px;
           height: 35px;
           margin: 0 auto;
@@ -170,8 +170,8 @@ body {
           width: 50px;
 
           &:hover {
-            background-color: white;
-            color: darkturquoise;
+            background-color: darkturquoise;
+            color: white;
           }
 
           &:active {
@@ -256,3 +256,20 @@ body {
     color: white;
   }
 }
+
+#user-info {
+  p {
+    color: white;
+    font-family: $base-font;
+    font-size: 1.25rem;
+  }
+
+  a {
+    font-family: $base-font;
+    font-size: 1.25rem;
+  }
+}
+ #more-coming {
+  text-align: center;
+  margin: 0 auto;
+ }
