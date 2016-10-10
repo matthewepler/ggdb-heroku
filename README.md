@@ -1,16 +1,11 @@
 # TO DO
-* accounts and permissions
-    -> if logged in, 
-        show username + sign-out link at top.
-        > hide/show ADD button
-        > show edit button
-        > allow nav selector open
-
-* create edit rules - 
-    - add them through a script and assign the user profile the episode season
-        - add user func
-        - update user func 
-    - OR add it in the console for the season/episode access rules?
+* links: 
+    - put the refID in the id attribute
+    - in Server, make route that accepts the id of any ref
+    - look it up, pass it to the App
+        - will require moving some stuff into the server, me thinks.
+    - go to that season, episode
+    - scroll to that ref, open it
 
 * dataViz charts default open
 * dataviz
@@ -22,7 +17,7 @@
 * finish people seeding.
  - if no match, put smiley
 
-* add page "Contributor's Reference Guide"
+* add page "Contributor's Reference Guide" http://gg-db.com/guide.
 * add page "About"
 * add countdown to launch
 
