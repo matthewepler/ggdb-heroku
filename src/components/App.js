@@ -24,13 +24,14 @@ class App extends Component {
     this.state = {
       formOpen: false,
       selectorOpen: false,
-      showButton: true,
       season: "1",
       episode: "1",
       currRefs: [],
       editData: null,
       showSignIn: false,
-    };
+      user: false,
+      userError: false,
+    };    
   }
 
   componentDidMount() {
@@ -157,18 +158,51 @@ class App extends Component {
     this.setState({showSignIn: true});
   }
 
-  handlSignIn() {
+  handleSignIn() {
     if (firebase.auth().currentUser) {
       firebase.auth().signOut();
-    } else {
-      firebase.auth().signInWithEmailAndPassword(this.signin_email.value, 
-      this.signin_pswd.value).catch(function(error) {
-        if (error) {
-          console.log(error.message);
-        }
+    }
+
+    var self = this;
+    firebase.auth().signInWithEmailAndPassword(this.signin_email.value, 
+    this.signin_pswd.value).then(function() {
+      console.log('user signed in: ', firebase.auth().currentUser);
+      self.setState({
+        user: true,
+        showSignIn: false,
+        userError: false,
       });
     }
+    ,function(error) {
+      if (error) {
+        console.log(error.message);
+        if(error.message.includes('password is invalid')) {
+          self.updateSignIn('Password is incorrect');
+        } else if (error.message.includes('user record') || error.message.includes('email address')) {
+          self.updateSignIn('Email is incorrect');
+        } else {
+          self.updateSignIn('Eek! Something looks weird. Try again, please.');
+        }
+      } 
+    });
   }
+
+  updateSignIn(update) {
+    this.setState({userError: update});
+  }
+
+  signOut() {
+    firebase.auth().signOut().then(function() {
+      this.setState({
+        user: false,
+        showSignIn: false,
+        userError: false,
+      });
+    }, function(error) {
+      // an error happened
+    });
+  }
+
 
   render() {
     //const refs = this.getDummyData();
@@ -180,11 +214,11 @@ class App extends Component {
       const timeAsNum = obj.timecode.split(':').join('');
       return parseInt(timeAsNum);
     }));
-    
 
     const selector = (<h1 onClick={this.handleNavClick.bind(this)}>s{this.state.season}e{this.state.episode}</h1>);
     const episodeMatch = [21,22,22,22,22,22,22,4];
 
+   
     return (
       <div className="app-container">
         <div className="app-left-col"></div>
@@ -196,23 +230,26 @@ class App extends Component {
             <span>
               <a href="#">About </a>
               |
-              <a href="#"> API</a>
+              <a href="#"> API </a>
               |
-              <a href="#" onClick={this.openSignIn.bind(this)}> LogIn</a>
+              <a href="#" onClick={this.openSignIn.bind(this)}> LogIn </a>
             </span>
           </p>
+          {this.state.user ? (<div id="user-info"><p>{firebase.auth().currentUser.email}</p><a href="#" onClick={this.signOut.bind(this)}> Log Out </a></div>) 
+            : ''}
           <Modal id="signin" show={this.state.showSignIn} onHide={this.closeSignIn.bind(this)}>
             <Modal.Header className="signin-header">
               <h2>Sign in with your email and the password we sent you.</h2> 
               <p>If you do not have a password, you can request one by sending an email to ggdb.info@gmail.com</p>
             </Modal.Header>
             <Modal.Body className="signin-body">
-                <input type="text" id="email" placeholder="you@email.com" ref={c => this.signin_email = c}/>
-                <input type="text" id="pswd" placeholder="abc123" ref={c => this.signin_pswd = c}/>
+              <input type="text" id="email" placeholder="you@email.com" ref={c => this.signin_email = c}/>
+              <input type="text" id="pswd" placeholder="abc123" ref={c => this.signin_pswd = c}/>
+              {this.state.userError ? <p id="signin-error">{this.state.userError}</p> : ''}
             </Modal.Body>
             <Modal.Footer>
-              <Button id="signin-button" onClick={this.handlSignIn.bind(this)}>Sign In</Button>
-              <Button onClick={this.closeSignIn.bind(this)}>Cancel</Button>
+              <Button id="signin-button" onClick={this.handleSignIn.bind(this)}>Sign In</Button>
+              <Button onClick={this.closeSignIn.bind(this)}>Close</Button>
             </Modal.Footer>
           </Modal>
         </div>
@@ -243,7 +280,7 @@ class App extends Component {
               <div className="go-button" onClick={this.handleGoClick.bind(this)}>go</div>
             </Panel>
           </div>
-          {this.state.showButton ? <Toolbar formOpen={this.state.formOpen} 
+          {this.state.user ? <Toolbar formOpen={this.state.formOpen} 
                                       closeForm={this.closeForm.bind(this)} 
                                       editData={this.state.editData} 
                                       editSubmit={this.editSubmit.bind(this)}

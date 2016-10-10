@@ -1,11 +1,16 @@
 # TO DO
 * accounts and permissions
-    -> sign-in modal
     -> if logged in, 
         show username + sign-out link at top.
         > hide/show ADD button
         > show edit button
         > allow nav selector open
+
+* create edit rules - 
+    - add them through a script and assign the user profile the episode season
+        - add user func
+        - update user func 
+    - OR add it in the console for the season/episode access rules?
 
 * dataViz charts default open
 * dataviz
@@ -13,6 +18,7 @@
 * testing
 
 * check responsive layout for everything.
+ - add auto-prefixing
 * finish people seeding.
  - if no match, put smiley
 
