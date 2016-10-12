@@ -35,6 +35,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    if (this.props.params.id) {
+      
+    }
+
     this.getFirebaseData(this.state.season, this.state.episode);
   }
 

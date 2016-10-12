@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Router, Route, browserHistory } from 'react-router';
 
 // Firebase DB
 import firebase from "firebase";
@@ -15,4 +16,9 @@ firebase.initializeApp(config);
 import App from './components/App'
 
 const root = document.getElementById('app');
-ReactDOM.render(<App/>, root)
+ReactDOM.render((
+    <Router history={browserHistory}>
+        <Route path="/" component={App} />
+        <Route path="/:id" component={App} />
+    </Router>
+), root);

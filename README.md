@@ -1,9 +1,6 @@
 # TO DO
+
 * links: 
-    - put the refID in the id attribute
-    - in Server, make route that accepts the id of any ref
-    - look it up, pass it to the App
-        - will require moving some stuff into the server, me thinks.
     - go to that season, episode
     - scroll to that ref, open it
 
