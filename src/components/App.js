@@ -31,12 +31,26 @@ class App extends Component {
       showSignIn: false,
       user: false,
       userError: false,
+      focusId: null,
     };    
   }
 
   componentDidMount() {
     if (this.props.params.id) {
-      
+
+      // inside Ref's check the focus ID and if it matches, open scroll to top
+       var self = this;
+       const dbRef = firebase.database().ref('refs/' + this.props.params.season + '/' + this.props.params.episode + '/');
+       dbRef.orderByKey().equalTo(String(this.props.params.id)).on('value', (snap) => {
+         const thisRef = snap.val();
+         this.setState({
+                        season: String(this.props.params.season), 
+                        episode: String(this.props.params.episode),
+                        focusId: String(this.props.params.id),
+                      });
+       });
+    } else if (this.props.params.season && this.props.params.episode) {
+       this.setState({season: String(this.props.params.season), episode: String(this.props.params.episode)});
     }
 
     this.getFirebaseData(this.state.season, this.state.episode);
@@ -52,11 +66,11 @@ class App extends Component {
   getDummyData(filtered) {
   if (filtered) {
     return filtered.map( f => (
-       <Reference key={f.id} reference={f} user={this.state.user} />
+       <Reference key={f.id} reference={f} user={this.state.user} focusId={this.state.focusId} />
     ));
   } else {
     return plugs.map( p => (
-      <Reference key={p.id} reference={p} user={this.state.user} />
+      <Reference key={p.id} reference={p} user={this.state.user} focusId={this.state.focusId} />
     ));
   }
 }
@@ -86,7 +100,8 @@ class App extends Component {
   getRefComponents(sorted) {
     if (sorted) {
       return sorted.map( s => {
-        return (<Reference key={s.id} reference={s} editOn={this.editOn.bind(this)} user={this.state.user}/>)
+        return (<Reference key={s.id} reference={s} editOn={this.editOn.bind(this)} 
+                            user={this.state.user} focusId={this.state.focusId} />)
       });
     } else {
       return (<h2>Nothing here :(</h2>);
@@ -294,7 +309,7 @@ class App extends Component {
                 : 
                 (<div id="more-coming">
                   <h2>More coming...</h2>
-                  <p>Launching Nov. 1, 2016</p>
+                  <p>Launching Nov. 5, 2016</p>
                   </div>)
               }
 

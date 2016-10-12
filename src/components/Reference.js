@@ -17,6 +17,12 @@ class Reference extends Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.focusId === this.props.reference.id) {
+      console.log(this.props.reference.refName);
+    }
+  }
+
   handleClick(e) {
     this.setState({ open: !this.state.open });
   }

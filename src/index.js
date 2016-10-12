@@ -19,6 +19,7 @@ const root = document.getElementById('app');
 ReactDOM.render((
     <Router history={browserHistory}>
         <Route path="/" component={App} />
-        <Route path="/:id" component={App} />
+        <Route path="/:season/:episode" component={App} />
+        <Route path="/:season/:episode/:id" component={App} />
     </Router>
 ), root);

@@ -1,8 +1,12 @@
 # TO DO
 
 * links: 
+    -make cases for season+episode && season+episode+is
     - go to that season, episode
     - scroll to that ref, open it
+
+* add contributor names to refNotes. 
+* add name arg to creator script
 
 * dataViz charts default open
 * dataviz
