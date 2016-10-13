@@ -82,6 +82,11 @@ class RefDetail extends Component {
 		this.props.editOn(this.props.reference);
 	}
 
+	shareClick(e) {
+		console.log(`http://gg-db.com/?season=${this.props.reference.season}&episode=${this.props.reference.episode}&id=${this.props.reference.id}`);
+	}
+
+
 	render() {
 		return (
 			<div className="ref-detail-wrapper">
@@ -186,7 +191,8 @@ class RefDetail extends Component {
 					</div>
 				</div> 
 				{
-					this.props.user ? (<div className="edit-button" onClick={this.editOn.bind(this)}>Edit</div>) : ''
+					this.props.user ? (<div className="edit-button" onClick={this.editOn.bind(this)}>Edit</div>)
+					: (<div className="edit-button" onClick={this.shareClick.bind(this)}>Share</div>)
 				}
 				
 			</div> 

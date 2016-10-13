@@ -1,7 +1,6 @@
 # TO DO
 
-* links: 
-    - scroll to that ref, open it
+* links - add a link to each reference.
 
 * add contributor names to refNotes. 
 * add name arg to creator script

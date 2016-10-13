@@ -55,7 +55,7 @@ class Reference extends Component {
                 {quote.length > 1 ? quote[1] : ''}
             </span>
           </div>
-        </div>
+      </div>
       </div> 
     );
 
@@ -66,11 +66,14 @@ class Reference extends Component {
     this.props.editOn(data);
   }
 
+  linkClick(e) {
+    e.preventDefault();
+    console.log('link click');
+  }
+
+
 
   render() {
-
-
-
   	const header = this.renderHeader();
   	return (
       <div id={this.props.reference.id}>

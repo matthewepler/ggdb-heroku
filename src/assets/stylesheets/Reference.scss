@@ -6,6 +6,7 @@
 	@media (min-width: $media/16+em) { @content; }
 }
 
+
 .panel {
 	border: none;
 	box-shadow: none;
@@ -107,4 +108,3 @@
 	color: $base-color-lt;
 	margin-right: -2px;
 }
-
