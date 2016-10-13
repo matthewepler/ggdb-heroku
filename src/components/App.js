@@ -62,7 +62,7 @@ class App extends Component {
 
     if (this.state.currRefNum === this.state.totalRefNum && this.state.focusId) {
       var focusRef = document.getElementById(this.state.focusId);
-      window.scrollTo(0, focusRef.getBoundingClientRect().top + window.innerHeight / 2);
+      window.scrollTo(0, focusRef.getBoundingClientRect().top);
     }
   }
 
