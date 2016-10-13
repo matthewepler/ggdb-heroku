@@ -18,8 +18,10 @@ class Reference extends Component {
   }
 
   componentDidMount() {
-    if (this.props.focusId === this.props.reference.id) {
-      console.log(this.props.reference.refName);
+    this.props.refMounted();
+
+    if (this.props.focusId === String(this.props.reference.id)) {
+      this.setState({open: true});
     }
   }
 
@@ -66,15 +68,20 @@ class Reference extends Component {
 
 
   render() {
+
+
+
   	const header = this.renderHeader();
   	return (
-      <Panel className="ref-panel" header={header} collapsible expanded={this.state.open}>
-        <RefDetail reference={this.props.reference} 
-                    key={this.props.reference.id} 
-                    editOn={this.editOn.bind(this)}
-                    user={this.props.user}
-                    />
-      </Panel>
+      <div id={this.props.reference.id}>
+        <Panel className="ref-panel" header={header} collapsible expanded={this.state.open}>
+          <RefDetail reference={this.props.reference} 
+                      key={this.props.reference.id} 
+                      editOn={this.editOn.bind(this)}
+                      user={this.props.user}
+                      />
+        </Panel>
+      </div>
     )
   }
 }

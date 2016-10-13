@@ -1,8 +1,6 @@
 # TO DO
 
 * links: 
-    -make cases for season+episode && season+episode+is
-    - go to that season, episode
     - scroll to that ref, open it
 
 * add contributor names to refNotes. 
@@ -25,6 +23,8 @@
 * API - return JSON with keywords? - quick tutorial or read-up suggested.
 
 * plan for contributors madness!
+
+* ES Lint
 
 
 ## NON-CRITICAL

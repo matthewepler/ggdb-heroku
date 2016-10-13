@@ -8,8 +8,6 @@ import firebase from 'firebase';
 // components
 import Reference from './Reference.js';
 import Toolbar from './Toolbar.js';
-import Season from './Season.js'
-import Dot from './Dot.js'
 
 // api
 import { plugs } from '../api/dummyData';
@@ -32,25 +30,25 @@ class App extends Component {
       user: false,
       userError: false,
       focusId: null,
+      totalRefNum: null,
+      currRefNum: 0,
     };    
   }
 
   componentDidMount() {
-    if (this.props.params.id) {
-
-      // inside Ref's check the focus ID and if it matches, open scroll to top
-       var self = this;
+    if (this.props.location.query.id) {
+       const self = this;
        const dbRef = firebase.database().ref('refs/' + this.props.params.season + '/' + this.props.params.episode + '/');
        dbRef.orderByKey().equalTo(String(this.props.params.id)).on('value', (snap) => {
          const thisRef = snap.val();
-         this.setState({
-                        season: String(this.props.params.season), 
-                        episode: String(this.props.params.episode),
-                        focusId: String(this.props.params.id),
+         self.setState({
+                        season:  this.props.location.query.season, 
+                        episode: this.props.location.query.episode,
+                        focusId: this.props.location.query.id,
                       });
        });
-    } else if (this.props.params.season && this.props.params.episode) {
-       this.setState({season: String(this.props.params.season), episode: String(this.props.params.episode)});
+    } else if (this.props.location.query.season && this.props.location.query.episode) {
+       this.setState({season: this.props.location.query.season, episode: this.props.location.query.episode});
     }
 
     this.getFirebaseData(this.state.season, this.state.episode);
@@ -61,24 +59,35 @@ class App extends Component {
       nextState.episode != this.state.episode) {
       this.getFirebaseData(nextState.season, nextState.episode);
     }
+
+    if (this.state.currRefNum === this.state.totalRefNum && this.state.focusId) {
+      var focusRef = document.getElementById(this.state.focusId);
+      window.scrollTo(0, focusRef.getBoundingClientRect().top + window.innerHeight / 2);
+    }
   }
 
   getDummyData(filtered) {
-  if (filtered) {
-    return filtered.map( f => (
-       <Reference key={f.id} reference={f} user={this.state.user} focusId={this.state.focusId} />
-    ));
-  } else {
-    return plugs.map( p => (
-      <Reference key={p.id} reference={p} user={this.state.user} focusId={this.state.focusId} />
-    ));
+    if (filtered) {
+      return filtered.map( f => (
+         <Reference key={f.id} reference={f} user={this.state.user} focusId={this.state.focusId} />
+      ));
+    } else {
+      return plugs.map( p => (
+        <Reference key={p.id} reference={p} user={this.state.user} focusId={this.state.focusId} />
+      ));
+    }
   }
-}
+
+  refMounted() {
+    let num = parseInt(this.state.currRefNum) + 1;
+    this.setState({currRefNum: num});
+  }
 
   getFirebaseData(season, episode) {
     const dbRef = firebase.database().ref('refs/' + season + '/' + episode + '/');
     dbRef.once('value').then((snapshot) => {
       const refs = snapshot.val();
+      this.setState({totalRefNum: Object.keys(refs).length});
       let currRefs = [];
       for (let obj in refs) {
         currRefs.push(refs[obj]);
@@ -101,7 +110,8 @@ class App extends Component {
     if (sorted) {
       return sorted.map( s => {
         return (<Reference key={s.id} reference={s} editOn={this.editOn.bind(this)} 
-                            user={this.state.user} focusId={this.state.focusId} />)
+                            user={this.state.user} focusId={this.state.focusId}
+                            refMounted={this.refMounted.bind(this)} />)
       });
     } else {
       return (<h2>Nothing here :(</h2>);
@@ -235,8 +245,7 @@ class App extends Component {
     }));
 
     const selector = (<h1 onClick={this.handleNavClick.bind(this)}>s{this.state.season}e{this.state.episode}</h1>);
-    const episodeMatch = [21,22,22,22,22,22,22,4];
-
+    //const episodeMatch = [21,22,22,22,22,22,22,4];
    
     return (
       <div className="app-container">
