@@ -1,12 +1,10 @@
 # TO DO
-
-* links - add a link to each reference.
-
-* add contributor names to refNotes. 
-* add name arg to creator script
-
-* dataViz charts default open
 * dataviz
+    - charts not being removed properly
+    - fontasesome stuff disappeared
+
+
+* using query s2e1, I'm still getting all the refs from s1e1 loading...
 
 * testing
 
