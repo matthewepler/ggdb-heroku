@@ -16,20 +16,22 @@ class Timeline extends Component {
     }
 
     componentDidMount() {
-        this.createChart(this.props.default, this.props.id);
+        this.createChart(this.props.default, this.props.id, this.props.timecode);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.subject !== this.props.subject) {
-            this.createChart(nextProps.subject, nextProps.id);
+            this.createChart(nextProps.subject, nextProps.id, nextProps.timecode);
         }
     }
 
-    createChart(subject, id) {
-        this.removeChart();
-        const newID = this.createElementId(subject, id);
-        this.renderChart(newID, subject)
-        this.setState({ elementId: newID}); 
+    createChart(subject, id, timecode) {
+        if (subject && id && timecode) {
+            this.removeChart();
+            const newID = this.createElementId(subject, id);
+            this.renderChart(newID, timecode)
+            this.setState({ elementId: newID}); 
+        }
     }
 
     removeChart() {
@@ -44,10 +46,10 @@ class Timeline extends Component {
         return elementId;
     }
                 
-    renderChart(elementId, subject) {
+    renderChart(newId, timecode) {
         // this is going to load a chart for every reference for this episode. 
         // it should be changed to only render a chart if the parent component is open.        
-        fromToTimeline = new timeline(this.fromToGraph, elementId, subject);
+        fromToTimeline = new timeline(this.fromToGraph, newId, timecode);
     }
 
 

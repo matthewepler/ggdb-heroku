@@ -112,7 +112,8 @@ class RefDetail extends Component {
 					
 					{
 						this.props.open ? (<div>
-											<Timeline subject={this.state.fromToViz} id={this.props.reference.id} default={this.props.reference.from}/>
+											<Timeline subject={this.state.fromToViz} id={this.props.reference.id} 
+											default={this.props.reference.from} timecode={this.props.reference.timecode}/>
 											<p className="from-to-graph-info">{`${this.state.fromToViz} - season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
 										  </div>)
 										: ''
