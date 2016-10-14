@@ -93,6 +93,7 @@ class Reference extends Component {
                         key={this.props.reference.id} 
                         editOn={this.editOn.bind(this)}
                         user={this.props.user}
+                        open={this.state.open}
                         />
           </Panel>
         </div>

@@ -239,13 +239,11 @@ class App extends Component {
     // const refs = this.getDummyData(_.sortBy(filtered, 'timecode'));
 
     const refs = this.getRefComponents(_.sortBy(this.state.currRefs, function(obj) {
-      // can also just use the id value since it's a timestamp
       const timeAsNum = obj.timecode.split(':').join('');
       return parseInt(timeAsNum);
     }));
 
     const selector = (<h1 onClick={this.handleNavClick.bind(this)}>s{this.state.season}e{this.state.episode}</h1>);
-    //const episodeMatch = [21,22,22,22,22,22,22,4];
    
   
     return (

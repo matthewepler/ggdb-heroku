@@ -1,8 +1,7 @@
-class timeline {
+class D3timeline {
 
-  constructor(element, id, name) {  
-    console.log(id);
-    //console.log(element, id, name); 
+  constructor(element, id, subject) {  
+    console.log('constructing new chart', element, id, subject);
 
     const width = 570;
     const height = 80;
@@ -22,6 +21,6 @@ class timeline {
   }
 };
 
-export default timeline;
+export default D3timeline;
 
 

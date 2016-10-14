@@ -1,53 +1,41 @@
 import React, { Component, PropTypes } from 'react';
 import { Panel } from 'react-bootstrap';
 
+import Timeline from './Timeline';
+
 // stylesheets
 import '../assets/stylesheets/RefDetail.scss';
 
-import timeline from './helpers/timeline';
-let fromToTimeline = {};
+
 
 class RefDetail extends Component {
 	constructor(props) {
 		super();
 		this.state = {
-			fromToOpen: true,
 			refDetailOpen: true,
 			fromToViz: null,
-			fromToVizId: null,
-			refDetailViz: null,
-			vizLabel: props.reference.from,
+			prevFromToVizElement: null,
 		};
 	}
 
 	componentDidMount() {
-		this.createChart(this.fromElement);
+		this.setState({
+			prevFromToVizElement: this.fromElement,
+			fromToViz: this.props.reference.from,
+		});
 	}
 
+
 	fromToClick(event) {		
-		const prevSubject = this.state.fromToViz;	
-		if (this.state.fromToOpen) {
-			if (event.currentTarget === this.state.fromToViz) {
-				event.currentTarget.classList.toggle('outline');
-				// this.setState({
-				// 	fromToOpen: false,
-				// });
-				// return
-			} else {
-				// if the panel is open and we're switching to another button
-				event.currentTarget.classList.toggle('outline');
-				this.createChart(event.currentTarget);
-			} 
-		} else { 
-		// open the Panel
-			// event.currentTarget.classList.toggle('outline');
-			// this.setState({
-			// 	fromToOpen: true,
-			// 	fromToViz: event.currentTarget,
-			// 	vizLabel: event.currentTarget.innerHTML, 
-			// 	fromToVizId: elementId,
-			// }, this.renderChart(elementId));
-		}
+		const prevSubject = this.state.prevFromToVizElement;	
+		prevSubject.classList.toggle('outline');
+		event.currentTarget.classList.toggle('outline');
+
+		this.setState({
+			fromToViz: event.currentTarget.innerHTML,
+			prevFromToVizElement: event.currentTarget,
+		});
+		
 	}
 
 	refDetailClick(event) {
@@ -58,19 +46,20 @@ class RefDetail extends Component {
 				prevSubject.classList.toggle('outline');
 			}
 			if (event.currentTarget === this.state.refDetailViz) {
-				//event.currentTarget.classList.toggle('outline');
+				event.currentTarget.classList.toggle('outline');
 				this.setState({
 					refDetailOpen: false,
 				});
 				return
 			} else {
 				// if the panel is open and we're switching to another button
-				//event.currentTarget.classList.toggle('outline');
-				this.setState({ refDetailViz: event.currentTarget }); // this.props.reference.[to, from, location] (event.currentTarget.className[0])
+				event.currentTarget.classList.toggle('outline');
+				prevSubject.classList.toggle('outline');
+				this.setState({ refDetailViz: event.currentTarget }); 
 			} 
 		} else { 
 		// open the Panel
-			//event.currentTarget.classList.toggle('outline');
+			event.currentTarget.classList.toggle('outline');
 			this.setState({
 				refDetailOpen: true,
 				refDetailViz: event.currentTarget
@@ -80,36 +69,6 @@ class RefDetail extends Component {
 
 	editOn() {
 		this.props.editOn(this.props.reference);
-	}
-
-	createElementId(str) {
-		const elementId = String(str.replace(' ', '').toLowerCase() + this.props.reference.id);
-		return elementId;
-	}
-
-	removeChart() {
-		if (document.getElementById(this.state.fromToVizId)) {
-      		d3.select(document.getElementById(this.state.fromToVizId).remove());
-    	}
-	}
-
-	createChart(target) {
-		this.removeChart();
-		const newID = this.createElementId(target.innerHTML);
-		this.setState({ 
-				fromToViz: target,
-				vizLabel:target.innerHTML, 
-				fromToVizId: newID,
-			}, this.renderChart(newID)); 
-
-	}
-				
-	renderChart(elementId) {
-		// this is going to load a chart for every reference for this episode. 
-		// it should be changed to only render a chart if the parent component is open.
-		
-		// first argument is the element to which the graph will be appended
-		fromToTimeline = new timeline(this.fromToGraph, elementId, name);
 	}
 
 
@@ -126,11 +85,11 @@ class RefDetail extends Component {
 					
 					<div className="screengrab-detail"> 
 						<span 
-							className="button-link from" 
+							className="button-link from outline" 
 							ref={c=> this.fromElement = c}
 							onClick={this.fromToClick.bind(this)}
 							dangerouslySetInnerHTML={{__html: this.props.reference.from}}
-							> 
+							>
 						</span>
 					  <span>
 					  	<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -151,10 +110,15 @@ class RefDetail extends Component {
 						</span>
 					</div>
 					
-					<Panel collapsible expanded={this.state.fromToOpen}>
-						<div className="graph-wrapper" ref={ c => this.fromToGraph = c } ></div>
-						<p className="from-to-graph-info">{this.state.vizLabel}</p>
-					</Panel>
+					{
+						this.props.open ? (<div>
+											<Timeline subject={this.state.fromToViz} id={this.props.reference.id} default={this.props.reference.from}/>
+											<p className="from-to-graph-info">{`${this.state.fromToViz} - season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
+										  </div>)
+										: ''
+					}
+					
+					
 				</div>
 
 				<hr className="hr-line"/>

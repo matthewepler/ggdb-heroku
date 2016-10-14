@@ -1,8 +1,6 @@
 # TO DO
 * dataviz
-    - charts not being removed properly
-    - fontasesome stuff disappeared
-
+    - how to update? experiment first and get to now how it's behaving
 
 * using query s2e1, I'm still getting all the refs from s1e1 loading...
 
