@@ -62,7 +62,7 @@ class App extends Component {
 
     if (this.state.currRefNum === this.state.totalRefNum && this.state.focusId) {
       var focusRef = document.getElementById(this.state.focusId);
-      window.scrollTo(0, focusRef.getBoundingClientRect().top + window.innerHeight / 2);
+      window.scrollTo(0, focusRef.getBoundingClientRect().top);
     }
   }
 
@@ -239,14 +239,13 @@ class App extends Component {
     // const refs = this.getDummyData(_.sortBy(filtered, 'timecode'));
 
     const refs = this.getRefComponents(_.sortBy(this.state.currRefs, function(obj) {
-      // can also just use the id value since it's a timestamp
       const timeAsNum = obj.timecode.split(':').join('');
       return parseInt(timeAsNum);
     }));
 
     const selector = (<h1 onClick={this.handleNavClick.bind(this)}>s{this.state.season}e{this.state.episode}</h1>);
-    //const episodeMatch = [21,22,22,22,22,22,22,4];
    
+  
     return (
       <div className="app-container">
         <div className="app-left-col"></div>
@@ -324,9 +323,12 @@ class App extends Component {
 
             </Panel>
           </div>
-          <ul>
-            {refs}
-          </ul>
+          {
+            this.state.currRefNum !== this.state.totalRefNum ? 
+              (<div id="loading"><i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i></div>)
+              : ''
+          }
+          <ul>{refs}</ul>
         </div>
         <div className="app-right-col"></div>
       </div>

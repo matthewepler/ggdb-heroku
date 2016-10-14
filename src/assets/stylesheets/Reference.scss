@@ -24,6 +24,12 @@
 		background-color: transparent;
 }
 
+
+.headline > a {
+	display: flex;
+	align-items: center;
+}
+
 .headline> a:hover {
 	text-decoration: none;
 }
@@ -107,4 +113,45 @@
 	padding-left: 1rem;
 	color: $base-color-lt;
 	margin-right: -2px;
+}
+
+#link {
+	color: darkslategrey;
+	font-size: 18px;
+	margin-left: 2rem;
+	opacity: 0;
+}
+
+#link.show {
+	opacity: 1;
+}
+
+#link-modal {
+  font-size: 22px;
+  text-align: center;
+
+  .modal-dialog {
+
+    .modal-content {
+    	background-color: darkturquoise;
+      h4 {
+        color: white;
+      }
+    }
+
+    .modal-body, .modal-footer {
+    	background-color: white;
+    }
+
+    .modal-footer button {
+    	background-color: darkturquoise;
+    	color: white;
+    }
+
+    p {
+      color: darkslategrey;
+      font-size: 16px;
+      text-align: center;
+    }
+  }
 }

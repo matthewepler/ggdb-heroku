@@ -1,53 +1,41 @@
 import React, { Component, PropTypes } from 'react';
 import { Panel } from 'react-bootstrap';
 
+import Timeline from './Timeline';
+
 // stylesheets
 import '../assets/stylesheets/RefDetail.scss';
 
 
 
 class RefDetail extends Component {
-	constructor() {
+	constructor(props) {
 		super();
 		this.state = {
-			fromToOpen: false,
-			refDetailOpen: false,
+			refDetailOpen: true,
 			fromToViz: null,
-			refDetailViz: null
+			prevFromToVizElement: null,
 		};
 	}
 
-	fromToClick(event) {	
-		// console.log(this.toElement); // testing references to elements, works!
-	
-		const prevSubject = this.state.fromToViz;
-		// right now fromToViz is an element because it gets the classname and the value. 
-		// could change to an object with className -> category & value -> value
-		// would also need to change calls involving prevSubject since that is currently an element also
+	componentDidMount() {
+		this.setState({
+			prevFromToVizElement: this.fromElement,
+			fromToViz: this.props.reference.from,
+		});
+	}
+
+
+	fromToClick(event) {		
+		const prevSubject = this.state.prevFromToVizElement;	
+		prevSubject.classList.toggle('outline');
+		event.currentTarget.classList.toggle('outline');
+
+		this.setState({
+			fromToViz: event.currentTarget.innerHTML,
+			prevFromToVizElement: event.currentTarget,
+		});
 		
-		if (this.state.fromToOpen) {
-			if (prevSubject != null && event.currentTarget !== this.state.fromToViz) {
-				prevSubject.classList.toggle('outline');
-			}
-			if (event.currentTarget === this.state.fromToViz) {
-				event.currentTarget.classList.toggle('outline');
-				this.setState({
-					fromToOpen: false,
-				});
-				return
-			} else {
-				// if the panel is open and we're switching to another button
-				event.currentTarget.classList.toggle('outline');
-				this.setState({ fromToViz: event.currentTarget }); // this.props.reference.[to, from, location] (event.currentTarget.className[0])
-			} 
-		} else { 
-		// open the Panel
-			event.currentTarget.classList.toggle('outline');
-			this.setState({
-				fromToOpen: true,
-				fromToViz: event.currentTarget
-			});
-		}
 	}
 
 	refDetailClick(event) {
@@ -66,7 +54,8 @@ class RefDetail extends Component {
 			} else {
 				// if the panel is open and we're switching to another button
 				event.currentTarget.classList.toggle('outline');
-				this.setState({ refDetailViz: event.currentTarget }); // this.props.reference.[to, from, location] (event.currentTarget.className[0])
+				prevSubject.classList.toggle('outline');
+				this.setState({ refDetailViz: event.currentTarget }); 
 			} 
 		} else { 
 		// open the Panel
@@ -82,15 +71,11 @@ class RefDetail extends Component {
 		this.props.editOn(this.props.reference);
 	}
 
-	shareClick(e) {
-		console.log(`http://gg-db.com/?season=${this.props.reference.season}&episode=${this.props.reference.episode}&id=${this.props.reference.id}`);
-	}
 
 
 	render() {
 		return (
 			<div className="ref-detail-wrapper">
-				
 				<div className="screengrab">
 					<img src={this.props.reference.screengrab} alt="screengrab" />
 					
@@ -100,10 +85,11 @@ class RefDetail extends Component {
 					
 					<div className="screengrab-detail"> 
 						<span 
-							className="button-link from" 
+							className="button-link from outline" 
+							ref={c=> this.fromElement = c}
 							onClick={this.fromToClick.bind(this)}
 							dangerouslySetInnerHTML={{__html: this.props.reference.from}}
-							> 
+							>
 						</span>
 					  <span>
 					  	<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -124,10 +110,15 @@ class RefDetail extends Component {
 						</span>
 					</div>
 					
-					<Panel collapsible expanded={this.state.fromToOpen}>
-						{this.state.fromToViz == null ? '' : this.state.fromToViz.innerHTML}
-						{/* <Graph data={this.state.fromToViz} /> */}
-					</Panel>
+					{
+						this.props.open ? (<div>
+											<Timeline subject={this.state.fromToViz} id={this.props.reference.id} default={this.props.reference.from}/>
+											<p className="from-to-graph-info">{`${this.state.fromToViz} - season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
+										  </div>)
+										: ''
+					}
+					
+					
 				</div>
 
 				<hr className="hr-line"/>
@@ -180,8 +171,7 @@ class RefDetail extends Component {
 							</ul>
 
 							<Panel collapsible expanded={this.state.refDetailOpen}>
-								{this.state.refDetailViz == null ? '' : this.state.refDetailViz.innerHTML}
-								{/* <Graph data={this.state.refDetailViz} /> */}
+								{/* graph goes here */}
 							</Panel>
 
 							<div className="detail-notes">
@@ -192,7 +182,7 @@ class RefDetail extends Component {
 				</div> 
 				{
 					this.props.user ? (<div className="edit-button" onClick={this.editOn.bind(this)}>Edit</div>)
-					: (<div className="edit-button" onClick={this.shareClick.bind(this)}>Share</div>)
+					: ''
 				}
 				
 			</div> 
@@ -200,8 +190,5 @@ class RefDetail extends Component {
 	}
 }
 
-RefDetail.propTypes = {
-  reference: PropTypes.object.isRequired,
-};
 
 export default RefDetail;

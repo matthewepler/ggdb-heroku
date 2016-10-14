@@ -1,12 +1,8 @@
 # TO DO
-
-* links - add a link to each reference.
-
-* add contributor names to refNotes. 
-* add name arg to creator script
-
-* dataViz charts default open
 * dataviz
+    - how to update? experiment first and get to now how it's behaving
+
+* using query s2e1, I'm still getting all the refs from s1e1 loading...
 
 * testing
 
