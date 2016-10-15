@@ -1,8 +1,8 @@
 # TO DO
-* dataviz
-    - how to update? experiment first and get to now how it's behaving
 
 * graph allows for 00:00:00 format. Does timecode and RefDetail? && Form?
+ - update validate.js
+ - if episode=8, add 00: to timecode at beginning
 
 * using query s2e1, I'm still getting all the refs from s1e1 loading...
 

@@ -14,7 +14,10 @@ class RefDetail extends Component {
 		this.state = {
 			refDetailOpen: true,
 			fromToViz: null,
+			refDetailViz: null,
 			prevFromToVizElement: null,
+			prevRefDetailVizElement: null,
+			refDetailType: 'year',
 		};
 	}
 
@@ -22,6 +25,8 @@ class RefDetail extends Component {
 		this.setState({
 			prevFromToVizElement: this.fromElement,
 			fromToViz: this.props.reference.from,
+			prevRefDetailVizElement: this.yearElement,
+			refDetailViz: this.props.reference.refYear1,
 		});
 	}
 
@@ -32,39 +37,31 @@ class RefDetail extends Component {
 		event.currentTarget.classList.toggle('outline');
 
 		this.setState({
-			fromToViz: event.currentTarget.innerHTML,
-			prevFromToVizElement: event.currentTarget,
+			fromToViz: event.currentTarget.innerHTML,  // full name string
+			prevFromToVizElement: event.currentTarget, // element surrounding string
 		});
 		
 	}
 
 	refDetailClick(event) {
-		const prevSubject = this.state.refDetailViz;
+		const prevSubject = this.state.prevRefDetailVizElement;
+		prevSubject.classList.toggle('outline');
+		event.currentTarget.classList.toggle('outline');
 
-		if (this.state.refDetailOpen) {
-			if (prevSubject != null && event.currentTarget !== this.state.refDetailViz) {
-				prevSubject.classList.toggle('outline');
-			}
-			if (event.currentTarget === this.state.refDetailViz) {
-				event.currentTarget.classList.toggle('outline');
-				this.setState({
-					refDetailOpen: false,
-				});
-				return
-			} else {
-				// if the panel is open and we're switching to another button
-				event.currentTarget.classList.toggle('outline');
-				prevSubject.classList.toggle('outline');
-				this.setState({ refDetailViz: event.currentTarget }); 
-			} 
-		} else { 
-		// open the Panel
-			event.currentTarget.classList.toggle('outline');
-			this.setState({
-				refDetailOpen: true,
-				refDetailViz: event.currentTarget
-			});
+		let viz, type = '';
+		if (event.currentTarget.classList.value.includes('category') >= 0 ) {
+			viz = this.props.reference.category;
+			type = 'category';
+		} else if (event.currentTarget.classList.value.includes('year') >= 0 ) {
+			viz = this.props.reference.refYear1;
+			type = 'year';
 		}
+
+		this.setState({
+			refDetailViz: viz,
+			refDetailType: type,
+			prevRefDetailVizElement: event.currentTarget,
+		});
 	}
 
 	editOn() {
@@ -104,7 +101,7 @@ class RefDetail extends Component {
 							<i className="fa fa-at" aria-hidden="true"> </i>
 						</span>
 						<span 
-							className="button-link location" 
+							className="location" 
 							onClick={this.fromToClick.bind(this)} 
 							>{this.props.reference.location} 
 						</span>
@@ -112,8 +109,8 @@ class RefDetail extends Component {
 					
 					{
 						this.props.open ? (<div>
-											<Timeline subject={this.state.fromToViz} id={this.props.reference.id} 
-											default={this.props.reference.from} timecode={this.props.reference.timecode}/>
+											<Timeline type="timecode" subject={this.state.fromToViz} reference={this.props.reference} 
+												default={this.props.reference.from} allRefs={this.props.allRefs} />
 											<p className="from-to-graph-info">{`${this.state.fromToViz} - season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
 										  </div>)
 										: ''
@@ -131,25 +128,31 @@ class RefDetail extends Component {
 					</div>
 					<div>
 						<div className="ref-descrip">
-							<p><span className="button-link ref-descrip-strong"
+							<p><span className="ref-descrip-strong"
 											 onClick={this.refDetailClick.bind(this)}
 											 dangerouslySetInnerHTML={{__html: this.props.reference.refName}}>
 								 </span> {this.props.reference.refIs}
 						  </p>
 						</div>
+						<div className="detail-notes">
+							{this.props.reference.refNotes}
+						</div> 	
 						<div className="ref-tags">
 							<ul>
-								<li className="button-link" 
+								<li className="button-link category" 
+									ref={c=> this.categoryElement = c}
 									onClick={this.refDetailClick.bind(this)}
 									dangerouslySetInnerHTML={{__html: this.props.reference.refCategory}}>
 								</li>
 								{ 
 									this.props.reference.refYear2.length >= 3 ? 
-									<li className="button-link" 
+									<li className="button-link year outline" 
+										ref={c=> this.yearElement = c}
 										onClick={this.refDetailClick.bind(this)} 
 										dangerouslySetInnerHTML={{__html: `${this.props.reference.refYear1} - ${this.props.reference.refYear2}`}}>
 									</li> 
-									: <li className="button-link" 
+									: <li className="button-link year outline" 
+										    ref={c=> this.yearElement = c}
 											onClick={this.refDetailClick.bind(this)} 
 											dangerouslySetInnerHTML={{__html: this.props.reference.refYear1}}>
 										</li> 
@@ -170,17 +173,18 @@ class RefDetail extends Component {
 									</a>
 								</li>
 							</ul>
-
-							<Panel collapsible expanded={this.state.refDetailOpen}>
-								{/* graph goes here */}
-							</Panel>
-
-							<div className="detail-notes">
-								{this.props.reference.refNotes}
-							</div> 	
 						</div>
 					</div>
 				</div> 
+				{
+					this.props.open ? (<div className="ref-detail-viz-wrapper">
+										<Timeline type={this.state.refDetailType} subject={this.state.refDetailViz} reference={this.props.reference} 
+											allRefs={this.props.allRefs} default={this.props.reference.refYear1} />
+										<p className="from-to-graph-info">{`season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
+									  </div>)
+									: ''
+				}
+
 				{
 					this.props.user ? (<div className="edit-button" onClick={this.editOn.bind(this)}>Edit</div>)
 					: ''

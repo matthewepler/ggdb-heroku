@@ -5,7 +5,7 @@ let fromToTimeline = {};
 // stylesheets
 import '../assets/stylesheets/Timeline.scss';
 
-
+// type, subject, ref, allRefs, default
 
 class Timeline extends Component {
     constructor(props) {
@@ -16,22 +16,27 @@ class Timeline extends Component {
     }
 
     componentDidMount() {
-        this.createChart(this.props.default, this.props.id, this.props.timecode);
+        this.createChart(this.props.default, this.props.reference.id);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.subject !== this.props.subject) {
-            this.createChart(nextProps.subject, nextProps.id, nextProps.timecode);
+            this.createChart(nextProps.subject, nextProps.reference.id);
         }
     }
 
-    createChart(subject, id, timecode) {
-        if (subject && id && timecode) {
-            this.removeChart();
-            const newID = this.createElementId(subject, id);
-            this.renderChart(newID, timecode)
-            this.setState({ elementId: newID}); 
+    createChart(subject, id) {
+        this.removeChart();
+        const newID = this.createElementId(subject, id);
+        this.setState({ elementId: newID}); 
+
+        let datum = {};
+        if (this.props.type === "timecode") {
+            datum = {"timecode": this.props.reference.timecode};
+        } else if (this.props.type === "year") {
+            datum = {"year" : this.props.reference.refYear1};
         }
+        this.renderChart(newID, subject, datum);
     }
 
     removeChart() {
@@ -42,20 +47,22 @@ class Timeline extends Component {
     }
 
     createElementId(str, id) {
-        const elementId = String(str.replace(' ', '').toLowerCase() + id);
-        return elementId;
+        if (this.props.type === 'timecode') {
+            return String(str.replace(' ', '').toLowerCase() + id);
+        } else if (this.props.type === 'year') {
+            return String(str + id);
+        }
     }
                 
-    renderChart(newId, timecode) {
-        // this is going to load a chart for every reference for this episode. 
-        // it should be changed to only render a chart if the parent component is open.        
-        fromToTimeline = new timeline(this.fromToGraph, newId, timecode);
+    renderChart(newId, subject, datum) {   
+        console.log('rendering chart', datum);    
+        fromToTimeline = new timeline(this.graphElement, newId, subject, datum, this.props.allRefs, this.props.reference.season);
     }
 
 
     render() {
         return (
-            <div id='from-to-chart-anchor' ref={ c => this.fromToGraph = c }></div>
+            <div className='chart-anchor' ref={ c => this.graphElement = c }></div>
         )
     }
 }

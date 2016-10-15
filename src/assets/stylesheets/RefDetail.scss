@@ -17,6 +17,11 @@ $highlight: white;
 		font-size: 13pt;
 	}
 
+	.from-to-graph-info {
+		font-size: 12px;
+		text-align: right;
+	}
+
 	.screengrab {
 		img {
 			max-width: 595px;
@@ -46,15 +51,24 @@ $highlight: white;
 		& > p {
 			margin-top: 0;
 			font-family: 'Source Sans Pro', sans-serif;
+
 		}
 
 		.ref-descrip {
 			& > p {
-				font-size: 1.75rem;
+				font-size: 16px;
 			}
 			.ref-descrip-strong {
+				font-family: Source Sans Pro;
+				font-size: 18px;
 				font-weight: 600;
 			}
+		}
+
+		.detail-notes {
+			color: darkslategrey;
+			font-size: 16px;
+			margin-bottom: 2rem;
 		}
 
 		.ref-tags {
@@ -70,10 +84,11 @@ $highlight: white;
 					}
 				}
 			}
-			.detail-notes {
-				font-size: 16px;
-			}
 		}
+	}
+
+	.ref-detail-viz-wrapper {
+		margin-top: 2rem;
 	}
 }
 
@@ -92,7 +107,7 @@ $highlight: white;
 	
 	&:hover {
 		cursor: pointer;
-		border: 3px solid $highlight;
+		border: 2px solid darkslategrey;
 	}
 }
 
@@ -112,11 +127,21 @@ $highlight: white;
 		color: #2F2F2F;
 		font-size: 2rem;
 		margin: 0 1rem;
+
+		.fa-at {
+			font-size: 1.75rem;
+		}
+	}
+
+	.location {
+		color: darkslategrey;
+		font-family: Source Sans Pro;
+		font-size: 16px;
 	}
 }
 
 .outline {
-	border: 3px solid $highlight;
+	border: 2px solid darkslategrey;
 }
 
 .hr-line {

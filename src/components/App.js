@@ -24,6 +24,7 @@ class App extends Component {
       selectorOpen: false,
       season: "1",
       episode: "1",
+      allRefs: [],
       currRefs: [],
       editData: null,
       showSignIn: false,
@@ -60,7 +61,7 @@ class App extends Component {
       this.getFirebaseData(nextState.season, nextState.episode);
     }
 
-    if (this.state.currRefNum === this.state.totalRefNum && this.state.focusId) {
+    if (this.state.totalRefNum !== null && this.state.focusId) {
       var focusRef = document.getElementById(this.state.focusId);
       window.scrollTo(0, focusRef.getBoundingClientRect().top);
     }
@@ -87,19 +88,27 @@ class App extends Component {
     const dbRef = firebase.database().ref('refs/' + season + '/' + episode + '/');
     dbRef.once('value').then((snapshot) => {
       const refs = snapshot.val();
-      this.setState({totalRefNum: Object.keys(refs).length});
       let currRefs = [];
       for (let obj in refs) {
         currRefs.push(refs[obj]);
       }
-      this.setState({currRefs});
+      this.setState({
+        currRefs,
+        totalRefNum: Object.keys(refs).length,
+      });
     });
 
     dbRef.on('child_added', data => {
-            const currRefs = this.state.currRefs;
-            currRefs.push(data.val());
-            this.setState({currRefs});
+      if (this.state.totalRefNum !== null) {
+        const currRefs = this.state.currRefs;
+        currRefs.push(data.val());
+        this.setState({
+          currRefs,
+          totalRefNum: this.state.totalRefNum + 1,
+          currRefNum: this.state.currRefNum + 1
         });
+      }        
+    });
 
     dbRef.on('child_changed', data => {
             // not sure if this is necessary
@@ -111,7 +120,8 @@ class App extends Component {
       return sorted.map( s => {
         return (<Reference key={s.id} reference={s} editOn={this.editOn.bind(this)} 
                             user={this.state.user} focusId={this.state.focusId}
-                            refMounted={this.refMounted.bind(this)} />)
+                            refMounted={this.refMounted.bind(this)} 
+                            allRefs={this.state.currRefs}/>)
       });
     } else {
       return (<h2>Nothing here :(</h2>);
@@ -323,11 +333,6 @@ class App extends Component {
 
             </Panel>
           </div>
-          {
-            this.state.currRefNum !== this.state.totalRefNum ? 
-              (<div id="loading"><i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i></div>)
-              : ''
-          }
           <ul>{refs}</ul>
         </div>
         <div className="app-right-col"></div>
