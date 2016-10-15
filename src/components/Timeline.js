@@ -55,7 +55,6 @@ class Timeline extends Component {
     }
                 
     renderChart(newId, subject, datum) {   
-        console.log('rendering chart', datum);    
         fromToTimeline = new timeline(this.graphElement, newId, subject, datum, this.props.allRefs, this.props.reference.season);
     }
 

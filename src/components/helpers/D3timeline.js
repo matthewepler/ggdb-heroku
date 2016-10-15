@@ -93,14 +93,59 @@ class D3timeline {
             }
           })
           .style('fill', 'white')
-          .style('opacity', function(d) {
+          .style('stroke', "white")
+          .style('opacity', '0.30')
+          .attr('id', function(d) {
             if (datum.hasOwnProperty('timecode')) {
-              return thisDate.getTime() === self.parseDate(d.timecode).getTime() ? "1" : "0.3"
+              return thisDate.getTime() === self.parseDate(d.timecode).getTime() ? "focus" : ""
             } else if (datum.hasOwnProperty('year')) {
-              return thisDate.getTime() === new Date(d.refYear1).getTime() ? "1" : "0.3"
+              return thisDate.getTime() === new Date(d.refYear1).getTime() ? "focus" : ""
             }
           });
-          //.style('opacity', '0.30');    
+
+      // highlight the circle that represents this reference
+      // this is dumb to do it like this but it's the only way i could get it to work. see below}
+      dots.append('circle')
+          .attr('r', 8)
+          .style('fill', 'none')
+          .style('stroke', 'white')
+          .attr('transform', function(d) {
+            if (datum.hasOwnProperty('timecode')) {
+              const x = self.parseDate(d.timecode);
+              return `translate(${xScale(x)}, 0)`
+            } else if (datum.hasOwnProperty('year')) {
+              return `translate(${xScale(new Date(d.refYear1))}, 0)`
+            }
+          })
+          .attr('opacity', function(d) {
+            if (datum.hasOwnProperty('timecode')) {
+              return thisDate.getTime() === self.parseDate(d.timecode).getTime() ? "1" : "0"
+            } else if (datum.hasOwnProperty('year')) {
+              return thisDate.getTime() === new Date(d.refYear1).getTime() ? "1" : "0"
+            }
+          });
+      dots.append('line')
+          .attr('x1', '0')
+          .attr('y1', '7')
+          .attr('x2', '0')
+          .attr('y2', '25')
+          .style('stroke', 'white')
+          .style('stroke-width', '1')
+          .attr('transform', function(d) {
+            if (datum.hasOwnProperty('timecode')) {
+              const x = self.parseDate(d.timecode);
+              return `translate(${xScale(x)}, 0)`
+            } else if (datum.hasOwnProperty('year')) {
+              return `translate(${xScale(new Date(d.refYear1))}, 0)`
+            }
+          })
+          .attr('opacity', function(d) {
+            if (datum.hasOwnProperty('timecode')) {
+              return thisDate.getTime() === self.parseDate(d.timecode).getTime() ? "1" : "0"
+            } else if (datum.hasOwnProperty('year')) {
+              return thisDate.getTime() === new Date(d.refYear1).getTime() ? "1" : "0"
+            }
+          });
 
       dots.append('text')
           .attr('class', 'textDiv')
@@ -159,38 +204,39 @@ class D3timeline {
         this.parentNode.insertBefore(r, this);
       });
 
-      // d3.selectAll('circle').each(function(d) {
-      //   // if this circle matches the subject circle...
-      //   // or if the xScale return is the same for the xScale return of the datum <++
-      //   let x = null;
-      //   if (datum.hasOwnProperty('timecode')) {
-      //     if (d.timecode === datum.timecode) {
-      //       x = xScale(self.parseDate(datum.timecode));
-      //     }
-      //   } else if (datum.hasOwnProperty('year')) {
-      //     if (d.refYear1 === datum.year) {
-      //       x = xScale(new Date(datum.year));
-      //     }
-      //   }
-        
-      //   if (x !== null) {
-      //     const l = document.createElementNS("http://www.w3.org/2000/svg", 'line');
-      //     l.setAttribute('x1', x);
-      //     l.setAttribute('y1', '7');
-      //     l.setAttribute('x2', x);
-      //     l.setAttribute('y2', '25');
-      //     l.setAttribute('stroke', 'white');
-      //     l.setAttribute('stroke-width', '1');
-      //     this.parentNode.appendChild(l);
 
-      //     const c = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
-      //     c.setAttribute('cx', x);
-      //     c.setAttribute('cy', '0');
-      //     c.setAttribute('rx', '8');
-      //     c.setAttribute('ry', '8');
-      //     c.setAttribute('stroke', 'white');
-      //     c.setAttribute('fill', 'none');
-      //     this.parentNode.appendChild(c);
+      // if (datum.hasOwnProperty('timecode')) {
+      //         return thisDate.getTime() === self.parseDate(d.timecode).getTime() ? "1" : "0.3"
+      //       } else if (datum.hasOwnProperty('year')) {
+      //         return thisDate.getTime() === new Date(d.refYear1).getTime() ? "1" : "0.3"
+      //       }
+     // d3.select('#focus').call(function(selection) {
+        // if this circle matches the subject circle...
+        // or if the xScale return is the same for the xScale return of the datum <++
+        // let x = null;
+        // if (datum.hasOwnProperty('timecode')) {
+        //     x = xScale(self.parseDate(datum.timecode));
+        // } else if (datum.hasOwnProperty('year')) {
+        //     x = xScale(new Date(datum.year));
+        // }
+        
+        // if (x !== null) {
+        //   selection.append('line')
+        //             .attr('x1', x)
+        //             .attr('y1', '7')
+        //             .attr('x2', x)
+        //             .attr('y2', '25')
+        //             .style('stroke', 'white')
+        // /            .style('stroke-width', '1')
+
+          // const c = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+          // c.setAttribute('cx', x);
+          // c.setAttribute('cy', '0');
+          // c.setAttribute('rx', '8');
+          // c.setAttribute('ry', '8');
+          // c.setAttribute('stroke', 'white');
+          // c.setAttribute('fill', 'none');
+          // selection.append(c);
       //   }
       // });
 
