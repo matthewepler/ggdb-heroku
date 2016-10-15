@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Panel } from 'react-bootstrap';
 
 import Timeline from './Timeline';
+import StackedBar from './StackedBar';
 
 // stylesheets
 import '../assets/stylesheets/RefDetail.scss';
@@ -17,7 +18,7 @@ class RefDetail extends Component {
 			refDetailViz: null,
 			prevFromToVizElement: null,
 			prevRefDetailVizElement: null,
-			refDetailType: 'year',
+			refDetailType: 'category',
 		};
 	}
 
@@ -25,8 +26,8 @@ class RefDetail extends Component {
 		this.setState({
 			prevFromToVizElement: this.fromElement,
 			fromToViz: this.props.reference.from,
-			prevRefDetailVizElement: this.yearElement,
-			refDetailViz: this.props.reference.refYear1,
+			prevRefDetailVizElement: this.categoryElement,
+			refDetailViz: this.props.reference.category,
 		});
 	}
 
@@ -49,10 +50,10 @@ class RefDetail extends Component {
 		event.currentTarget.classList.toggle('outline');
 
 		let viz, type = '';
-		if (event.currentTarget.classList.value.includes('category') >= 0 ) {
+		if (event.currentTarget.classList.value.includes('category') === true) {
 			viz = this.props.reference.category;
 			type = 'category';
-		} else if (event.currentTarget.classList.value.includes('year') >= 0 ) {
+		} else if (event.currentTarget.classList.value.includes('year') === true ) {
 			viz = this.props.reference.refYear1;
 			type = 'year';
 		}
@@ -139,19 +140,19 @@ class RefDetail extends Component {
 						</div> 	
 						<div className="ref-tags">
 							<ul>
-								<li className="button-link category" 
+								<li className="button-link category outline" 
 									ref={c=> this.categoryElement = c}
 									onClick={this.refDetailClick.bind(this)}
 									dangerouslySetInnerHTML={{__html: this.props.reference.refCategory}}>
 								</li>
 								{ 
 									this.props.reference.refYear2.length >= 3 ? 
-									<li className="button-link year outline" 
+									<li className="button-link year" 
 										ref={c=> this.yearElement = c}
 										onClick={this.refDetailClick.bind(this)} 
 										dangerouslySetInnerHTML={{__html: `${this.props.reference.refYear1} - ${this.props.reference.refYear2}`}}>
 									</li> 
-									: <li className="button-link year outline" 
+									: <li className="button-link year" 
 										    ref={c=> this.yearElement = c}
 											onClick={this.refDetailClick.bind(this)} 
 											dangerouslySetInnerHTML={{__html: this.props.reference.refYear1}}>
@@ -177,11 +178,16 @@ class RefDetail extends Component {
 					</div>
 				</div> 
 				{
-					this.props.open ? (<div className="ref-detail-viz-wrapper">
-										<Timeline type={this.state.refDetailType} subject={this.state.refDetailViz} reference={this.props.reference} 
-											allRefs={this.props.allRefs} default={this.props.reference.refYear1} />
-										<p className="from-to-graph-info">{`season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
-									  </div>)
+					this.props.open ? this.state.refDetailType === 'category' ?
+					 					(<div>
+					 						<StackedBar allRefs={this.props.allRefs} subject={this.categoryElement.innerHTML}/>
+					 						<p className="from-to-graph-info">Categories - {`season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
+					 					</div>)
+										: (<div className="ref-detail-viz-wrapper">
+											<Timeline type={this.state.refDetailType} subject={this.state.refDetailViz} reference={this.props.reference} 
+												allRefs={this.props.allRefs} default={this.props.reference.refYear1} />
+											<p className="from-to-graph-info">{`season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
+										  </div>)
 									: ''
 				}
 

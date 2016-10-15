@@ -147,6 +147,7 @@ class D3timeline {
             }
           });
 
+
       dots.append('text')
           .attr('class', 'textDiv')
           .text(function(d) {

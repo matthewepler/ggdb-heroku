@@ -25,6 +25,10 @@ class Timeline extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.removeChart();
+    }
+
     createChart(subject, id) {
         this.removeChart();
         const newID = this.createElementId(subject, id);
