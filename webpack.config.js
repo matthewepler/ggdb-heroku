@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-//var autoprefixer = require('autoprefixer');
+var autoprefixer = require('autoprefixer');
 var path = require('path');
 
 module.exports = {
@@ -29,7 +29,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
-  // postcss: [ 
-  //   autoprefixer({ browsers: ['last 2 versions'] }) 
-  // ],
+  postcss: [ 
+    autoprefixer({ browsers: ['last 2 versions'] }) 
+  ],
 };
