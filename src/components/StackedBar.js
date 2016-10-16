@@ -17,7 +17,7 @@ class StackedBar extends Component {
 
     componentDidMount() {
         this.removeChart();
-        const newId = "uniqueBarChartId";
+        const newId = String(new Date().getTime());
         this.setState({ elementId: newId}); 
         this.renderChart(newId);
     }

@@ -1,23 +1,16 @@
 # TO DO
-* try new layout (branch)
-    ref detail, screengrab, data graphs (x2)
-* put refDeatail layout the way it was
-
-
-* graph switching
-
-* when clicking on a graph element, change the window URL + scroll
-
-* graph allows for 00:00:00 format. Does timecode and RefDetail? && Form?
- - update validate.js
- - if episode=8, add 00: to timecode at beginning
-
-* using query s2e1, I'm still getting all the refs from s1e1 loading...
-
 * check responsive layout for everything.
- - add auto-prefixing
+ - add auto-prefixing, post-css
+ - try a different font
+ - test on phone
+ - linear gradient issue on mobile safari?
+
 * finish people seeding.
  - if no match, put smiley
+
+
+* testing
+ - add new stuff (use hour format)
 
 * add page "Contributor's Reference Guide" http://gg-db.com/guide.
 * add page "About"
@@ -25,16 +18,22 @@
 
 * API - return JSON with keywords? - quick tutorial or read-up suggested.
 
+* fix redirects...?
+
 * plan for contributors madness!
+* plant.
 
 * ES Lint
+* clean README
 
 
 ## NON-CRITICAL
 * lighten lorelai
-* links for each entry: http://stackoverflow.com/questions/13266746/scroll-jump-to-id-without-jquery
+* all links (dots, selector 'go' button, etc.) should use the app to fetch data and reload components instead of reload. update browser history:
+		- https://developer.mozilla.org/en-US/docs/Web/API/History_API
 * add drag-and drop: https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
 * filter for seeing all mentions by a single character, in a single location
+
 
 
 ## GUIDE
@@ -68,6 +67,8 @@ or "Oprah" -> Oprah (Winfrey) is a popular talk show host."
 ## Dev Notes
 When you first run the app, you may get a warning about 'Synchronous XMLHttpRequest...' Don't worry. It's part of how Firebase
 works and is addressed in this [StackOverflow post](http://stackoverflow.com/questions/32467144/firebase-synchronous-xmlhttprequest-deprecated).
+
+Remeber when you ejected the create-react-app becauase you wanted SCSS? Maybe just try using post-css loader, as shown in the "Webpack" usage section of Autoprefixer npm page: shttps://www.npmjs.com/package/autoprefixer (loader: "style-loader!css-loader!postcss-loader")
 
 ## At launch time
 allow use of nav dropdown

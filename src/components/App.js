@@ -45,7 +45,7 @@ class App extends Component {
          self.setState({
                         season:  this.props.location.query.season, 
                         episode: this.props.location.query.episode,
-                        focusId: this.props.location.query.id,
+                        focusId: this.props.location.query.id.replace('#', ''),
                       });
        });
     } else if (this.props.location.query.season && this.props.location.query.episode) {
@@ -92,10 +92,18 @@ class App extends Component {
       for (let obj in refs) {
         currRefs.push(refs[obj]);
       }
-      this.setState({
-        currRefs,
-        totalRefNum: Object.keys(refs).length,
-      });
+      if (refs) {
+        this.setState({
+          currRefs,
+          totalRefNum: Object.keys(refs).length,
+        });
+      } else {
+        this.setState({
+          currRefs,
+          totalRefNum: 0,
+        });
+      }
+      
     });
 
     dbRef.on('child_added', data => {
@@ -154,11 +162,7 @@ class App extends Component {
   }
 
   handleGoClick(e) {
-    this.setState({
-      season: this.season.value,
-      episode: this.episode.value,
-      selectorOpen: false,
-    });
+    window.location = `http://localhost:5000/?season=${this.season.value}&episode=${this.episode.value}`
   }
 
   editOn(data) {
@@ -333,7 +337,9 @@ class App extends Component {
 
             </Panel>
           </div>
-          <ul>{refs}</ul>
+          {
+            this.state.totalRefNum === 0 ? <p id="nothing-here">Nothing here yet...</p> : <ul>{refs}</ul>
+          }
         </div>
         <div className="app-right-col"></div>
       </div>

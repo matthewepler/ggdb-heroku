@@ -44,11 +44,11 @@ export default function(data) {
 	validData.episode.value = data.episode;
 
 	// console.log("timecode", data.timecode);
-	if (/^([0-9][0-9]?)\:([0-9][0-9])$/.test(data.timecode)) {
+	if (/^([0-9][0-9]?)\:([0-9][0-9])$/.test(data.timecode) || /^([0-9][0-9]?)\:([0-9][0-9])\:([0-9][0-9])$/.test(data.timecode)) {
 		validData.timecode.value = data.timecode;
 	} else {
 		validData.timecode.value = false;
-		validData.timecode.msg = "Timecode should be three or four numbers seperated by a colon - 09:18 or 9:18."
+		validData.timecode.msg = "Timecode: check format. (Seasons 1-7 = ##:##, season 8 = ##:##:##"
 	}
 
 	// console.log("screengrab", data.screengrab);
@@ -90,7 +90,7 @@ export default function(data) {
 		validData.refThumb.value = data.refThumb;
 	} else {
 		validData.refThumb.value = false;
-		validData.refThumb.msg = "Please upload a thumbnail image that is a .jpg, .jpeg, .png, or .gif."
+		validData.refThumb.msg = "Thumbnail image: make sure file ends with .jpg, .jpeg, .png, or .gif."
 	}
 
 	// console.log("refName", data.refName);
@@ -121,7 +121,7 @@ export default function(data) {
 			validData.refIs.value = data.refIs.charAt(0).toLowerCase() + data.refIs.slice(1); // force lower-case at char 0
 		} else {
 			validData.refIs.value = false;
-			validData.refIs.msg = "This should start with is/was or are/were";
+			validData.refIs.msg = "Please provide a description of the person, place, or thing. It should start with \"is,\" \"was,\" \"are\", or \"were.\"";
 		}
 	} else {
 			validData.refIs.value = false;

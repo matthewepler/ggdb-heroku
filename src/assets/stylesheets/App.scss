@@ -25,8 +25,7 @@ $sm-circle-size: 4rem;
 
 body {
   font-family: sans-serif;
-  background-color: #315481;
-  background-image: linear-gradient(to bottom, darkturquoise, $base-color-lt  160%);
+  background: linear-gradient(to bottom, darkturquoise, $base-color-lt  160%);
   background-attachment: fixed;
   font-size: 14px;
   position: absolute;
@@ -34,6 +33,15 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
+
+  // background: #ffad26; /* Old browsers */
+  // background: -moz-linear-gradient(top,  #ffad26 0%, #fea026 50%, #ff8b00 51%, #ff7701 100%); /* FF3.6+ */
+  // background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffad26), color-stop(50%,#fea026), color-stop(51%,#ff8b00), color-stop(100%,#ff7701)); /* Chrome,Safari4+ */
+  // background: -webkit-linear-gradient(top,  #ffad26 0%,#fea026 50%,#ff8b00 51%,#ff7701 100%); /* Chrome10+,Safari5.1+ */
+  // background: -o-linear-gradient(top,  #ffad26 0%,#fea026 50%,#ff8b00 51%,#ff7701 100%); /* Opera 11.10+ */
+  // background: -ms-linear-gradient(top,  #ffad26 0%,#fea026 50%,#ff8b00 51%,#ff7701 100%); /* IE10+ */
+  // background: linear-gradient(to bottom,  #ffad26 0%,#fea026 50%,#ff8b00 51%,#ff7701 100%); /* W3C */
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffad26', endColorstr='#ff7701',GradientType=0 ); /* IE6-9 */
  }
 
  .app-container {
@@ -43,7 +51,15 @@ body {
 
   .app-left-col {
     flex: 1;
-    @include forSmallScreens($sm-screen) {
+    @include forSmallScreens($med-screen) {
+      flex: 0;
+    }
+    max-width: 15%;
+  }
+
+  .app-right-col {
+    flex: 1;
+    @include forSmallScreens($med-screen) {
       flex: 0;
     }
     max-width: 15%;
@@ -70,10 +86,16 @@ body {
 
       p.subtitle {
         color: white;
-        font-family: Raleway;
+        font-family: Source Sans Pro;
         font-size: 2rem;
-        font-weight: 200;
+        font-weight: 400;
         letter-spacing: 0.5px;
+        margin: 0 auto;
+        text-align: center;
+        @include forSmallScreens($med-screen) {
+          padding: 0 70px;
+        }
+        -webkit-font-smoothing: antialiased;
         width: 100%;
 
         span a {
@@ -96,7 +118,7 @@ body {
       .panel-title {
         width: 100%;
 
-        @include forSmallScreens($sm-screen) {
+        @include forSmallScreens($med-screen) {
           margin: 0;
         }
 
@@ -182,12 +204,12 @@ body {
     }
 
     div.toolbar-wrapper {
-      @include forSmallScreens($sm-screen) {
+      @include forSmallScreens($med-screen) {
         margin: 0;
         text-align: center;
       }
       button.addButton {
-        @include forSmallScreens($sm-screen) {
+        @include forSmallScreens($med-screen) {
           margin: 0;
           width: 90%;
         }
@@ -195,13 +217,6 @@ body {
     }
   }
 
-  .app-right-col {
-    flex: 1;
-    @include forSmallScreens($sm-screen) {
-      flex: 0;
-    }
-    max-width: 15%;
-  }
 }
 
 .btn:focus {
@@ -280,4 +295,13 @@ body {
   margin: 0 auto;
   margin-top: 2rem;
   text-align: center;
+ }
+
+ #nothing-here {
+  color: darslategrey;
+  font-family: Source Sans Pro;
+  font-size: 16px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 9rem;
  }

@@ -31,8 +31,8 @@ class Timeline extends Component {
 
     createChart(subject, id) {
         this.removeChart();
-        const newID = this.createElementId(subject, id);
-        this.setState({ elementId: newID}); 
+        const newId = String(new Date().getTime());
+        this.setState({ elementId: newId }); 
 
         let datum = {};
         if (this.props.type === "timecode") {
@@ -40,7 +40,7 @@ class Timeline extends Component {
         } else if (this.props.type === "year") {
             datum = {"year" : this.props.reference.refYear1};
         }
-        this.renderChart(newID, subject, datum);
+        this.renderChart(newId, subject, datum);
     }
 
     removeChart() {
@@ -49,16 +49,9 @@ class Timeline extends Component {
             d3.select(document.getElementById(this.state.elementId).remove());
         }
     }
-
-    createElementId(str, id) {
-        if (this.props.type === 'timecode') {
-            return String(str.replace(' ', '').toLowerCase() + id);
-        } else if (this.props.type === 'year') {
-            return String(str + id);
-        }
-    }
                 
-    renderChart(newId, subject, datum) {   
+    renderChart(newId, subject, datum) {  
+        console.log('rendering chart', newId);
         fromToTimeline = new timeline(this.graphElement, newId, subject, datum, this.props.allRefs, this.props.reference.season);
     }
 
