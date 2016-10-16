@@ -1,7 +1,4 @@
 # TO DO
-* check responsive layout for everything.
- - add auto-prefixing, post-css
- - try a different font
  - test on phone
  - linear gradient issue on mobile safari?
 
