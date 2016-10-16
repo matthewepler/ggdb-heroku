@@ -1,11 +1,8 @@
 # TO DO
- - test on phone
- - linear gradient issue on mobile safari?
- - alignment of timecode on mobile
+ - alignment of timecode on mobile?
 
 * finish people seeding.
  - if no match, put smiley
-
 
 * testing
  - add new stuff (use hour format)
