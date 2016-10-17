@@ -2,18 +2,19 @@ import _ from 'underscore';
 
 class D3timeline {
 
-  constructor(element, newId, subject, datum, allRefs, season) { 
+  constructor(element, newId, subject, datum, allRefs, season, refId) { 
   // this.fromToGraph, newId, subject, datum, this.props.allRefs , this.props.reference.season
     //console.log('constructing new chart', element, newId, subject, timecode);
     //console.log(allRefs);
     //console.log('datum', datum);
     //console.log(subject);
+    console.log(document.getElementById(String(parseInt(refId)+1)).offsetWidth);
 
     // VIZ DIMENSIONS + MOUNTING
     const width = 590;
-    const height = 100;
+    const height = 115;
     const xPadding = 10;
-    const yPadding = 35;
+    const yPadding = 50;
 
     let viz = d3.select(element).append('svg')
       .attr('id', newId)
@@ -25,7 +26,6 @@ class D3timeline {
       .attr('id', 'viz')
       .attr('transform', `translate(${xPadding}, ${yPadding})`);
   
-   
    // PREP DATA
    let vizRefs = [];
    let xMin, xMax = null;
@@ -91,7 +91,7 @@ class D3timeline {
      }
 
      dots.append('circle')
-          .attr('r', 8)
+          .attr('r', 12)
           .attr('transform', function(d) {
             if (datum.hasOwnProperty('timecode')) {
               const x = self.parseDate(d.timecode);
@@ -114,7 +114,7 @@ class D3timeline {
       // highlight the circle that represents this reference
       // this is dumb to do it like this but it's the only way i could get it to work. see below}
       dots.append('circle')
-          .attr('r', 8)
+          .attr('r', 12)
           .style('fill', 'none')
           .style('stroke', 'white')
           .attr('transform', function(d) {
@@ -134,7 +134,7 @@ class D3timeline {
           });
       dots.append('line')
           .attr('x1', '0')
-          .attr('y1', '7')
+          .attr('y1', '11')
           .attr('x2', '0')
           .attr('y2', '25')
           .style('stroke', 'white')
@@ -185,7 +185,7 @@ class D3timeline {
               } else if (datum.hasOwnProperty('year')) {
                 x = new Date(d.refYear1);
               }
-              return `translate(${xScale(x)}px, -20px)`
+              return `translate(${xScale(x)}px, -25px)`
             });   
 
       viz.selectAll('g > text.textDiv').each(function(d) {
@@ -195,7 +195,7 @@ class D3timeline {
         var barWidth = this.innerHTML.length * 6.75 + padding;
         r.setAttributeNS(null, 'width', barWidth);
         r.setAttributeNS(null, 'height', '25');
-        r.setAttributeNS(null, 'y', '-38');
+        r.setAttributeNS(null, 'y', '-41');
         let x = null;
         if (datum.hasOwnProperty('timecode')) {
           x = self.parseDate(d.timecode); 

@@ -74,10 +74,10 @@ class RefDetail extends Component {
 	render() {
 		return (
 			<div className="ref-detail-wrapper">
-				<div className="screengrab">
+				<div className="screengrab" id={this.props.reference.id+1} ref={c => this.screengrabElement = c}>
 					<img src={this.props.reference.screengrab} alt="screengrab" />
 					
-					<div className="image-descrip">
+					<div className="image-descrip" >
 						<p>{this.props.reference.description} </p>
 					</div>
 					
@@ -111,7 +111,7 @@ class RefDetail extends Component {
 					{
 						this.props.open ? (<div>
 											<Timeline type="timecode" subject={this.state.fromToViz} reference={this.props.reference} 
-												default={this.props.reference.from} allRefs={this.props.allRefs} />
+												default={this.props.reference.from} allRefs={this.props.allRefs}/>
 											<p className="from-to-graph-info">{`${this.state.fromToViz} - season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
 										  </div>)
 										: ''

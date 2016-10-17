@@ -12,23 +12,23 @@ $highlight: white;
 	margin-left: 1rem;
 	text-align: center;
 	@include forLargeScreens($lg-screen) {
-		padding-left: 19rem;
+		padding-left: 18.5rem;
 	}
 
 	p {
 		color: $base-text;
-		font-size: 13pt;
+		font-size: 1.7rem;
 	}
 
 	.from-to-graph-info {
-		font-size: 12px;
+		font-size: 1.3rem;
 		text-align: right;
 	}
 
 	.screengrab {
 		text-align: left;
 		img {
-		 max-width: 775px;
+		 max-width: 675px;
 			@include forSmallScreens($med-screen) {
 				max-width:100%;
 			}
