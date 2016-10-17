@@ -1,4 +1,5 @@
 //-- VARIABLES --//
+$lg-screen: 1081;
 $med-screen: 1079;
 $sm-screen:  640;
 $base-color-lt: lighten(#D3F0F4, 10%); //#E6F9FF
@@ -58,7 +59,7 @@ body {
 
   .app-mid-col {
     flex: 2;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     width: 100%;
 

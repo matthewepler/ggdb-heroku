@@ -9,9 +9,10 @@ $highlight: white;
 	flex-direction: column;
 	font-family: 'Source Sans Pro', sans-serif;
 	margin: 0 auto;
+	margin-left: 1rem;
 	text-align: center;
-	@include forLargeScreens($med-screen) {
-		padding-left: 4 * $sm-circle-size + 1.5rem;
+	@include forLargeScreens($lg-screen) {
+		padding-left: 19rem;
 	}
 
 	p {
@@ -27,9 +28,9 @@ $highlight: white;
 	.screengrab {
 		text-align: left;
 		img {
-			max-width: 595px;
-			@include forSmallScreens($sm-screen) {
-				//
+		 max-width: 775px;
+			@include forSmallScreens($med-screen) {
+				max-width: 613px;
 			}
 		}
 
