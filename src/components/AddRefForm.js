@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { Modal, Button } from 'react-bootstrap';
 import validate from './helpers/validate.js'; 
+import firebase from 'firebase';
 import _ from 'underscore'; 
 
 // api
@@ -19,17 +21,66 @@ class AddRefForm extends Component {
 			currScreengrab: null,
 			currRefThumb: null,
 			errors: null,
+			storageRef: firebase.storage().ref(),
+			validData: null,
+			uploading: false,
+			showModal: false,
+			screengrabURL: null,
+			refThumbURL: null,
+			editing: false,
+			counter: 0,
 		};
 	}
 
 	componentDidMount() {
-		// const screengrabBox = this.screengrabElement.getBoundingClientRect();
-		// this.screengrabUploadElement.style.top = ((screengrabBox.height/2) * -1) - 30 + "px";
-		// this.screengrabUploadElement.style.left= (screengrabBox.width/2) - 35 + "px";
-		
-		// const refThumbBox = this.refThumbElement.getBoundingClientRect();
-		// this.refThumbUploadElement.style.top = ((refThumbBox.height/2) * -1) - 25 + "px";
-		// this.refThumbUploadElement.style.left= (refThumbBox.width/2) - 85 + "px";
+		console.log(this.props.closeForm);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.editData != null) {
+
+			this.season.value = nextProps.editData.season;
+			this.episode.value = nextProps.editData.episode;
+			this.quote.value = nextProps.editData.quote;
+			this.timecode.value = nextProps.editData.timecode;
+			this.screengrabElement.src = nextProps.editData.screengrab;
+			this.from.value = nextProps.editData.from;
+			this.to.value = nextProps.editData.to;
+			this.location.value = nextProps.editData.location;
+			this.description.value = nextProps.editData.description;
+			this.refThumbElement.src = nextProps.editData.refThumb;
+			this.refName.value = nextProps.editData.refName;
+			this.refIs.value = nextProps.editData.refIs;
+			this.refCategory.value = nextProps.editData.refCategory;
+			this.refYear1.value = nextProps.editData.refYear1;
+			
+			if (nextProps.editData.refYear2 == ' ') { // default value if left blank
+				this.refYear.value = '';
+			} else {
+				this.refYear2.value = nextProps.editData.refYear2;
+			}
+	
+			this.wikipedia.value = nextProps.editData.wikipedia;
+			this.images.value = nextProps.editData.images;
+			this.video.value = nextProps.editData.video;
+			this.refNotes.value		 = nextProps.editData.refNotes;
+
+			this.setState({
+				currScreengrab: null,
+				currRefThumb: null,
+				errors: null,
+				storageRef: firebase.storage().ref(),
+				validData: null,
+				uploading: false,
+				showModal: false,
+				screengrabURL: nextProps.editData.screengrab,
+				refThumbURL: nextProps.editData.refThumb,
+				editing: true,
+				counter: 0,
+			});
+		} else {
+			this.clearForm();
+		}
 	}
 
 	uploadChange(e) {
@@ -40,15 +91,23 @@ class AddRefForm extends Component {
 			reader.readAsDataURL(file);
 			reader.onload = e => {
 				if (id.includes('ref')) { 
-					this.setState({ currRefThumb: e.target.result });
 					this.refThumbElement.src = e.target.result;
+					this.setState({ 
+						currRefThumb: e.target.result,
+						refThumbURL: null, 
+					});
 				} else if (id.includes('screengrab')) {
-					this.setState({ currScreengrab: e.target.result });
 					this.screengrabElement.src = e.target.result;
+					this.setState({ 
+						currScreengrab: e.target.result,
+						screengrabURL: null,
+						});
 				}
 			}
 		}
+	
 	}
+
 
 	fromChange(e) {
 		const name = e.target.value.replace(/^\s+|\s+$|\s|\./g, '').toLowerCase();
@@ -61,17 +120,32 @@ class AddRefForm extends Component {
 
 	formSubmit(e) {
 		e.preventDefault();
+		this.setState({erros: null});
+
+
 		let formData = {};
+
+
+		if (this.state.screengrabURL) {
+			formData.screengrab = this.state.screengrabURL;
+		} else {
+			formData.screengrab = this.screengrabInput.value;
+		}
+
+		if (this.state.refThumbURL) {
+			formData.refThumb = this.state.refThumbURL;
+		} else {
+			formData.refThumb = this.refThumb.value;
+		}
+
 		formData.season = this.season.value;
 		formData.episode = this.episode.value;
 		formData.quote =  this.quote.value;
 		formData.timecode =  this.timecode.value;
-		formData.screengrab =  this.screengrab.value;
 		formData.from =  this.from.value;
 		formData.to =  this.to.value;
 		formData.location =  this.location.value;
 		formData.description = this.description.value;
-		formData.refThumb =  this.refThumb.value;
 		formData.refName =  this.refName.value;
 		formData.refIs =  this.refIs.value;
 		formData.refCategory =  this.refCategory.value;
@@ -87,34 +161,201 @@ class AddRefForm extends Component {
 		let errors = [];
 		for (let obj in validData) {
 			if (validData[obj].value === false) {
-				// console.log("input error: ", obj);
 				// console.log(validData[obj].msg);
 				if (obj === 'screengrab') {
-					this.setState({currScreengrab: null});
+					if (this.state.editing) {
+						this.setState({currScreengrab: screengrabURL});
+					} else {
+						this.setState({currScreengrab: null});
+					}
 					this.screengrabElement.src = "";
 				}
 
 				if (obj === 'refThumb') {
-					this.setState({currRefThumb: null});
+					if (this.state.editing) {
+						this.setState({currRefThumb: refThumbURL});
+					} else {
+						this.setState({currRefThumb: null});
+					}
 					this.refThumbElement.src = "";
 				}
 
 				errors.push(validData[obj].msg);
 			}
 		}
-		
 		if (errors.length > 0) {
 			this.setState({errors});
+			this.openModal();
 		} else {
-			this.setState({errors: null});
-			this.sendToFirebase(validData);
+			this.setState({
+				errors: null, 
+			});
+
+			// here, it's all about currScreenbrab and currRefThumb
+			// if they're set it's because a swap was made
+			// if they're not and we're already here (no errors), we're in edit mode and 
+			// we dont' want to switch them out
+
+			if (this.state.editing) {
+				// if there are values for curr's, then upload them.
+				if (this.state.currScreengrab != null || this.state.currRefThumb != null) {
+					if( this.state.currScreengrab != null) {
+						this.uploadImage(this.screengrabInput.files[0], 'screengrab');
+					}
+					if (this.state.currRefThumb != null) {
+						this.uploadImage(this.refThumb.files[0], 'thumb');
+					}
+				}
+				//console.log(this.state.screengrabURL, this.state.refThumbURL);
+				this.sendToFirebase(validData);
+			} else {
+				this.uploadImage(this.screengrabInput.files[0], 'screengrab');
+				this.uploadImage(this.refThumb.files[0], 'thumb');
+				this.sendToFirebase(validData);
+			}
 		}
 	}
 
-	sendToFirebase(data) {
-		// close form (Send the function to do that from parent component)
-		//var storage = firebase.storage();
-		console.log("All good! Sending validData to Firebase");
+	// to do - delete this.state.uploading if not used
+	uploadImage(file, type) {
+		this.setState({uploading: true});
+		var url = '';
+		const dateStamp = new Date();
+	    const filename = dateStamp.getTime();
+		var uploadTask = this.state.storageRef.child('images/' + filename).put(file);
+		var self = this;
+		uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, null, 
+			function(error) {
+				console.log("upload error (" + file.name + ": ", error.code);
+				var errors = this.state.errors;
+				if (type === 'screengrab') {
+					self.setState({screengrabURL: false});
+					errors.push("There was an error uploading your screengrab. \
+						Please check your file and try again.");
+					self.setState({errors});
+					this.openModal();
+				} else if (type === 'thumb') {
+					self.setState({thumbURL: false});
+					errors.push("There was an error uploading your reference \
+						image. Please check your file and try again.");
+					self.setState({errors});
+					this.openModal();
+				}
+			},
+			function() {
+				url = uploadTask.snapshot.downloadURL;
+				console.log('url created: ', url)
+				if (type === 'screengrab') {
+					self.setState({screengrabURL: url});
+				} else if (type === 'thumb') {
+					self.setState({refThumbURL: url});
+				}
+			});
+	}
+
+	sendToFirebase(validData) {
+		if (this.state.screengrabURL && this.state.refThumbURL) {
+			this.setState({uploading: false});
+			
+			let cleanData = {};
+
+			for (let obj in validData) {
+				cleanData[obj] = validData[obj].value;
+				if (this.state.editing) {
+					cleanData.id = this.props.editData.id;
+					cleanData.screengrab = this.state.screengrabURL;
+					cleanData.refThumb = this.state.refThumbURL;
+				}
+			}
+
+			// editSubmit is being called before the upload is done, 
+			// which means this test at the top is not keeping us out
+			// which means the URLs are true when I think they're not. 
+
+    		const self = this;
+    		if (self.state.editing === true && self.props.editData != null) {
+    			firebase.database().ref('refs/' + cleanData.season + "/" 
+				+ cleanData.episode + "/" + cleanData.id).update(cleanData).then(
+				function() {
+					//console.log('firebase save success');
+					self.props.editSubmit(cleanData);
+					self.formClose(cleanData.season, cleanData.episode);
+				});
+    		} else {
+    			const dateStamp = new Date();
+	    		const filename = dateStamp.getTime();
+	    		cleanData.id = filename;
+	    		cleanData.screengrab = this.state.screengrabURL;
+				cleanData.refThumb = this.state.refThumbURL;
+
+				firebase.database().ref('refs/' + cleanData.season + "/" 
+					+ cleanData.episode + "/" + filename).set(cleanData).then(
+					function() {
+						//console.log('firebase save success');
+						self.formClose(cleanData.season, cleanData.episode);
+					});
+			}	
+		} else {
+			//console.log('waiting...'); // hold for image upload to complete
+			const self = this;
+			setTimeout(function() {
+				self.sendToFirebase(validData);
+			}, 500);
+		}		
+	}
+
+	formClose(season, episode) {
+		this.setState({errors: null});
+		this.props.formClose(season, episode);
+		this.state.currScreengrab = null;
+		this.state.currRefThumb = null;
+		this.state.screengrabURL = null;
+		this.state.refThumbURL = null;
+		this.clearForm(season, episode);
+		this.setState({editing: false});
+	}
+
+	closeModal() {
+        this.setState({ showModal: false });
+    }
+
+ 	openModal() {
+    	this.setState({ showModal: true });
+  	}
+	
+	clearForm(season, episode) {
+		if (season && episode) {
+			this.season.value = season;
+			this.episode.value = episode;
+		} else {
+			this.season.value = '1';
+			this.episode.value = '1';
+		}
+
+		this.currPersonThumb.src = "assets/img/people/smiley.png";
+		this.screengrabElement.src = "";
+		this.refThumbElement.src = "";
+		this.quote.value = '';
+		this.timecode.value = '';
+		this.screengrabInput.value = '';
+		this.from.value = 'Rory Gilmore';
+		this.to.value = 'Lorelai Gilmore';
+		this.location.value = 'Luke\'s Diner';
+		this.description.value = '';
+		this.refThumb.value = '';
+		this.refName.value = '';
+		this.refIs.value = '';
+		this.refCategory.value = 'Brand';
+		this.refYear1.value = '';
+		this.refYear2.value = '';
+		this.wikipedia.value = '';
+		this.images.value = '';
+		this.video.value = '';
+		this.refNotes.value = '';
+	}
+
+	handleCancel() {
+		this.formClose(this.season.value, this.episode.value);
 	}
 
 
@@ -122,8 +363,16 @@ class AddRefForm extends Component {
 		return (
 			<div className="add-ref-form-wrapper">
 
+			<div className="uploading">
+				{this.state.uploading ? 
+					<div className="uploading-modal">
+						<i className="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i> 
+					</div>
+					: ''}
+			</div>
+
 			<div className="submit-error">
-				{this.state.errors === null ? "" : this.state.errors.map( e => (<p>{e}</p>))}
+				{this.state.errors === null ? "" : this.state.errors.map( (e, index) => (<p key={index}>{e}</p>))}
 			</div>
 
 			<form onSubmit={this.formSubmit.bind(this)}>
@@ -141,12 +390,8 @@ class AddRefForm extends Component {
 					<div className="rf-screengrab">
 						<div className="rf-screengrab-input">
 							<img className={this.state.currScreengrab === null ? 'empty-screengrab' : 'user-screengrab'} src="" ref={c => this.screengrabElement = c}/>
-							{
-								this.state.currScreengrab === null ? 
-								<label htmlFor="screengrab-input" ref={c => this.screengrabUploadElement = c}><i className="fa fa-arrow-circle-up" aria-hidden="true"></i><br/>screengrab</label>
-								: ''
-							}
-							<input type="file" id="screengrab-input" ref={c => this.screengrab = c} onChange={this.uploadChange.bind(this)}/>
+							<label htmlFor="screengrab-input" id="screengrab-label-edit" ref={c => this.screengrabUploadElement = c} ><i className="fa fa-arrow-circle-up" aria-hidden="true"></i><br/>screengrab</label>
+							<input type="file" id="screengrab-input" ref={c => this.screengrabInput = c} onChange={this.uploadChange.bind(this)}/>
 						</div>
 						<div className="rf-time">
 							<span className="season-episode">
@@ -175,8 +420,12 @@ class AddRefForm extends Component {
 								<span className="rf-button-link from">
 									<select className="rf-from-input" ref={c => this.from = c} onChange={this.fromChange.bind(this)} >
 							  		{characters.map( (c, index) => {
-							  					return <option value={c} key={index}> {c} </option> 
-							  			})}
+							  			if (c === "Rory Gilmore") {
+							  				return <option value={c} key={index} selected> {c} </option> 
+							  			} else {
+							  				return <option value={c} key={index}> {c} </option> 
+							  			}
+						  			})}
 									</select>
 								</span>
 							</div>
@@ -205,7 +454,7 @@ class AddRefForm extends Component {
 									<span className="rf-button-link location" >
 										<select className="rf-location-input" ref={c => this.location = c}>
 											{locations.map( (l, index) => {
-												if (l === "Lorelai's House") { 
+												if (l === "Luke's Diner") { 
 								  					return <option value={l} key={index} selected> {l} </option> 
 								  				} else {
 								  					return <option value={l} key={index}> {l} </option> 
@@ -224,12 +473,8 @@ class AddRefForm extends Component {
 
 					<div className="rf-ref-detail">
 						<div className="rf-ref-thumb">
-							<img className={this.state.currRefThumb === null ? 'empty-refThumb' : ''} src="" ref={c => this.refThumbElement = c}/>
-							{
-								this.state.currRefThumb === null ? 
-								<label htmlFor="ref-thumb-input" ref={c => this.refThumbUploadElement = c}><i className="fa fa-arrow-circle-up" aria-hidden="true"></i><br/>image</label>
-								: ''
-							}
+							<img className={this.state.currRefThumb === null && !this.state.editing ? 'empty-refThumb' : ''} src="" ref={c => this.refThumbElement = c}/>
+							<label htmlFor="ref-thumb-input" id="screengrab-thumb-edit" ref={c => this.refThumbUploadElement = c} ><i className="fa fa-arrow-circle-up" aria-hidden="true"></i><br/>pic</label>
 							<input type="file" id="ref-thumb-input" ref={c => this.refThumb = c}onChange={this.uploadChange.bind(this)}/>
 						</div>
 						<div className="rf-ref-items">
@@ -278,9 +523,21 @@ class AddRefForm extends Component {
 						</div>
 					</div> 
 					<div className="submit-error">
-						{this.state.errors === null ? "" : <p>Eek, errors! Please see above for details.</p>}
+						{this.state.errors === null ? "" : 
+						<Modal className="error-modal" show={this.state.showModal} onHide={this.closeModal.bind(this)}>
+							<Modal.Header closeButton>
+			          			<Modal.Title>Eek, errors! </Modal.Title>
+			            	</Modal.Header>
+			            	<Modal.Body>
+								<p>Please see details at the top of the form.</p>
+							</Modal.Body>
+							<Modal.Footer>
+					           <Button onClick={this.closeModal.bind(this)}>Close</Button>
+					        </Modal.Footer>
+						</Modal>}
 					</div>
-					<input className="submit-button" type="submit" value="Submit"/>
+					<input id="submit-button" type="submit" value="Submit"/>
+					<div id="cancel-button" onClick={this.handleCancel.bind(this)}>Cancel</div>
 				</div> 
 			</form>
 			</div> 

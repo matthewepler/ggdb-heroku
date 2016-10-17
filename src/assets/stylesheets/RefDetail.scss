@@ -17,14 +17,21 @@ $highlight: white;
 		font-size: 13pt;
 	}
 
-	.screengrab {
-		margin-bottom: 2rem;
+	.from-to-graph-info {
+		font-size: 12px;
+		text-align: right;
+	}
 
+	.screengrab {
 		img {
 			max-width: 595px;
 			@include forSmallScreens($sm-screen) {
 				margin-left: -20px;
 			}
+		}
+
+		.image-descrip {
+			margin: 2rem 0;
 		}
 	}
 				
@@ -44,19 +51,24 @@ $highlight: white;
 		& > p {
 			margin-top: 0;
 			font-family: 'Source Sans Pro', sans-serif;
+
 		}
 
 		.ref-descrip {
 			& > p {
-				font-size: 1.75rem;
+				font-size: 16px;
 			}
 			.ref-descrip-strong {
+				font-family: Source Sans Pro;
+				font-size: 18px;
 				font-weight: 600;
 			}
 		}
 
-		.image-descrip {
-			margin-bottom: 3rem;
+		.detail-notes {
+			color: darkslategrey;
+			font-size: 16px;
+			margin-bottom: 2rem;
 		}
 
 		.ref-tags {
@@ -72,10 +84,11 @@ $highlight: white;
 					}
 				}
 			}
-			.detail-notes {
-				font-size: 16px;
-			}
 		}
+	}
+
+	.ref-detail-viz-wrapper {
+		margin-top: 2rem;
 	}
 }
 
@@ -94,7 +107,7 @@ $highlight: white;
 	
 	&:hover {
 		cursor: pointer;
-		border: 3px solid $highlight;
+		border: 2px solid darkslategrey;
 	}
 }
 
@@ -114,25 +127,49 @@ $highlight: white;
 		color: #2F2F2F;
 		font-size: 2rem;
 		margin: 0 1rem;
+
+		.fa-at {
+			font-size: 1.75rem;
+		}
+	}
+
+	.location {
+		color: darkslategrey;
+		font-family: Source Sans Pro;
+		font-size: 16px;
 	}
 }
 
 .outline {
-	border: 3px solid $highlight;
+	border: 2px solid darkslategrey;
 }
 
 .hr-line {
 	color: $base-text;
 }
 
+.edit-button {
+  background-color: $base-color-lt;
+  border: 3px solid white;
+  border-radius: 10px;
+  color: $base-text;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 1rem 0;
+  text-align: center;
 
+   &:hover {
+    padding: 1.5rem 0;
+  }
 
+  &:active {
+  	background-color: darkturquoise;
+  }
+}
 
-
-
-
-
-
+.panel {
+	margin-bottom: 0;
+}
 
 
 

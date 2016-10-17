@@ -1,0 +1,22 @@
+.x-axis path {
+    stroke: darkslategrey;
+}
+
+.x-axis .tick line {
+    stroke: darkslategrey;
+}
+
+.x-axis .tick text {
+    fill: darkslategrey;
+}
+
+.textDiv {
+    color: darkslategrey;
+    font-family: Source Sans Pro;
+    font-size: 12px;
+}
+
+g.dots rect {
+    display: none;
+    fill: white;
+}

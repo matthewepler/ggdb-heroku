@@ -14,10 +14,16 @@ if(process.env.NODE_ENV !== 'production') {
   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
   app.use(webpackHotMiddleware(compiler));
 }
+app.use('/', express.static(path.join(__dirname, 'dist')));
 
-app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/', function(request, response) {
+  response.sendFile(__dirname + '/dist/index.html')
+});
+app.get('/:season/:episode', function(request, response) {
+  response.sendFile(__dirname + '/dist/index.html')
+});
+app.get('/:season/:episode/:id', function(request, response) {
   response.sendFile(__dirname + '/dist/index.html')
 });
 

@@ -2,7 +2,7 @@
 $lg-screen:  960;
 $med-screen: 768;
 $sm-screen:  640;
-$base-color-lt: #D3F0F4; //#E6F9FF
+$base-color-lt: lighten(#D3F0F4, 10%); //#E6F9FF
 $base-text: darkslategrey;
 $base-font: Source Sans Pro;
 $highlight: white;
@@ -101,7 +101,7 @@ body {
         }
 
          a {
-          background-color: white;
+          background-color: $base-color-lt;
           border-radius: 40px;
           color: darkturquoise;
           font-family: $base-font;
@@ -129,6 +129,54 @@ body {
           flex-wrap: wrap;
           justify-content: center;
           margin: 0 12rem;
+        }
+
+        .season-episode {
+          display: flex;
+          justify-content: center;
+
+          .season {
+            margin-right: 1.5rem;
+          }
+
+          .episode {
+            margin-left: 1.5rem;
+          }
+
+          p {
+            font-size: 18px;
+          }
+          
+          .select-wrap select {
+            margin-bottom: 2rem;
+            width: 60px;
+
+            option {
+              font-size: 16px;
+            }
+          }
+        }
+
+        .go-button {
+          background-color: white;
+          border: 2px solid white;
+          border-radius: 12px;
+          color: darkturquoise;
+          font-size: 18px;
+          height: 35px;
+          margin: 0 auto;
+          padding-top: 4px;
+          text-align: center;
+          width: 50px;
+
+          &:hover {
+            background-color: darkturquoise;
+            color: white;
+          }
+
+          &:active {
+            border: 4px solid white;
+          }
         }
       }
     }
@@ -166,3 +214,70 @@ body {
   color: white;
   box-shadow: none;
 }
+
+#signin {
+  font-family: $base-font;
+  font-size: 16px;
+  text-align: center;
+
+  h2 {
+    color: white;
+    font-size: 2em;
+  } 
+  p {
+    font-size: 1.25em;
+  }
+
+  .signin-header {
+    background-color: darkturquoise;
+  }
+
+  .signin-body {
+    display: inline-block;
+    justify-content: center;
+
+    input {
+      background-color: darkturquoise;
+      border: 2px solid white;
+      color:  white;
+      padding: 1em;
+      text-align: center;
+    }
+
+    #signin-error {
+      color: red;
+      display: block;
+      padding-top: 15px;
+    }
+  }
+
+  #signin-button {
+    background-color: darkturquoise;
+    color: white;
+  }
+}
+
+#user-info {
+  p {
+    color: white;
+    font-family: $base-font;
+    font-size: 1.25rem;
+  }
+
+  a {
+    font-family: $base-font;
+    font-size: 1.25rem;
+  }
+}
+ #more-coming {
+  text-align: center;
+  margin: 0 auto;
+ }
+
+ #loading {
+  color: white;
+  font-size: 18px;
+  margin: 0 auto;
+  margin-top: 2rem;
+  text-align: center;
+ }

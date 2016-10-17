@@ -1,5 +1,9 @@
 @import 'App';
 
+.add-ref-form-wrapper {
+  text-align: left;
+}
+
 .rf-headline-wrapper {
   display: flex;
   flex-direction: row;
@@ -7,8 +11,6 @@
   align-items: center;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 300;
-
-
   
   .rf-person-thumb {
     display: block;
@@ -165,6 +167,7 @@
     }
 
     .rf-screengrab-input {
+      display: block;
       height: 450px; 
       width: 640px;
       @include forSmallScreens($med-screen) {
@@ -188,6 +191,7 @@
       }
 
       .user-screengrab {
+        display: block;
         max-width: 640px;
       }
 
@@ -463,32 +467,13 @@ select {
   }
 }
 
-input[type="submit"] {
-  margin-top: 20px;
-  height: 50px;
-  background-color: darkturquoise;
-  border: 3px solid white;
-  border-radius: 10px;
-  color: white;
-  font-size: 16px;
-
-  &:hover {
-    background-color: white;
-    color: darkturquoise;
-  }
-
-  &:active {
-    border: 3px solid darkturquoise;
-  }
-}
-
-
 
 // Firefox select/option highlighting
 select option {
   background: white; 
   color: rgba(0,0,0,0.7); 
-  box-shadow: inset 20px 20px white
+  box-shadow: inset 20px 20px white;
+  font-size: 16px;
 } 
 
 select option:hover {
@@ -534,6 +519,7 @@ select option:hover {
 option {
   background: white;
   color: rgba(0,0,0,0.7);
+  font-size: 16px;
 }
 
 .submit-error {
@@ -546,5 +532,100 @@ option {
   p {
     font-size: 16px;
     padding: 1rem;
+  }
+}
+
+.uploading-modal {
+  background-color: white;
+  border-radius: 20px;
+  width: 15rem;
+  height: 15rem;
+  position: fixed;
+  top: calc(50% - 5rem);
+  left: calc(50% - 5rem);
+  font-size: 10rem;
+  z-index: 10000;
+  
+  i {
+    color: darkturquoise;
+    margin-left: 2.5rem;
+  }
+}
+
+.error-modal {
+  font-size: 22px;
+
+  .modal-dialog {
+    .modal-content {
+      h4 {
+        color: red;
+      }
+    }
+
+    p {
+      color: red;
+      font-size: 16px;
+      text-align: center;
+    }
+  }
+}
+
+#screengrab-label-edit {
+  background-color: white;
+  border-radius: 15px 15px 15px 0;
+  color: darkturquoise;
+  left: 0;
+  top: -112px;
+  padding: 1rem;
+}
+
+#screengrab-thumb-edit {
+  background-color: white;
+  border-radius: 5px 5px 5px 0;
+  color: darkturquoise;
+  display: inline-block;
+  left: 0;
+  top: -74px;
+  padding: 1rem;
+}
+
+#submit-button {
+  background-color: $base-color-lt;
+  border: 3px solid white;
+  border-radius: 10px;
+  color: $base-text;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 1rem 0;
+
+   &:hover {
+    padding: 1.5rem 0;
+  }
+
+    &:active {
+    background-color: darkturquoise;
+  }
+}
+
+#cancel-button {
+  
+  background-color: darkturquoise;
+  border: 3px solid white;
+  border-radius: 10px;
+  color: white;
+  
+  height: 50px;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 1rem;
+  text-align: center;
+
+  &:hover {
+    background-color: red;
+  }
+
+  &:active {
+    background-color: $base-text;
+    color: white;
   }
 }

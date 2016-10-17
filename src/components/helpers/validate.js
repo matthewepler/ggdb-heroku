@@ -52,7 +52,7 @@ export default function(data) {
 	}
 
 	// console.log("screengrab", data.screengrab);
-	if (/\.(?:jpe?g|png|gif)$/.test(data.screengrab)) {
+	if (/\.(?:jpe?g|png|gif)$/.test(data.screengrab) || data.screengrab.includes('firebasestorage.googleapis.com')) {
 		validData.screengrab.value = data.screengrab;
 	} else {
 		validData.screengrab.value = false;
@@ -85,7 +85,8 @@ export default function(data) {
 	}
 
 	// console.log("refThumb", data.refThumb);
-		if (/\.(?:jpe?g|png|gif)$/.test(data.refThumb)) {
+	// if it includes firebasestorage.googleapis.com
+	if (/\.(?:jpe?g|png|gif)$/.test(data.refThumb) || data.refThumb.includes('firebasestorage.googleapis.com')) {
 		validData.refThumb.value = data.refThumb;
 	} else {
 		validData.refThumb.value = false;
@@ -95,14 +96,19 @@ export default function(data) {
 	// console.log("refName", data.refName);
 	if (data.refName.length > 1) {
 			if (/(?:\/\/)/g.test(data.quote) === false) {
-				validData.refName.value = data.refName.charAt(0).toUpperCase() + data.refName.slice(1); // force upper-case at char 0
+				if (data.quote.includes(data.refName)) {
+					validData.refName.value = data.refName; // no longer forcing upper-case @ char 0.
+				} else {
+					validData.refName.value = false;
+					validData.refName.msg = "The name you provided for your rerence does not match the name as you wrote it in the quote."
+				}
 			} else {
 				validData.refName.value = false;
-				validData.refThumb.msg = "Your reference name appears to contain a link. Please remove it."
+				validData.refName.msg = "Your reference name appears to contain a link. Please remove it."
 			}
 		} else {
 				validData.refName.value = false;
-				validData.refThumb.msg = "Please provide a name for the person, place, or thing referenced in the quote."
+				validData.refName.msg = "Please provide a name for the person, place, or thing referenced in the quote."
 		}
 
 	// console.log("refIs", data.refIs);
@@ -132,19 +138,24 @@ export default function(data) {
 		validData.refYear1.value = data.refYear1;
 	} else {
 		validData.refYear1.value = false;
-		validData.refYear1.msg = "Check 2nd date. Years should be 4 digits. If 'B.C.', make it negative (and still 4 digits, so 45 B.C. is -0045.";
+		validData.refYear1.msg = "Check 1st date. Years should be 4 digits. If 'B.C.', make it negative (and still 4 digits, so 45 B.C. is -0045.";
 	}
 
 	// console.log("refYear2", data.refYear);
-	if (/-?\d{4}/.test(data.refYear2) || data.refYear2 === 'now') {
-		validData.refYear2.value = data.refYear2;
+	if (String(data.refYear2).length > 0) {
+		if (/-?\d{4}/.test(data.refYear2) || data.refYear2 === 'now') {
+			validData.refYear2.value = data.refYear2;
+		} else {
+			validData.refYear2.value = false;
+			validData.refYear2.msg = "Check 2nd date. Years should be 4 digits. If 'B.C.', make it negative (and still 4 digits, so 45 B.C. is -0045.";
+		}
 	} else {
-		validData.refYear2.value = false;
-		validData.refYear2.msg = "Check 1st date. Years should be 4 digits. If 'B.C.', make it negative (and still 4 digits, so 45 B.C. is -0045.";
+		validData.refYear2.value = ' ';
 	}
+	
 
 	// console.log("wikipedia", data.wikipedia);
-	if (/^(https:\/\/en.wikipedia.org\/wiki\/)/.test(data.wikipedia)) {
+	if (/^(https?:\/\/en.wikipedia.org\/wiki\/)/.test(data.wikipedia)) {
 		validData.wikipedia.value = data.wikipedia;
 	} else {
 		validData.wikipedia.value = false;
@@ -160,12 +171,17 @@ export default function(data) {
   }
 
 	// console.log("video", data.video);
-	if (/^(https:\/\/www.youtube.com)/.test(data.video)) {
-		validData.video.value = data.video;
+	if (data.video.length > 1) {
+		if (/^(https:\/\/www.youtube.com)/.test(data.video)) {
+			validData.video.value = data.video;
+		} else {
+			validData.video.value = false;
+			validData.video.msg = "Your YouTube link doesn't look right. It should start with 'https://www.youtube.com'"
+		}
 	} else {
-		validData.video.value = false;
-		validData.video.msg = "Your YouTube link doesn't look right. It should start with 'https://www.youtube.com'"
+		validData.video.value = '';
 	}
+	
 
 	// console.log("refNotes", data.refNotes);
 	validData.refNotes.value = data.refNotes;

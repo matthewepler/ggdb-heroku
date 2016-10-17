@@ -2,11 +2,15 @@
 
 .addButton {
 	background-color: transparent;
-	color: paleturquoise;
 	border: 2px solid paleturquoise;
-	width: 100%;
+	border-radius: 25px;
 	box-shadow: none;
-s
+	color: paleturquoise;
+	margin: 0 auto;
+	margin-top: 2rem;
+	text-align: center;
+	width: 100px;
+
 	&:focus {
 		border: 2px solid paleturquoise;
 		box-shadow: none;
@@ -23,7 +27,7 @@ s
 
 	&:hover {
 		background-color: transparent;
-		border: 3px solid white;
+		border: 2px solid white;
 		color: white;
 		box-shadow: none;
 	}
