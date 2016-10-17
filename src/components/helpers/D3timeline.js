@@ -82,6 +82,14 @@ class D3timeline {
         thisDate = new Date(datum.year);
      }
 
+     if (vizRefs.length === 0) {
+      viz.append('text')
+          .attr('class', 'noneDiv')
+          .text('(None)')
+          .style('text-anchor', 'middle')
+          .attr('transform', `translate(${width/2},0)`);
+     }
+
      dots.append('circle')
           .attr('r', 8)
           .attr('transform', function(d) {
@@ -180,7 +188,7 @@ class D3timeline {
               return `translate(${xScale(x)}px, -20px)`
             });   
 
-      d3.selectAll('g > text.textDiv').each(function(d) {
+      viz.selectAll('g > text.textDiv').each(function(d) {
         const xOffset = 15;
         let padding = 10;
         var r = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
@@ -278,20 +286,23 @@ class D3timeline {
         // if (fromPos > toPos) {
         //   window.scrollTo(0, fromPos - (toPos*-1));
         // } else {
-        //   window.scroll(0, (toPos - (fromPos*-1));
+        //   window.scroll(0, (toPos - (fromPos*-1)));
         // }
       });
    
   }
 
   parseDate(str) {
-    const timeSplit = str.split(":");
-    if (timeSplit.length === 2) { // 45 min (seasons 1-7)
-      return new Date(0, 0, 0, 0, timeSplit[0], timeSplit[1], 0);
-    } else if (timesplit.length === 3) { // over an hour
-      return new Date(0, 0, 0, timeSplit[0], timeSplit[1], timeSplit[2], 0);
+    if (str) {
+      const timeSplit = str.split(":");
+      if (timeSplit.length === 2) { // 45 min (seasons 1-7)
+        return new Date(0, 0, 0, 0, timeSplit[0], timeSplit[1], 0);
+      } else if (timesplit.length === 3) { // over an hour
+        return new Date(0, 0, 0, timeSplit[0], timeSplit[1], timeSplit[2], 0);
+      }
     }
   }
+    
 
 };
 

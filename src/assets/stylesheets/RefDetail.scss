@@ -8,6 +8,8 @@ $highlight: white;
 	display: flex;
 	flex-direction: column;
 	font-family: 'Source Sans Pro', sans-serif;
+	margin: 0 auto;
+	text-align: center;
 	@include forLargeScreens($med-screen) {
 		padding-left: 4 * $sm-circle-size + 1.5rem;
 	}
@@ -23,10 +25,11 @@ $highlight: white;
 	}
 
 	.screengrab {
+		text-align: left;
 		img {
 			max-width: 595px;
 			@include forSmallScreens($sm-screen) {
-				margin-left: -20px;
+				//
 			}
 		}
 
@@ -37,6 +40,7 @@ $highlight: white;
 				
 	.ref-detail {
 		display: flex;
+		text-align: left;
 		@include forSmallScreens($med-screen) {
 				margin: 0 2rem;
 			}
@@ -116,6 +120,7 @@ $highlight: white;
 	font-size: 2rem;
 	margin-bottom: 2rem;
 	margin-top: 1rem;
+	text-align: center;
 	
 	.from, .to, .location {
 		:first-child {

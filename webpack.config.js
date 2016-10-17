@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
 var path = require('path');
 
 module.exports = {
@@ -27,5 +28,8 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
-  ]
+  ],
+  postcss: [ 
+    autoprefixer({ browsers: ['last 2 versions'] }) 
+  ],
 };
