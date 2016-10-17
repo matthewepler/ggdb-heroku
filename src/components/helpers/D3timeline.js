@@ -10,8 +10,8 @@ class D3timeline {
     //console.log(subject);
 
     // VIZ DIMENSIONS + MOUNTING
-    const width = null;
-    
+    let width = null;
+
     if (res > 1) {
       width = 880;
     } else {
