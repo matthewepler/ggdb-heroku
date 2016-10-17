@@ -30,7 +30,7 @@ $highlight: white;
 		img {
 		 max-width: 775px;
 			@include forSmallScreens($med-screen) {
-				max-width: 613px;
+				max-width:100%;
 			}
 		}
 

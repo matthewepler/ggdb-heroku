@@ -40,6 +40,9 @@ body {
   display: flex;
   min-height: 100%;
   background: rgba(0, 0, 0, 0); 
+  max-width: 90%;
+  text-align: center;
+  margin: 0 auto;
 
   .app-left-col {
     flex: 1;
