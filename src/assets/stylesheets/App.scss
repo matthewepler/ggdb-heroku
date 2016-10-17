@@ -17,6 +17,10 @@ $sm-circle-size: 4rem;
     @media (max-width: $media/16+em) { @content; }
 }
 
+@mixin forHDScreens() {
+  @media screen and (min-resolution: 300dpi) { @content; }
+}
+
 * {
   padding: 0;
   margin: 0;

@@ -2,16 +2,21 @@ import _ from 'underscore';
 
 class D3timeline {
 
-  constructor(element, newId, subject, datum, allRefs, season, refId) { 
+  constructor(element, newId, subject, datum, allRefs, season, res) { 
   // this.fromToGraph, newId, subject, datum, this.props.allRefs , this.props.reference.season
     //console.log('constructing new chart', element, newId, subject, timecode);
     //console.log(allRefs);
     //console.log('datum', datum);
     //console.log(subject);
-    console.log(document.getElementById(String(parseInt(refId)+1)).offsetWidth);
 
     // VIZ DIMENSIONS + MOUNTING
-    const width = 590;
+    const width = null;
+    
+    if (res > 1) {
+      width = 880;
+    } else {
+      width = 590;
+    }
     const height = 115;
     const xPadding = 10;
     const yPadding = 50;

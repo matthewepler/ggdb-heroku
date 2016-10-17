@@ -52,7 +52,7 @@ class Timeline extends Component {
                 
     renderChart(newId, subject, datum) {  
         console.log('rendering chart', newId);
-        fromToTimeline = new timeline(this.graphElement, newId, subject, datum, this.props.allRefs, this.props.reference.season, this.props.reference.id);
+        fromToTimeline = new timeline(this.graphElement, newId, subject, datum, this.props.allRefs, this.props.reference.season, this.props.res);
     }
 
 
