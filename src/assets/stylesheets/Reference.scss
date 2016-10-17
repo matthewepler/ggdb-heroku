@@ -58,7 +58,9 @@
 	}
 	
 	.person-thumb {
+		margin-left: 1rem;
 		width: 90px;
+
 		img {
 			width: $circle-size;
 			border-radius: 50%;
@@ -78,6 +80,7 @@
 		font-size: 2.5rem;
 		font-weight: 300;
 		letter-spacing: 0.5px;
+		margin-left: 1rem;
 		padding: 1rem 1rem;
 		padding-right: 1.5rem;
 
