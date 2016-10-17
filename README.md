@@ -1,5 +1,12 @@
 # TO DO
- - alignment of timecode on mobile?
+HD
+ - quote font size
+ - pop up size and font size (signin, link)
+ - link icon size
+ - pic size
+
+ OR - if the body fobnt change works...
+ - make anything that is set to pixels a rem value
 
 * finish people seeding.
  - if no match, put smiley
