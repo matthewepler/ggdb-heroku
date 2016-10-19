@@ -40,7 +40,7 @@ class StackedBar extends Component {
     }
                 
     renderChart(id) {   
-        categoryBars = new stackedChart(this.graphElement, id, this.props.allRefs, this.props.subject);
+        categoryBars = new stackedChart(this.graphElement, id, this.props.allRefs, this.props.subject, this.props.res);
     }
 
     render() {

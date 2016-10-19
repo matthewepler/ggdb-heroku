@@ -13,12 +13,12 @@ class D3timeline {
     let width = null;
 
     if (res > 1) {
-      width = 880;
+      width = 850;
     } else {
       width = 590;
     }
     const height = 115;
-    const xPadding = 10;
+    const xPadding = 20;
     const yPadding = 50;
 
     let viz = d3.select(element).append('svg')

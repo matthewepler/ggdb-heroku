@@ -159,17 +159,17 @@ class RefDetail extends Component {
 										</li> 
 								}
 								<li>
-									<a href="http://en.wikipedia.org/wiki/RuPaul" className="button-link" target="_blank">									 
+									<a href={this.props.reference.wikipedia} className="button-link" target="_blank">									 
 									  <i className="fa fa-wikipedia-w" aria-hidden="true"></i>
 									</a>
 								</li>
 								<li>
-									<a href="https://www.google.com/search?q=rupaul&tbm=isch" className="button-link" target="_blank">
+									<a href={this.props.reference.images} className="button-link" target="_blank">
 									  <i className="fa fa-camera" aria-hidden="true"></i>
 									</a>
 								</li>
 								<li>
-									<a href="https://www.youtube.com/results?search_query=rupaul" className="button-link" target="_blank">
+									<a href={this.props.reference.video} className="button-link" target="_blank">
 									  <i className="fa fa-video-camera" aria-hidden="true"></i>
 									</a>
 								</li>
@@ -180,12 +180,12 @@ class RefDetail extends Component {
 				{
 					this.props.open ? this.state.refDetailType === 'category' ?
 					 					(<div>
-					 						<StackedBar allRefs={this.props.allRefs} subject={this.categoryElement.innerHTML}/>
+					 						<StackedBar allRefs={this.props.allRefs} subject={this.categoryElement.innerHTML} res={window.devicePixelRatio}/>
 					 						<p className="from-to-graph-info">Categories - {`season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
 					 					</div>)
 										: (<div className="ref-detail-viz-wrapper">
 											<Timeline type={this.state.refDetailType} subject={this.state.refDetailViz} reference={this.props.reference} 
-												allRefs={this.props.allRefs} default={this.props.reference.refYear1} />
+												allRefs={this.props.allRefs} default={this.props.reference.refYear1} res={window.devicePixelRatio}/>
 											<p className="from-to-graph-info">{`season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
 										  </div>)
 									: ''
