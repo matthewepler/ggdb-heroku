@@ -1,6 +1,5 @@
 # TO DO
 HD 
- - timeline has new value not yet pushed. validate and then the prop and if-block to the other graphs.
  - make anything that is set to pixels a rem value
  - quote font size
  - pop up size and font size (signin, link)
