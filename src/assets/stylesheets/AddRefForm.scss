@@ -18,21 +18,21 @@
       display: block;
       width: $circle-size;
       border-radius: 50%;
-      border: double 8px $base-color-lt;
+      border: double .8rem $base-color-lt;
       margin-top: 2rem;
     }
 
     .rf-person-input {
       color: $base-text;
-      margin-top: 10px;
-      margin-left: 15px;
+      margin-top: 1rem;
+      margin-left: 1.5rem;
     }
   } 
   
   .rf-quote-box {
     display: flex;
     flex-direction: row;
-    font-size: 16px;
+    font-size: 1.5rem;
     align-items: center;
     padding-left: 1rem; 
     width: 100%;
@@ -40,10 +40,10 @@
     .rf-ref-quote {
       background-color: $base-color-lt;
       color: #2F2F2F;
-      padding: 1rem 1rem;
+      padding: 1.5rem 1.5rem;
       font-weight: 300;
-      letter-spacing: 1.25px;
-      border-radius: 5px;
+      letter-spacing: .125rem;
+      border-radius: 0.5rem;
       width: 100%;
 
 
@@ -62,10 +62,10 @@
     } 
 
   .rf-left-arrow {
-    font-size: 20pt;
+    font-size: 2rem;
     padding-left: 1rem;
     color: $base-color-lt;
-    margin-right: -2px;
+    margin-right: -.2rem;
     }   
   }
 }
@@ -76,18 +76,24 @@
   display: flex;
   flex-direction: column;
   max-width: 800px;
+  @include forHDscreens() { 
+    max-width: 1600px;
+  }
   padding-left: 13rem;
   font-family: 'Source Sans Pro', sans-serif;
 
   @include forSmallScreens($med-screen) {
     margin-left: 1rem;
     max-width: 500px;
+    @include forHDscreens() { 
+      max-width: 1000px;
+    }
     padding-left: 0;
     text-align: left;
   }
 
   p {
-    font-size: 13pt;
+    font-size: 1.3rem;
   }
 
   .rf-time {
@@ -100,13 +106,13 @@
       .select-wrap {
         select {
           margin-right: 2rem;
-          margin-top: -5px;
-          width: 50px;
+          margin-top: -.5rem;
+          width: 5rem;
         }
 
         &::after {
-          right: 30px;
-          top: 3px;
+          right: 3rem;
+          top: .3rem;
         }
       }
 
@@ -122,7 +128,7 @@
     }
 
     .rf-ref-marker {
-      border-bottom: 2px solid white;
+      border-bottom: .2rem solid white;
       display: inline-block;
       width: 15%;
       margin-left: 1rem;
@@ -131,7 +137,7 @@
         display: inline-block;
         font-size: 2rem;
         text-align: center;
-        width: 50px;
+        width: 5rem;
       }
     }
   }
@@ -144,6 +150,10 @@
       margin-bottom: 2rem;
       max-height: 432px;
       max-width: 640px;
+      @include forHDscreens() { 
+        max-height: 864px;
+        max-width: 1280px;
+      }
       background-image: linear-gradient(to bottom, darkturquoise, $base-color-lt  160%);
       @include forSmallScreens($med-screen) {
         max-height: 350px;
@@ -153,7 +163,7 @@
 
     label {
       left: 280px;
-      font-size: 16px;
+      font-size: 1.6rem;
       position: relative;
       text-align: center;
       top: -270px;
@@ -164,15 +174,31 @@
       i {
         font-size: 5rem;
       }
+
+      @include forHDscreens() {
+        left: 560px;
+        top: -540px;
+        @include forSmallScreens($med-screen) {
+          left: 460px;
+        }
+      }
     }
 
     .rf-screengrab-input {
       display: block;
       height: 450px; 
       width: 640px;
+      @include forHDscreens() {
+        height: 900px;
+        width: 1280px;
+      }
       @include forSmallScreens($med-screen) {
         height: 370px;
         width: 500px;
+        @include forHDscreens() {
+          height: 740px;
+          width: 1000px;
+        }
       }
 
       input {
@@ -184,15 +210,26 @@
       .empty-screengrab {
         width: 640px;
         height: 432px;
+        @include forHDscreens() {
+          width: 1280px;
+          height: 864px;
+        }
         @include forSmallScreens($med-screen) {
           height: 350px;
           width: 500px;
+          @include forHDscreens() {
+            height: 700px;
+            width: 1000px;
+          }
         }
       }
 
       .user-screengrab {
         display: block;
         max-width: 640px;
+        @include forHDscreens() {
+          max-width: 1280px;
+        }
       }
 
     }
@@ -223,9 +260,12 @@
 
     .rf-image-descrip {
       height: 75px;
+      @include forHDscreens() {
+        height: 150px;
+      }
       textarea {
         color: $base-text;
-        padding: 5px;
+        padding: .5rem;
       }
     }
   }
@@ -235,6 +275,10 @@
   .empty-refThumb {
     width: 150px;
     height: 150px;
+    @include forHDscreens() {
+      width: 300px;
+      height: 300px;
+    }
   }
         
   .rf-ref-detail {
@@ -245,16 +289,23 @@
       img {
         background-image: linear-gradient(to bottom, darkturquoise, $base-color-lt  160%);
         width: 150px;
+        @include forHDscreens() {
+          width: 300px;
+        }
         margin-right: 1.5em;
       }
 
       label {
         display: block;
-        font-size: 16px;
+        font-size: 1.6rem;
         position: relative;
         right: 6px;
         text-align: center;
         top: -100px;
+        @include forHDscreens() {
+          right: 12px;
+          top: -200px;
+        }
 
         i {
           display: block;
@@ -272,9 +323,15 @@
     
     .rf-ref-items {
       max-width: 475px;
+      @include forHDscreens() {
+        max-width: 950px;
+      }
 
       @include forSmallScreens($med-screen) {
         max-width: 335px;
+        @include forHDscreens() {
+          max-width: 670px;
+        }
       }
 
       .rf-ref-descrip {
@@ -294,10 +351,10 @@
         }
 
         input {
-          border-bottom: 2px solid white;
+          border-bottom: .2rem solid white;
           color: $base-text;
           margin-bottom: 2rem;
-          padding: 5px;
+          padding: .5rem;
         }
 
         .rf-ref-descrip-refbox {
@@ -315,24 +372,24 @@
 
       .rf-ref-tags {
         ul li {
-          width: 170px;
+          width: 17rem;
 
           input[type="text"] {
-            border-bottom: 2px solid white;
+            border-bottom: .2rem solid white;
             color: $base-text;
-            padding: 5px;
-            width: 100px;
+            padding: .5rem;
+            width: 10rem;
           }
         }
 
         .years {
             display: flex;
             flex-direction: row;
-            width: 500px;
+            width: 50rem;
 
             input[type="text"] {
               text-align: center;
-              width: 50px;
+              width: 5rem;
           }
           p {
             color: $base-color-lt;
@@ -342,7 +399,7 @@
           }
 
           span.year-dash {
-            margin-top: 10px;
+            margin-top: 1rem;
           }
         }
 
@@ -353,8 +410,8 @@
         li.rf-ref-tags-link {
           align-items: center;
           display: flex;
-          font-size: 16px;
-          padding-top: 15px;
+          font-size: 1.6rem;
+          padding-top: 1.5rem;
           width: 100%;
 
           input[type="text"] {
@@ -368,9 +425,9 @@
         }
 
         .detail-notes {
-          height: 90px;
-          padding-top: 15px;
-          margin-left: 15px;
+          height: 9rem;
+          padding-top: 1.5rem;
+          margin-left: 1.5rem;
         } 
       }
     }
@@ -389,7 +446,7 @@
 
 
 .rf-outline {
-  border: 3px solid $highlight;
+  border: .3rem solid $highlight;
 }
 
 .rf-ref-tags {
@@ -413,7 +470,7 @@
 input[type=text] {
   background-color: transparent;
   color: white;
-  font-size: 16px;
+  font-size: 1.6rem;
   width: inherit;
   border: none;
 
@@ -431,7 +488,7 @@ textarea {
   border-left: transparent;
   border-right: transparent;
   border-top: transparent;
-  font-size: 16px;
+  font-size: 1.6rem;
   height: 100%;
   resize: none;
   width: 100%;
@@ -444,7 +501,7 @@ textarea {
 
 .rf-ref-quote {
   textarea {
-    font-size: 22px;
+    font-size: 2.2rem;
     border: none;
   }
 }
@@ -472,13 +529,13 @@ select {
 select option {
   background: white; 
   color: rgba(0,0,0,0.7); 
-  box-shadow: inset 20px 20px white;
-  font-size: 16px;
+  box-shadow: inset 2rem 2rem white;
+  font-size: 1.6rem;
 } 
 
 select option:hover {
   color: #000; 
-  box-shadow: inset 22px 22px darkturquoise;
+  box-shadow: inset 2.2rem 2.2rem darkturquoise;
 }
 
 .select-wrap {
@@ -496,7 +553,11 @@ select option:hover {
  position: absolute;
  right: 10px;
  top: 18px;
- font-size: 16px;
+ font-size: 1.6rem;
+ @include forHDscreens() {
+   right: 20px;
+   top: 36px;
+ }
 }
 
 .select-wrap select {
@@ -511,33 +572,33 @@ select option:hover {
   padding: 0.5rem;
   padding: 0.5rem 1rem;
   margin: 1rem 0;
-  border: 2px solid white;
-  width: 220px;
-  font-size: 16px;
+  border: .2rem solid white;
+  width: 22rem;
+  font-size: 1.6rem;
 }
 
 option {
   background: white;
   color: rgba(0,0,0,0.7);
-  font-size: 16px;
+  font-size: 1.6rem;
 }
 
 .submit-error {
   background-color: red;
-  border-radius: 10px;
+  border-radius: 1rem;
   color: white;
   margin-top: 2rem;
   text-align: center;
 
   p {
-    font-size: 16px;
+    font-size: 1.6rem;
     padding: 1rem;
   }
 }
 
 .uploading-modal {
   background-color: white;
-  border-radius: 20px;
+  border-radius: 2rem;
   width: 15rem;
   height: 15rem;
   position: fixed;
@@ -553,7 +614,7 @@ option {
 }
 
 .error-modal {
-  font-size: 22px;
+  font-size: 2.2rem;
 
   .modal-dialog {
     .modal-content {
@@ -564,7 +625,7 @@ option {
 
     p {
       color: red;
-      font-size: 16px;
+      font-size: 1.6rem;
       text-align: center;
     }
   }
@@ -572,30 +633,36 @@ option {
 
 #screengrab-label-edit {
   background-color: white;
-  border-radius: 15px 15px 15px 0;
+  border-radius: 1.5rem 1.5rem 1.5rem 0;
   color: darkturquoise;
   left: 0;
   top: -112px;
   padding: 1rem;
+  @include forHDscreens() {
+    top: -224px;
+  }
 }
 
 #screengrab-thumb-edit {
   background-color: white;
-  border-radius: 5px 5px 5px 0;
+  border-radius: .5rem .5rem .5rem 0;
   color: darkturquoise;
   display: inline-block;
   left: 0;
   top: -74px;
   padding: 1rem;
+  @include forHDscreens() {
+    top: -148px;
+  }
 }
 
 #submit-button {
   background-color: $base-color-lt;
-  border: 3px solid white;
+  border: .3rem solid white;
   border-radius: 10px;
   color: $base-text;
-  font-size: 16px;
-  margin-top: 20px;
+  font-size: 1.6rem;
+  margin-top: 2rem;
   padding: 1rem 0;
 
    &:hover {
@@ -610,13 +677,13 @@ option {
 #cancel-button {
   
   background-color: darkturquoise;
-  border: 3px solid white;
-  border-radius: 10px;
+  border: .3rem solid white;
+  border-radius: 1rem;
   color: white;
   
-  height: 50px;
-  font-size: 16px;
-  margin-top: 20px;
+  height: 5rem;
+  font-size: 1.6rem;
+  margin-top: 2rem;
   padding: 1rem;
   text-align: center;
 
