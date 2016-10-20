@@ -17,7 +17,7 @@ $sm-circle-size: 4rem;
     @media (max-width: $media/16+em) { @content; }
 }
 
-@mixin forHDScreens() {
+@mixin forHDscreens() {
   @media screen and (min-resolution: 300dpi) { @content; }
 }
 
@@ -25,7 +25,7 @@ $sm-circle-size: 4rem;
   padding: 0;
   margin: 0;
   font-size: 10px; // careful editing rems!
-  @include forHDScreens() {
+  @include forHDscreens() {
     font-size: 16px;
   }
 }
