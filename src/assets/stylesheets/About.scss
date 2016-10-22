@@ -1,0 +1,71 @@
+@import 'App';
+
+
+
+.title-wrapper {
+  margin-top: 3rem;
+  text-align: center;
+
+  a.title {
+    color: white;
+    font-family: Raleway;
+    font-size: 6rem;
+    font-weight: 200;
+    margin-top: 2rem;
+    text-decoration: none;
+    width: 100%;
+  }
+
+  p.subtitle {
+    color: white;
+    font-family: Source Sans Pro;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin: 0 auto;
+    text-align: center;
+    @include forSmallScreens($med-screen) {
+      padding: 0 70px;
+    }
+    width: 100%;
+
+    span a {
+      font-size: 16px;
+    }
+  }
+}
+
+.text-wrapper {
+	margin: 3rem auto;
+	max-width: 70%;
+
+	@include forSmallScreens($med-screen) {
+		max-width: 90%;
+	}
+
+	h1, h2, h3, p {
+		font-family: Source Sans Pro, sans-serif;
+	}
+
+	h2 {
+		color: white;
+		font-size: 2.5rem;
+		font-weight: 200;
+	}
+
+	h3 {
+		color: $base-text;
+		font-size: 1.75rem;
+		font-weight: 600;
+	}
+
+	p {
+		font-size: 1.75rem;
+	}
+
+	a {
+		color: $base-text;
+		font-size: 1.75rem;
+		text-decoration: underline;
+	}
+}

@@ -266,16 +266,20 @@ class App extends Component {
         <div className="app-mid-col">
         <div className="title-wrapper">
           <h1 className="title"> ggdb </h1>
-          <p className="subtitle">A crowd-sourced database of every pop-culture reference in the Gilmore Girls.</p>
           <p className="subtitle">
             <span>
-              <a href="#">About </a>
+              <a href="/about">About </a>
               |
-              <a href="#"> API </a>
+              <a href="/api"> API </a>
               |
-              <a href="#" onClick={this.openSignIn.bind(this)}> LogIn </a>
+              <a href="" onClick={this.openSignIn.bind(this)}> LogIn </a>
             </span>
           </p>
+          <br/>
+          <br/>
+          <br/>
+          <p className="subtitle">A crowd-sourced database of every pop-culture reference in the Gilmore Girls.</p>
+
           {this.state.user ? (<div id="user-info"><p>{firebase.auth().currentUser.email}</p><a href="#" onClick={this.signOut.bind(this)}> Log Out </a></div>) 
             : ''}
           <Modal id="signin" show={this.state.showSignIn} onHide={this.closeSignIn.bind(this)}>

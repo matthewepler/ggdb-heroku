@@ -1,30 +1,13 @@
 # TO DO
-HD 
- - make anything that is set to pixels a rem value
- - quote font size
- - pop up size and font size (signin, link)
- - link icon size
- - circular pic size
-
-* finish people seeding.
- - if no match, put smiley
+* add page "Contributor's Reference Guide" http://gg-db.com/guide.
 
 * testing
  - add new stuff (use hour format)
 
-* add page "Contributor's Reference Guide" http://gg-db.com/guide.
-* add page "About"
-* add countdown to launch
-
-* API - return JSON with keywords? - quick tutorial or read-up suggested.
-
-* fix redirects...?
-
 * plan for contributors madness!
 * plant.
 
-* ES Lint
-* clean README
+* ES Lint, clean (including README)
 
 
 ## NON-CRITICAL

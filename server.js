@@ -27,6 +27,18 @@ app.get('/:season/:episode/:id', function(request, response) {
   response.sendFile(__dirname + '/dist/index.html')
 });
 
+app.get('/about', function(request, response) {
+  response.sendFile(__dirname + '/dist/index.html')
+});
+
+app.get('/api', function(request, response) {
+  response.sendFile(__dirname + '/dist/index.html')
+});
+
+app.get('/guide', function(request, response) {
+  response.sendFile(__dirname + '/dist/index.html')
+});
+
 app.listen(PORT, function(error) {
   if (error) {
     console.error(error);

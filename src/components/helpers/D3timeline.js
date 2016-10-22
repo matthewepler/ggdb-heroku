@@ -87,7 +87,7 @@ class D3timeline {
         thisDate = new Date(datum.year);
      }
 
-     if (vizRefs.length === 0) {
+     if (vizRefs.length === 0 || subject === 'other') {
       viz.append('text')
           .attr('class', 'noneDiv')
           .text('(None)')
