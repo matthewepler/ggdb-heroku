@@ -1,8 +1,10 @@
 # TO DO
-* tracking
+* re-write script
+    - go through csv, not add to it
+    - for every three:
+        - email the group to introduce each other
 
-* plan for contributors madness!
-* plant.
+* launch
 
 * ES Lint, clean (including README)
 
