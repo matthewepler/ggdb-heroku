@@ -273,17 +273,18 @@ class App extends Component {
               <a href="#" onClick={this.openSignIn.bind(this)}> LogIn </a>
             </span>
           </p>
+           {this.state.user ? (<div id="user-info"><p>{firebase.auth().currentUser.email}</p><a href="#" onClick={this.signOut.bind(this)}> Log Out </a></div>) 
+            : ''}
           <br/>
           <br/>
           <br/>
           <p className="subtitle">A crowd-sourced database of every pop-culture reference in the Gilmore Girls.</p>
 
-          {this.state.user ? (<div id="user-info"><p>{firebase.auth().currentUser.email}</p><a href="#" onClick={this.signOut.bind(this)}> Log Out </a></div>) 
-            : ''}
+         
           <Modal id="signin" show={this.state.showSignIn} onHide={this.closeSignIn.bind(this)}>
             <Modal.Header className="signin-header">
               <h2>Sign in with your email and the password we sent you.</h2> 
-              <p>If you do not have a password, you can request one by sending an email to ggdb.info@gmail.com</p>
+              <p>Editing access is available by invite only.</p>
             </Modal.Header>
             <Modal.Body className="signin-body">
               <input type="text" id="email" placeholder="you@email.com" ref={c => this.signin_email = c}/>

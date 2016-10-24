@@ -86,7 +86,7 @@ body {
   .nav-selectors {
     text-align: center;
     margin: 2rem auto;
-    margin-top: 5rem;
+    margin: 5rem 0;
 
     h2 {
       color: $base-text;
@@ -192,13 +192,14 @@ body {
   }
 
   div.toolbar-wrapper {
+    margin-top: 5rem;
+
     @include forSmallScreens($med-screen) {
       margin: 0;
       text-align: center;
     }
     button.addButton {
       @include forSmallScreens($med-screen) {
-        margin: 0;
         width: 90%;
       }
     }

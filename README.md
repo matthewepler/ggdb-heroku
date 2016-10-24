@@ -1,11 +1,5 @@
 # TO DO
-* create mobile layout and media query based on width (device independent === resolution independent?)
-* padding email
-* add page "Contributor's Reference Guide" http://gg-db.com/guide.
-* check that season/episode validation during form submission works
-
-* testing
- - add new stuff (use hour format)
+* implement editing privelages and rules
 
 * plan for contributors madness!
 * plant.
