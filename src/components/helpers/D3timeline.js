@@ -2,7 +2,7 @@ import _ from 'underscore';
 
 class D3timeline {
 
-  constructor(element, newId, subject, datum, allRefs, season, res) { 
+  constructor(element, newId, subject, datum, allRefs, season, divWidth) { 
   // this.fromToGraph, newId, subject, datum, this.props.allRefs , this.props.reference.season
     //console.log('constructing new chart', element, newId, subject, timecode);
     //console.log(allRefs);
@@ -10,13 +10,7 @@ class D3timeline {
     //console.log(subject);
 
     // VIZ DIMENSIONS + MOUNTING
-    let width = null;
-
-    if (res > 1) {
-      width = 850;
-    } else {
-      width = 590;
-    }
+    const width = divWidth;
     const height = 115;
     const xPadding = 20;
     const yPadding = 50;
@@ -282,18 +276,10 @@ class D3timeline {
           .style('display', 'none');
       });
 
-      dots.on("click", function(d, i) {
-        // or just go to the fucking link , goddammit. 
-        window.location = `http://localhost:5000/?season=${d.season}&episode=${d.episode}&id=${d.id}`
-
-        // var toPos = document.getElementById(d.id).getBoundingClientRect().top;
-        // var fromPos = window.scrollY;
-        // if (fromPos > toPos) {
-        //   window.scrollTo(0, fromPos - (toPos*-1));
-        // } else {
-        //   window.scroll(0, (toPos - (fromPos*-1)));
-        // }
-      });
+      // not mobile-friendly
+      // dots.on("click", function(d, i) {
+      //   window.location = `http://localhost:5000/?season=${d.season}&episode=${d.episode}&id=${d.id}`
+      // });
    
   }
 

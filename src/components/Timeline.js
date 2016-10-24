@@ -52,7 +52,8 @@ class Timeline extends Component {
                 
     renderChart(newId, subject, datum) {  
         console.log('rendering chart', newId);
-        fromToTimeline = new timeline(this.graphElement, newId, subject, datum, this.props.allRefs, this.props.reference.season, this.props.res);
+        const divWidth = document.getElementById(this.props.reference.id).getBoundingClientRect().width;
+        fromToTimeline = new timeline(this.graphElement, newId, subject, datum, this.props.allRefs, this.props.reference.season, 0.8 * divWidth);
     }
 
 
