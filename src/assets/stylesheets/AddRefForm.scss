@@ -182,6 +182,11 @@
       .empty-screengrab {
         width: 640px;
         height: 432px;
+
+        @include forSmallScreens($med-screen) {
+          height: 350px;
+          width: 500px;
+        }
       }
 
       .user-screengrab {
@@ -582,7 +587,6 @@ option {
   left: 0;
   top: -74px;
   padding: 1rem;
-
 }
 
 #submit-button {

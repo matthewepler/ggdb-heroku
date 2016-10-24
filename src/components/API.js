@@ -8,14 +8,12 @@ class API extends Component {
 		return (
 			<div>
 				<div className="title-wrapper">
-          <a className="title"> ggdb </a>
+          <a className="title" href="/"> ggdb </a>
           <p className="subtitle">
             <span>
               <a href="/about">About </a>
               |
               <a href="/api"> API </a>
-              |
-              <a href="/"> Home </a>
             </span>
           </p>
         </div>

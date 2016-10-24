@@ -270,7 +270,7 @@ class App extends Component {
               |
               <a href="/api"> API </a>
               |
-              <a href="" onClick={this.openSignIn.bind(this)}> LogIn </a>
+              <a href="#" onClick={this.openSignIn.bind(this)}> LogIn </a>
             </span>
           </p>
           <br/>
