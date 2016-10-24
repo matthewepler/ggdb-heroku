@@ -76,18 +76,12 @@
   display: flex;
   flex-direction: column;
   max-width: 800px;
-  @include forHDscreens() { 
-    max-width: 1600px;
-  }
   padding-left: 13rem;
   font-family: 'Source Sans Pro', sans-serif;
 
   @include forSmallScreens($med-screen) {
     margin-left: 1rem;
     max-width: 500px;
-    @include forHDscreens() { 
-      max-width: 1000px;
-    }
     padding-left: 0;
     text-align: left;
   }
@@ -150,11 +144,8 @@
       margin-bottom: 2rem;
       max-height: 432px;
       max-width: 640px;
-      @include forHDscreens() { 
-        max-height: 864px;
-        max-width: 1280px;
-      }
       background-image: linear-gradient(to bottom, darkturquoise, $base-color-lt  160%);
+     
       @include forSmallScreens($med-screen) {
         max-height: 350px;
         max-width: 500px;
@@ -167,20 +158,9 @@
       position: relative;
       text-align: center;
       top: -270px;
-      @include forSmallScreens($med-screen) {
-        left: 230px;
-      }
       
       i {
         font-size: 5rem;
-      }
-
-      @include forHDscreens() {
-        left: 560px;
-        top: -540px;
-        @include forSmallScreens($med-screen) {
-          left: 460px;
-        }
       }
     }
 
@@ -188,17 +168,9 @@
       display: block;
       height: 450px; 
       width: 640px;
-      @include forHDscreens() {
-        height: 900px;
-        width: 1280px;
-      }
       @include forSmallScreens($med-screen) {
         height: 370px;
         width: 500px;
-        @include forHDscreens() {
-          height: 740px;
-          width: 1000px;
-        }
       }
 
       input {
@@ -210,26 +182,11 @@
       .empty-screengrab {
         width: 640px;
         height: 432px;
-        @include forHDscreens() {
-          width: 1280px;
-          height: 864px;
-        }
-        @include forSmallScreens($med-screen) {
-          height: 350px;
-          width: 500px;
-          @include forHDscreens() {
-            height: 700px;
-            width: 1000px;
-          }
-        }
       }
 
       .user-screengrab {
         display: block;
         max-width: 640px;
-        @include forHDscreens() {
-          max-width: 1280px;
-        }
       }
 
     }
@@ -260,9 +217,7 @@
 
     .rf-image-descrip {
       height: 75px;
-      @include forHDscreens() {
-        height: 150px;
-      }
+
       textarea {
         color: $base-text;
         padding: .5rem;
@@ -275,10 +230,6 @@
   .empty-refThumb {
     width: 150px;
     height: 150px;
-    @include forHDscreens() {
-      width: 300px;
-      height: 300px;
-    }
   }
         
   .rf-ref-detail {
@@ -289,9 +240,6 @@
       img {
         background-image: linear-gradient(to bottom, darkturquoise, $base-color-lt  160%);
         width: 150px;
-        @include forHDscreens() {
-          width: 300px;
-        }
         margin-right: 1.5em;
       }
 
@@ -302,10 +250,6 @@
         right: 6px;
         text-align: center;
         top: -100px;
-        @include forHDscreens() {
-          right: 12px;
-          top: -200px;
-        }
 
         i {
           display: block;
@@ -323,15 +267,9 @@
     
     .rf-ref-items {
       max-width: 475px;
-      @include forHDscreens() {
-        max-width: 950px;
-      }
 
       @include forSmallScreens($med-screen) {
         max-width: 335px;
-        @include forHDscreens() {
-          max-width: 670px;
-        }
       }
 
       .rf-ref-descrip {
@@ -554,10 +492,6 @@ select option:hover {
  right: 10px;
  top: 18px;
  font-size: 1.6rem;
- @include forHDscreens() {
-   right: 20px;
-   top: 36px;
- }
 }
 
 .select-wrap select {
@@ -638,9 +572,6 @@ option {
   left: 0;
   top: -112px;
   padding: 1rem;
-  @include forHDscreens() {
-    top: -224px;
-  }
 }
 
 #screengrab-thumb-edit {
@@ -651,9 +582,7 @@ option {
   left: 0;
   top: -74px;
   padding: 1rem;
-  @include forHDscreens() {
-    top: -148px;
-  }
+
 }
 
 #submit-button {

@@ -56,24 +56,33 @@
 		}
 	}
 
-	.ref-marker {
-		color: darkslategrey;
-		min-width: 55px;
-		padding-top: 1rem;
-		font-size: 22px;
-		text-decoration: none;
-	}
-	
-	.person-thumb {
-		margin-left: 1rem;
-		width: 90px;
+    .time-and-thumb {
+        display: flex;
+        @include forSmallScreens($med-screen) {
+            display: block;
+        }
+        
+        .ref-marker {
+            color: darkslategrey;
+            min-width: 55px;
+            padding-top: 1rem;
+            font-size: 22px;
+            text-decoration: none;
+        }
+        
+        .person-thumb {
+            margin-left: 1rem;
+            width: 90px;
 
-		img {
-			width: $circle-size;
-			border-radius: 50%;
-			border: double 8px $base-color-lt;
-		}
-	}	
+            img {
+                width: $circle-size;
+                border-radius: 50%;
+                border: double 8px $base-color-lt;
+            }
+        }   
+    }
+
+	
 
 	// u > p {
 	// 		text-decoration: none;

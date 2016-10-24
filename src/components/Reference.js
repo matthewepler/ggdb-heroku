@@ -49,18 +49,20 @@ class Reference extends Component {
     const headline = (
       <div className="headline">
         <div className="headline-wrapper" onClick={this.handleClick.bind(this)}>
-          <p className="ref-marker">{this.props.reference.timecode}</p>
-          <div className="person-thumb">
-            <img className="clip-circle" alt="ref image" src={personThumb}/>
-          </div>
-            <i className="left-arrow fa fa-caret-left" aria-hidden="true"></i>
-            <div className={panelClasses}>
-              <span>
-                  {quote.length > 1 ? quote[0] : ''}
-                    <strong>{ref}</strong>
-                  {quote.length > 1 ? quote[1] : ''}
-              </span>
+          <div className="time-and-thumb">
+            <p className="ref-marker">{this.props.reference.timecode}</p>
+            <div className="person-thumb">
+              <img className="clip-circle" alt="ref image" src={personThumb}/>
             </div>
+          </div>
+          <i className="left-arrow fa fa-caret-left" aria-hidden="true"></i>
+          <div className={panelClasses}>
+            <span>
+                {quote.length > 1 ? quote[0] : ''}
+                  <strong>{ref}</strong>
+                {quote.length > 1 ? quote[1] : ''}
+            </span>
+          </div>
         </div>
         <i id="link" className={showLink} aria-hidden="true" onClick={this.openModal.bind(this)}></i>
       </div> 
