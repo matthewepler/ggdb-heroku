@@ -1,5 +1,5 @@
 # TO DO
-* implement editing privelages and rules
+* tracking
 
 * plan for contributors madness!
 * plant.

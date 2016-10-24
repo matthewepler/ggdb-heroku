@@ -120,11 +120,31 @@ class AddRefForm extends Component {
 
 	formSubmit(e) {
 		e.preventDefault();
-		this.setState({erros: null});
+		this.setState({errors: null});
 
-		this.validateData();
+		let userSeasons, userEpisodes = null;
+		const self = this;
+		const user = firebase.database().ref('users/' + firebase.auth().currentUser.uid).once('value')
+						.then(function(snap) {
+							console.log(snap.val());
+							userSeasons = snap.val().seasons;
+							userEpisodes = snap.val().episodes;
+							console.log('user', userSeasons, userEpisodes);
 
-		// if user, validate, else push error and run checkErrors
+							if (user && userSeasons && userEpisodes) {
+								if (userSeasons.indexOf(self.season.value) >= 0 && userEpisodes.indexOf(self.episode.value) >= 0) {
+							 	 	self.validateData();
+							 	} else {
+							 		self.addError("You do not have permissions for this season/episode.");
+							 		self.openModal();
+							 	}
+							} else {
+							  self.addError("We could not find your user info.");
+							  self.openModal(); 
+							}
+						});
+
+		
 	}
 
 	validateData() {
@@ -167,8 +187,13 @@ class AddRefForm extends Component {
 		});
 	}
 
-	checkErrors() {
+	addError(msg) {
 		let errors = [];
+		errors.push(msg);
+		this.setState({errors});
+	}
+
+	checkErrors() {
 		const validData = this.state.validData;
 		for (let obj in validData) {
 			if (validData[obj].value === false) {
@@ -191,11 +216,10 @@ class AddRefForm extends Component {
 					this.refThumbElement.src = "";
 				}
 
-				errors.push(validData[obj].msg);
+				this.addError(validData[obj].msg);
 			}
 		}
-		if (errors.length > 0) {
-			this.setState({errors});
+		if (this.state.errors != null && this.state.errors.length > 0) {
 			this.openModal();
 		} else {
 			this.setState({

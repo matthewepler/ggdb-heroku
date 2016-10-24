@@ -263,7 +263,7 @@ class App extends Component {
     return (
       <div className="app-container">
         <div className="title-wrapper">
-          <h1 className="title"> ggdb </h1>
+          <a className="title" href="/"> ggdb </a>
           <p className="subtitle">
             <span>
               <a href="/about">About </a>
@@ -334,7 +334,7 @@ class App extends Component {
                 : 
                 (<div id="more-coming">
                   <h2>More coming...</h2>
-                  <p>Launching Nov. 5, 2016</p>
+                  <p>Launching Nov. 7, 2016</p>
                   </div>)
               }
 
