@@ -44,181 +44,165 @@ body {
  }
 
  .app-container {
-  display: flex;
   min-height: 100%;
   background: rgba(0, 0, 0, 0); 
-  max-width: 90%;
+  max-width: 1000px;
   text-align: center;
   margin: 0 auto;
 
-  .app-left-col {
-    flex: 1;
-    @include forSmallScreens($med-screen) {
-      flex: 0;
+
+  .title-wrapper {
+    margin-top: 3rem;
+    text-align: center;
+
+    h1.title {
+      color: white;
+      font-family: Raleway;
+      font-size: 6rem;
+      font-weight: 200;
+      margin-top: 2rem;
+      width: 100%;
     }
-    max-width: 15%;
+
+    p.subtitle {
+      color: white;
+      font-family: Source Sans Pro;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin: 0 auto;
+      text-align: center;
+      @include forSmallScreens($med-screen) {
+        padding: 0 70px;
+      }
+      width: 100%;
+
+      span a {
+        font-size: 16px;
+      }
+    }
   }
 
-  .app-right-col {
-    flex: 1;
-    @include forSmallScreens($med-screen) {
-      flex: 0;
-    }
-    max-width: 15%;
-    text-align: left;
-  }
+  .nav-selectors {
+    text-align: center;
+    margin: 2rem auto;
+    margin-top: 5rem;
 
-  .app-mid-col {
-    flex: 2;
-    max-width: 1000px;
-    margin: 0 auto;
-    width: 100%;
-
-    .title-wrapper {
-      margin-top: 3rem;
-      text-align: center;
-
-      h1.title {
-        color: white;
-        font-family: Raleway;
-        font-size: 6rem;
-        font-weight: 200;
-        margin-top: 2rem;
-        width: 100%;
-      }
-
-      p.subtitle {
-        color: white;
-        font-family: Source Sans Pro;
-        font-size: 2rem;
-        font-weight: 400;
-        letter-spacing: 0.5px;
-        margin: 0 auto;
-        text-align: center;
-        @include forSmallScreens($med-screen) {
-          padding: 0 70px;
-        }
-        width: 100%;
-
-        span a {
-          font-size: 16px;
-        }
-      }
+    h2 {
+      color: $base-text;
+      font-family: "Source Sans Pro";
+      font-size: 2.5rem;
     }
 
-    .nav-selectors {
-      text-align: center;
-      margin: 2rem auto;
-      margin-top: 5rem;
+    .panel-title {
+      width: 100%;
 
-      h2 {
-        color: $base-text;
-        font-family: "Source Sans Pro";
-        font-size: 2.5rem;
-      }
-  
-      .panel-title {
-        width: 100%;
-
-        @include forSmallScreens($med-screen) {
-          margin: 0;
-        }
-
-         a {
-          background-color: $base-color-lt;
-          border-radius: 40px;
-          color: darkturquoise;
-          font-family: $base-font;
-          font-size: 4rem;
-          font-weight: 200;
-          margin: 0 2rem;
-          padding: 0 2.25rem;
-          padding-bottom: 0.25rem;
-          width: 100%;
-
-          &:hover {
-            border: 8px solid white;
-          }
-         }
-      }
-
-      .nav-panel {
-        .season-dots {
-          display: flex;
-          justify-content: center;
-        }
-
-         .episode-dots {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          margin: 0 12rem;
-        }
-
-        .season-episode {
-          display: flex;
-          justify-content: center;
-
-          .season {
-            margin-right: 1.5rem;
-          }
-
-          .episode {
-            margin-left: 1.5rem;
-          }
-
-          p {
-            font-size: 18px;
-          }
-          
-          .select-wrap select {
-            margin-bottom: 2rem;
-            width: 60px;
-
-            option {
-              font-size: 16px;
-            }
-          }
-        }
-
-        .go-button {
-          background-color: white;
-          border: 2px solid white;
-          border-radius: 12px;
-          color: darkturquoise;
-          font-size: 18px;
-          height: 35px;
-          margin: 0 auto;
-          padding-top: 4px;
-          text-align: center;
-          width: 50px;
-
-          &:hover {
-            background-color: darkturquoise;
-            color: white;
-          }
-
-          &:active {
-            border: 4px solid white;
-          }
-        }
-      }
-    }
-
-    div.toolbar-wrapper {
       @include forSmallScreens($med-screen) {
         margin: 0;
-        text-align: center;
       }
-      button.addButton {
-        @include forSmallScreens($med-screen) {
-          margin: 0;
-          width: 90%;
+
+       a {
+        background-color: $base-color-lt;
+        border-radius: 40px;
+        color: darkturquoise;
+        font-family: $base-font;
+        font-size: 4rem;
+        font-weight: 200;
+        margin: 0 2rem;
+        padding: 0 2.25rem;
+        padding-bottom: 0.25rem;
+        width: 100%;
+
+        &:hover {
+          border: 8px solid white;
+        }
+       }
+    }
+
+    .nav-panel {
+      .season-dots {
+        display: flex;
+        justify-content: center;
+      }
+
+       .episode-dots {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0 12rem;
+      }
+
+      .season-episode {
+        display: flex;
+        justify-content: center;
+
+        .season {
+          margin-right: 1.5rem;
+        }
+
+        .episode {
+          margin-left: 1.5rem;
+        }
+
+        p {
+          font-size: 18px;
+        }
+        
+        .select-wrap select {
+          margin-bottom: 2rem;
+          width: 60px;
+
+          option {
+            font-size: 16px;
+          }
+        }
+      }
+
+      .go-button {
+        background-color: white;
+        border: 2px solid white;
+        border-radius: 12px;
+        color: darkturquoise;
+        font-size: 18px;
+        height: 35px;
+        margin: 0 auto;
+        padding-top: 4px;
+        text-align: center;
+        width: 50px;
+
+        &:hover {
+          background-color: darkturquoise;
+          color: white;
+        }
+
+        &:active {
+          border: 4px solid white;
         }
       }
     }
   }
 
+  .refs-wrapper {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 70%;
+    @include forSmallScreens($med-screen) {
+      max-width: 95%;
+    }
+  }
+
+  div.toolbar-wrapper {
+    @include forSmallScreens($med-screen) {
+      margin: 0;
+      text-align: center;
+    }
+    button.addButton {
+      @include forSmallScreens($med-screen) {
+        margin: 0;
+        width: 90%;
+      }
+    }
+  }
 }
 
 .btn:focus {

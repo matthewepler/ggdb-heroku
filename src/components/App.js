@@ -262,8 +262,6 @@ class App extends Component {
   
     return (
       <div className="app-container">
-        <div className="app-left-col"></div>
-        <div className="app-mid-col">
         <div className="title-wrapper">
           <h1 className="title"> ggdb </h1>
           <p className="subtitle">
@@ -342,11 +340,9 @@ class App extends Component {
             </Panel>
           </div>
           {
-            this.state.totalRefNum === 0 ? <p id="nothing-here">Nothing here yet...</p> : <ul>{refs}</ul>
+            this.state.totalRefNum === 0 ? <p id="nothing-here">Nothing here yet...</p> : <ul className="refs-wrapper">{refs}</ul>
           }
         </div>
-        <div className="app-right-col"></div>
-      </div>
     );
   }
 }
