@@ -1,4 +1,6 @@
-export default function(data) {
+export default function(data, callback) {
+
+	return new Promise(function(resolve, reject) {
 	let validData = {
 		quote: 			{value: null, msg: null},
 		season:     {value: null, msg: null},
@@ -189,5 +191,6 @@ export default function(data) {
 	// add editor's note:
 	validData.editornote.msg =  "If this isn't working for you or you think one of these errors is just plain wrong, email me and I'll fix it! matthewepler@gmail.com. xo."
 	
-	return validData;
+	resolve(validData);
+	});
 }

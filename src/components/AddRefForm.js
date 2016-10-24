@@ -122,9 +122,13 @@ class AddRefForm extends Component {
 		e.preventDefault();
 		this.setState({erros: null});
 
+		this.validateData();
 
+		// if user, validate, else push error and run checkErrors
+	}
+
+	validateData() {
 		let formData = {};
-
 
 		if (this.state.screengrabURL) {
 			formData.screengrab = this.state.screengrabURL;
@@ -156,12 +160,19 @@ class AddRefForm extends Component {
 		formData.video =  this.video.value;
 		formData.refNotes =  this.refNotes.value;
 
-		const validData = validate(formData);
+		const validData = validate(formData).then( (data)=> {
+			this.setState({validData: data});
+			console.log('validate complete', data)
+			this.checkErrors();
+		});
+	}
 
+	checkErrors() {
 		let errors = [];
+		const validData = this.state.validData;
 		for (let obj in validData) {
 			if (validData[obj].value === false) {
-				// console.log(validData[obj].msg);
+				 console.log("Error: ", validData[obj].msg);
 				if (obj === 'screengrab') {
 					if (this.state.editing) {
 						this.setState({currScreengrab: screengrabURL});
@@ -207,11 +218,11 @@ class AddRefForm extends Component {
 					}
 				}
 				//console.log(this.state.screengrabURL, this.state.refThumbURL);
-				this.sendToFirebase(validData);
+				this.sendToFirebase(this.state.validData);
 			} else {
 				this.uploadImage(this.screengrabInput.files[0], 'screengrab');
 				this.uploadImage(this.refThumb.files[0], 'thumb');
-				this.sendToFirebase(validData);
+				this.sendToFirebase(this.state.validData);
 			}
 		}
 	}
