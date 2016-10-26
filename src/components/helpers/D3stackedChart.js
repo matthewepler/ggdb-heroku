@@ -3,17 +3,11 @@ import _ from 'underscore'
 
 class d3stackedChart {
 
-    constructor(element, newId, data, subject, res) {
+    constructor(element, newId, data, subject, divWidth) {
         //console.log(element, newId, data, subject);
 
         // VIZ DIMENSIONS + MOUNTING
-        let width = null;
-
-        if (res > 1) {
-          width = 850;
-        } else {
-          width = 590;
-        }
+        const width = divWidth;
         const height = 100;
         const xPadding = 10;
         const yPadding = 35;

@@ -1,4 +1,28 @@
 # TO DO
+<<<<<<< HEAD
+* finish Guide
+* create mobile layout and media query based on width (device independent === resolution independent?)
+* padding email after sign-in
+* graph hover - all are 50% opacity except focused one. a click in circle turns it on (add '>' to tag). Click on tag = link. 
+* optimize images
+
+* testing
+ - add new stuff (use hour format)
+
+* plan for contributors madness!
+	* Google Form, cutoff at 216 (4 per season 8 episode). 
+	* export as CSV and run script to send out invites
+
+* launch.
+=======
+* re-write script
+    - go through csv, not add to it
+    - for every three:
+        - email the group to introduce each other
+
+* launch
+>>>>>>> 8b9aa93cefa7e3a41dd544c64e41810d103293bc
+
 * ES Lint, clean (including README)
 
 

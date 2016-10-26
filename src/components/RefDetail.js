@@ -179,7 +179,7 @@ class RefDetail extends Component {
 				{
 					this.props.open ? this.state.refDetailType === 'category' ?
 					 					(<div>
-					 						<StackedBar allRefs={this.props.allRefs} subject={this.categoryElement.innerHTML} res={window.devicePixelRatio}/>
+					 						<StackedBar allRefs={this.props.allRefs} reference={this.props.reference} subject={this.categoryElement.innerHTML} res={window.devicePixelRatio}/>
 					 						<p className="from-to-graph-info">Categories - {`season ${this.props.reference.season}, episode ${this.props.reference.episode}`}</p>
 					 					</div>)
 										: (<div className="ref-detail-viz-wrapper">

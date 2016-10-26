@@ -1,0 +1,7 @@
+@import 'App';
+
+.chart-anchor {
+    @include forSmallScreens ($med-screen) {
+        margin-left: 1rem;
+    }
+}

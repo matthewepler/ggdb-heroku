@@ -262,10 +262,8 @@ class App extends Component {
   
     return (
       <div className="app-container">
-        <div className="app-left-col"></div>
-        <div className="app-mid-col">
         <div className="title-wrapper">
-          <h1 className="title"> ggdb </h1>
+          <a className="title" href="/"> ggdb </a>
           <p className="subtitle">
             <span>
               <a href="/about">About </a>
@@ -275,17 +273,19 @@ class App extends Component {
               <a href="#" onClick={this.openSignIn.bind(this)}> LogIn </a>
             </span>
           </p>
-          <br/>
-          <br/>
-          <br/>
-          <p className="subtitle">A crowd-sourced database of every pop-culture reference in the Gilmore Girls.</p>
-
-          {this.state.user ? (<div id="user-info"><p>{firebase.auth().currentUser.email}</p><a href="#" onClick={this.signOut.bind(this)}> Log Out </a></div>) 
+           {this.state.user ? (<div id="user-info"><p>{firebase.auth().currentUser.email}</p><a href="#" onClick={this.signOut.bind(this)}> Log Out </a></div>) 
             : ''}
+          <br/>
+          <br/>
+          <br/>
+          <p className="subtitle">A crowd-sourced database of every pop-culture reference in the Gilmore Girls. <br/>Become a contributor by filling out 
+          <a href="https://goo.gl/forms/IRXHNmZOkOAGExEu2"> this form </a>. </p>
+
+         
           <Modal id="signin" show={this.state.showSignIn} onHide={this.closeSignIn.bind(this)}>
             <Modal.Header className="signin-header">
               <h2>Sign in with your email and the password we sent you.</h2> 
-              <p>If you do not have a password, you can request one by sending an email to ggdb.info@gmail.com</p>
+              <p>Editing access is available by invite only.</p>
             </Modal.Header>
             <Modal.Body className="signin-body">
               <input type="text" id="email" placeholder="you@email.com" ref={c => this.signin_email = c}/>
@@ -335,18 +335,16 @@ class App extends Component {
                 : 
                 (<div id="more-coming">
                   <h2>More coming...</h2>
-                  <p>Launching Nov. 5, 2016</p>
+                  <p>Launching Nov. 7, 2016</p>
                   </div>)
               }
 
             </Panel>
           </div>
           {
-            this.state.totalRefNum === 0 ? <p id="nothing-here">Nothing here yet...</p> : <ul>{refs}</ul>
+            this.state.totalRefNum === 0 ? <p id="nothing-here">Nothing here yet...</p> : <ul className="refs-wrapper">{refs}</ul>
           }
         </div>
-        <div className="app-right-col"></div>
-      </div>
     );
   }
 }

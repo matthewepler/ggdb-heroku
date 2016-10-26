@@ -120,11 +120,35 @@ class AddRefForm extends Component {
 
 	formSubmit(e) {
 		e.preventDefault();
-		this.setState({erros: null});
+		this.setState({errors: null});
 
+		let userSeasons, userEpisodes = null;
+		const self = this;
+		const user = firebase.database().ref('users/' + firebase.auth().currentUser.uid).once('value')
+						.then(function(snap) {
+							console.log(snap.val());
+							userSeasons = snap.val().seasons;
+							userEpisodes = snap.val().episodes;
+							console.log('user', userSeasons, userEpisodes);
 
+							if (user && userSeasons && userEpisodes) {
+								if (userSeasons.indexOf(self.season.value) >= 0 && userEpisodes.indexOf(self.episode.value) >= 0) {
+							 	 	self.validateData();
+							 	} else {
+							 		self.addError("You do not have permissions for this season/episode.");
+							 		self.openModal();
+							 	}
+							} else {
+							  self.addError("We could not find your user info.");
+							  self.openModal(); 
+							}
+						});
+
+		
+	}
+
+	validateData() {
 		let formData = {};
-
 
 		if (this.state.screengrabURL) {
 			formData.screengrab = this.state.screengrabURL;
@@ -156,12 +180,24 @@ class AddRefForm extends Component {
 		formData.video =  this.video.value;
 		formData.refNotes =  this.refNotes.value;
 
-		const validData = validate(formData);
+		const validData = validate(formData).then( (data)=> {
+			this.setState({validData: data});
+			console.log('validate complete', data)
+			this.checkErrors();
+		});
+	}
 
+	addError(msg) {
 		let errors = [];
+		errors.push(msg);
+		this.setState({errors});
+	}
+
+	checkErrors() {
+		const validData = this.state.validData;
 		for (let obj in validData) {
 			if (validData[obj].value === false) {
-				// console.log(validData[obj].msg);
+				 console.log("Error: ", validData[obj].msg);
 				if (obj === 'screengrab') {
 					if (this.state.editing) {
 						this.setState({currScreengrab: screengrabURL});
@@ -180,11 +216,10 @@ class AddRefForm extends Component {
 					this.refThumbElement.src = "";
 				}
 
-				errors.push(validData[obj].msg);
+				this.addError(validData[obj].msg);
 			}
 		}
-		if (errors.length > 0) {
-			this.setState({errors});
+		if (this.state.errors != null && this.state.errors.length > 0) {
 			this.openModal();
 		} else {
 			this.setState({
@@ -207,11 +242,11 @@ class AddRefForm extends Component {
 					}
 				}
 				//console.log(this.state.screengrabURL, this.state.refThumbURL);
-				this.sendToFirebase(validData);
+				this.sendToFirebase(this.state.validData);
 			} else {
 				this.uploadImage(this.screengrabInput.files[0], 'screengrab');
 				this.uploadImage(this.refThumb.files[0], 'thumb');
-				this.sendToFirebase(validData);
+				this.sendToFirebase(this.state.validData);
 			}
 		}
 	}
