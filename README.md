@@ -1,24 +1,27 @@
 # TO DO
+* finish Guide
 * create mobile layout and media query based on width (device independent === resolution independent?)
-* padding email
-* add page "Contributor's Reference Guide" http://gg-db.com/guide.
-* check that season/episode validation during form submission works
+* padding email after sign-in
+* graph hover - all are 50% opacity except focused one. a click in circle turns it on (add '>' to tag). Click on tag = link. 
+* optimize images
 
 * testing
  - add new stuff (use hour format)
 
 * plan for contributors madness!
-* plant.
+	* Google Form, cutoff at 216 (4 per season 8 episode). 
+	* export as CSV and run script to send out invites
+
+* launch.
 
 * ES Lint, clean (including README)
 
 
 ## NON-CRITICAL
 * lighten lorelai
-* all links (dots, selector 'go' button, etc.) should use the app to fetch data and reload components instead of reload. update browser history:
-		- https://developer.mozilla.org/en-US/docs/Web/API/History_API
 * add drag-and drop: https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
-* filter for seeing all mentions by a single character, in a single location
+* search
+* filters
 
 
 
