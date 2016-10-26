@@ -126,13 +126,13 @@ class AddRefForm extends Component {
 		const self = this;
 		const user = firebase.database().ref('users/' + firebase.auth().currentUser.uid).once('value')
 						.then(function(snap) {
-							console.log(snap.val());
-							userSeasons = snap.val().seasons;
-							userEpisodes = snap.val().episodes;
-							console.log('user', userSeasons, userEpisodes);
+							var userArray = snap.val().episodes;
+							var thisEpisode = parseFloat(self.season.value + '.' + self.episode.value);
+							console.log(thisEpisode);
+							console.log(userArray.indexOf(thisEpisode) >= 0);
 
-							if (user && userSeasons && userEpisodes) {
-								if (userSeasons.indexOf(self.season.value) >= 0 && userEpisodes.indexOf(self.episode.value) >= 0) {
+							if (user && userArray) {
+								if (userArray.indexOf(thisEpisode) >= 0) {
 							 	 	self.validateData();
 							 	} else {
 							 		self.addError("You do not have permissions for this season/episode.");
@@ -142,9 +142,7 @@ class AddRefForm extends Component {
 							  self.addError("We could not find your user info.");
 							  self.openModal(); 
 							}
-						});
-
-		
+						});	
 	}
 
 	validateData() {

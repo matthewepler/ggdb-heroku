@@ -36,6 +36,9 @@
     align-items: center;
     padding-left: 1rem; 
     max-width: 750px;
+    @include forSmallScreens($med-screen) {
+      width: 100%;
+    }
     
     .rf-ref-quote {
       background-color: $base-color-lt;
