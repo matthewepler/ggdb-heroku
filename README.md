@@ -1,4 +1,5 @@
 # TO DO
+* layout fixes
 * ES Lint, clean (including README)
 
 

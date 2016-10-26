@@ -41,7 +41,6 @@ $highlight: white;
 	}
 				
 	.ref-detail {
-		display: flex;
 		text-align: left;
 		@include forSmallScreens($med-screen) {
 				margin: 0 2rem;
@@ -51,6 +50,7 @@ $highlight: white;
 			img {
 				max-width: 150px;
 				padding-right: 1.5em;
+				float: left;
 			}
 		}
 		
