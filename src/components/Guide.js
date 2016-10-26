@@ -24,6 +24,11 @@ class Guide extends Component {
         		Thanks so much for helping GGDB! Use this guide when adding a reference to the database. Each part of the 
             form has its own quirks, so I've listed them here in hopes that provide some clarity. 
         	</p>
+          <p>
+          To get started, sign-in using the "Login" link on the homepage (top). Once logged in, you'll see a new button appear with a "+" sign. 
+          Click that to open the form and fill it out to add a new referece. To edit a reference you've already submitted, open 
+          it by clicking on the quote as per normal, and scroll to the bottom of the reference where you will see an Edit button.
+          </p>
           <p>When in doubt about how to fill something in, refer to Season 1, Episode 1.</p>
           
           <h2>Help & Suggestions</h2>

@@ -278,8 +278,8 @@ class App extends Component {
           <br/>
           <br/>
           <br/>
-          <p className="subtitle">A crowd-sourced database of every pop-culture reference in the Gilmore Girls. <br/>Become a contributor by filling out 
-          <a href="https://goo.gl/forms/IRXHNmZOkOAGExEu2"> this form </a>. </p>
+          <p className="subtitle">A crowd-sourced database of every pop-culture reference in the Gilmore Girls. <br/>
+          <a href="https://goo.gl/forms/IRXHNmZOkOAGExEu2"> GET AN INVITE </a> </p>
 
          
           <Modal id="signin" show={this.state.showSignIn} onHide={this.closeSignIn.bind(this)}>
@@ -335,7 +335,7 @@ class App extends Component {
                 : 
                 (<div id="more-coming">
                   <h2>More coming...</h2>
-                  <p>Launching Nov. 7, 2016</p>
+                  <h2><a href="https://goo.gl/forms/IRXHNmZOkOAGExEu2">Get an invite</a></h2>
                   </div>)
               }
 
