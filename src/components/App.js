@@ -271,6 +271,8 @@ class App extends Component {
               <a href="/api"> API </a>
               |
               <a href="#" onClick={this.openSignIn.bind(this)}> LogIn </a>
+              |
+              <a href="https://twitter.com/ggdb_com"><i className="fa fa-twitter" aria-hidden="true"></i></a>
             </span>
           </p>
            {this.state.user ? (<div id="user-info"><p>{firebase.auth().currentUser.email}</p><a href="#" onClick={this.signOut.bind(this)}> Log Out </a></div>) 
