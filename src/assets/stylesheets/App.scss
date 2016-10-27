@@ -99,8 +99,8 @@ body {
 
   .nav-selectors {
     text-align: center;
-    margin: 2rem auto;
-    margin: 5rem 0;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
 
     h2 {
       color: $base-text;
@@ -309,4 +309,10 @@ body {
   text-align: center;
   margin: 0 auto;
   margin-top: 9rem;
+ }
+
+ .down-arrow {
+  color: white;
+  font-size: 25pt;
+  margin-bottom: 5rem;
  }

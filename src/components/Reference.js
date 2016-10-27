@@ -24,6 +24,10 @@ class Reference extends Component {
     if (this.props.focusId === String(this.props.reference.id)) {
       this.setState({open: true});
     }
+
+    if (this.props.reference.refName === 'RuPaul') {
+      this.setState({open: true});
+    }
   }
 
   handleClick(e) {

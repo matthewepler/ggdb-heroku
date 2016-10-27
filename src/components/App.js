@@ -341,6 +341,9 @@ class App extends Component {
 
             </Panel>
           </div>
+
+          <i className="fa fa-angle-down down-arrow" aria-hidden="true"></i>
+
           {
             this.state.totalRefNum === 0 ? <p id="nothing-here">Nothing here yet...</p> : <ul className="refs-wrapper">{refs}</ul>
           }
