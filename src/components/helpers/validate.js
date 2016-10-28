@@ -164,9 +164,16 @@ export default function(data, callback) {
 		validData.wikipedia.msg = "Your wikipedia link doesn't look right. It should start with 'https://en.wikipedia.org/wiki/'"
 	}
 
+	
+	// https://goo.gl/images/TzWwsv
+	// https://youtu.be/BlJYicQLAb4
+
+
 	// console.log("images", data.images);
   if (/^(https:\/\/www.google.com\/search\?)/.test(data.images) && data.images.includes("tbm=isch")) {
   	validData.images.value = data.images;
+  } else if (/^(https:\/\/goo\.gl\/images)/.test(data.images)) { // mobile
+  		validData.images.value = data.images;
   } else {
   	validData.images.value = false;
   	validData.images.msg = "Your Google images link doesn't look right. It should start with 'https://www.google.com/search?' and contain 'tbm=isch'"
@@ -175,6 +182,8 @@ export default function(data, callback) {
 	// console.log("video", data.video);
 	if (data.video.length > 1) {
 		if (/^(https:\/\/www.youtube.com)/.test(data.video)) {
+			validData.video.value = data.video;
+		} else if (/^(https:\/\/youtu\.be)/.test(data.video)) { // mobile
 			validData.video.value = data.video;
 		} else {
 			validData.video.value = false;
