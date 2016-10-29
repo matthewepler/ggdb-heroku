@@ -149,7 +149,7 @@
       max-width: 640px;
       background-image: linear-gradient(to bottom, darkturquoise, $base-color-lt  160%);
      
-      @include forSmallScreens($med-screen) {
+      @include forSmallScreens($sm-screen) {
         max-height: 350px;
         max-width: 500px;
       }
@@ -171,8 +171,8 @@
       display: block;
       height: 450px; 
       width: 640px;
-      @include forSmallScreens($med-screen) {
-        height: 370px;
+      @include forSmallScreens($sm-screen) {
+        height: 270px;
         width: 500px;
       }
 
@@ -183,18 +183,22 @@
       }
 
       .empty-screengrab {
-        width: 640px;
         height: 432px;
+        width: 640px;        
 
-        @include forSmallScreens($med-screen) {
-          height: 350px;
-          width: 500px;
+        @include forSmallScreens($sm-screen) {
+          height: 236px;
+          width: 350px;
         }
       }
 
       .user-screengrab {
         display: block;
         max-width: 640px;
+
+        @include forSmallScreens($sm-screen) {
+          max-width: 350px;
+        }
       }
 
     }
@@ -243,6 +247,10 @@
   .rf-ref-detail {
     display: flex;
 
+    @include forSmallScreens($sm-screen) {
+      display: block;
+    }
+
     .rf-ref-thumb {
       display: block;
       img {
@@ -276,7 +284,7 @@
     .rf-ref-items {
       max-width: 475px;
 
-      @include forSmallScreens($med-screen) {
+      @include forSmallScreens($sm-screen) {
         max-width: 335px;
       }
 
@@ -305,6 +313,10 @@
 
         .rf-ref-descrip-refbox {
           display: block;
+
+          @include forSmallScreens($sm-screen) {
+            margin-top: 2rem;
+          }
         }
 
         .rf-ref-descrip-isa {
@@ -577,8 +589,19 @@ option {
   background-color: white;
   border-radius: 1.5rem 1.5rem 1.5rem 0;
   color: darkturquoise;
-  left: 0;
+  left: 0px;
   top: -112px;
+  
+  @include forSmallScreens($sm-screen) {
+    left: -350px;
+    top: 100px;
+  }
+
+  @include forSmallScreens($med-screen) {
+    left: 0px;
+    top: -112px;
+  }
+  
   padding: 1rem;
 }
 
@@ -587,8 +610,19 @@ option {
   border-radius: .5rem .5rem .5rem 0;
   color: darkturquoise;
   display: inline-block;
-  left: 0;
+  left: 0px;
   top: -74px;
+  
+  @include forSmallScreens($sm-screen) {
+    left: -165px;
+    top: 58px;
+  }
+
+  @include forSmallScreens($med-screen) {
+    left: 0px;
+    top: -74px;
+  }
+  
   padding: 1rem;
 }
 
@@ -611,7 +645,6 @@ option {
 }
 
 #cancel-button {
-  
   background-color: darkturquoise;
   border: .3rem solid white;
   border-radius: 1rem;

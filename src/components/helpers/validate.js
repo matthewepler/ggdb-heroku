@@ -164,11 +164,6 @@ export default function(data, callback) {
 		validData.wikipedia.msg = "Your wikipedia link doesn't look right. It should start with 'https://en.wikipedia.org/wiki/'"
 	}
 
-	
-	// https://goo.gl/images/TzWwsv
-	// https://youtu.be/BlJYicQLAb4
-
-
 	// console.log("images", data.images);
   if (/^(https:\/\/www.google.com\/search\?)/.test(data.images) && data.images.includes("tbm=isch")) {
   	validData.images.value = data.images;

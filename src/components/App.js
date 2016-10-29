@@ -281,7 +281,7 @@ class App extends Component {
           <br/>
           <br/>
           <p className="subtitle">A crowd-sourced database of every pop-culture reference in the Gilmore Girls. <br/>
-          <a href="https://goo.gl/forms/IRXHNmZOkOAGExEu2"> GET AN INVITE </a> </p>
+          <a href="https://goo.gl/forms/IRXHNmZOkOAGExEu2"> GET AN INVITE TO BE AN EDITOR </a> </p>
 
          
           <Modal id="signin" show={this.state.showSignIn} onHide={this.closeSignIn.bind(this)}>
