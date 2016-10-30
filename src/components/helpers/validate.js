@@ -173,6 +173,8 @@ export default function(data, callback) {
 	// console.log("wikipedia", data.wikipedia);
 	if (/^(https?:\/\/en.wikipedia.org\/wiki\/)/.test(data.wikipedia)) {
 		validData.wikipedia.value = data.wikipedia;
+	} else if (/^(https?:\/\/en.m.wikipedia.org\/wiki\/)/.test(data.wikipedia)) { //mobile
+		validData.wikipedia.value = data.wikipedia;
 	} else {
 		validData.wikipedia.value = false;
 		validData.wikipedia.msg = "Your wikipedia link doesn't look right. It should start with 'https://en.wikipedia.org/wiki/'"
@@ -191,6 +193,8 @@ export default function(data, callback) {
 	// console.log("video", data.video);
 	if (data.video.length > 1) {
 		if (/^(https:\/\/www.youtube.com)/.test(data.video)) {
+			validData.video.value = data.video;
+		} else if (/^(https:\/\/m.youtube.com)/.test(data.video)) {
 			validData.video.value = data.video;
 		} else if (/^(https:\/\/youtu\.be)/.test(data.video)) { // mobile
 			validData.video.value = data.video;
