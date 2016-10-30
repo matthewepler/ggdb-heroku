@@ -33,7 +33,7 @@ class AddRefForm extends Component {
 	}
 
 	componentDidMount() {
-		console.log(this.props.closeForm);
+		//console.log(this.props.closeForm);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -128,8 +128,6 @@ class AddRefForm extends Component {
 						.then(function(snap) {
 							var userArray = snap.val().episodes;
 							var thisEpisode = parseFloat(self.season.value + '.' + self.episode.value);
-							console.log(thisEpisode);
-							console.log(userArray.indexOf(thisEpisode) >= 0);
 
 							if (user && userArray) {
 								if (userArray.indexOf(thisEpisode) >= 0) {
