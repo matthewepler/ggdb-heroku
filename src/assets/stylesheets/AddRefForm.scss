@@ -589,20 +589,20 @@ option {
   background-color: white;
   border-radius: 1.5rem 1.5rem 1.5rem 0;
   color: darkturquoise;
+  padding: 1rem;
   left: 0px;
   top: -112px;
-  
-  @include forSmallScreens($sm-screen) {
-    left: -350px;
-    top: 100px;
-  }
 
   @include forSmallScreens($med-screen) {
     left: 0px;
     top: -112px;
   }
+
+  @include forSmallScreens($sm-screen) {
+    left: -350px;
+    top: 100px;
+  }
   
-  padding: 1rem;
 }
 
 #screengrab-thumb-edit {
@@ -610,20 +610,19 @@ option {
   border-radius: .5rem .5rem .5rem 0;
   color: darkturquoise;
   display: inline-block;
+  padding: 1rem;
   left: 0px;
   top: -74px;
-  
-  @include forSmallScreens($sm-screen) {
-    left: -165px;
-    top: 58px;
-  }
 
   @include forSmallScreens($med-screen) {
     left: 0px;
     top: -74px;
   }
-  
-  padding: 1rem;
+
+  @include forSmallScreens($sm-screen) {
+    left: -165px;
+    top: 58px;
+  }  
 }
 
 #submit-button {
