@@ -307,40 +307,31 @@ class App extends Component {
         </div>
           <div className="nav-selectors">
             <Panel className="nav-panel" header={selector} collapsible expanded={this.state.selectorOpen} >
-            {
-              this.state.user ? 
-                (<div>
-                  <span className="season-episode">
-                    <div className="season">
-                      <p>Season</p>
-                      <div className="select-wrap">
-                        <select className="season-select rf-button-link" ref={c => this.season = c}>
-                          {_.range(7).map( (s, index) => {
-                            return <option value={s+1} key={index}> {s + 1} </option>
-                          })}
-                        </select>
-                      </div>
+              <div>
+                <span className="season-episode">
+                  <div className="season">
+                    <p>Season</p>
+                    <div className="select-wrap">
+                      <select className="season-select rf-button-link" ref={c => this.season = c}>
+                        {_.range(7).map( (s, index) => {
+                          return <option value={s+1} key={index}> {s + 1} </option>
+                        })}
+                      </select>
                     </div>
-                    <div className="episode">
-                      <p>Episode</p>
-                      <div className="select-wrap">
-                        <select className="episode-select rf-button-link" ref={c => this.episode = c}>
-                          {_.range(23).map( (e, index) => {
-                            return <option value={e+1} key={index}> {e + 1} </option>
-                          })}
-                        </select>
-                      </div>
+                  </div>
+                  <div className="episode">
+                    <p>Episode</p>
+                    <div className="select-wrap">
+                      <select className="episode-select rf-button-link" ref={c => this.episode = c}>
+                        {_.range(23).map( (e, index) => {
+                          return <option value={e+1} key={index}> {e + 1} </option>
+                        })}
+                      </select>
                     </div>
-                  </span>
-                  <div className="go-button" onClick={this.handleGoClick.bind(this)}>go</div>
-                </div>)
-                : 
-                (<div id="more-coming">
-                  <h2>More coming...</h2>
-                  <h2><a href="https://goo.gl/forms/IRXHNmZOkOAGExEu2">Get an invite</a></h2>
-                  </div>)
-              }
-
+                  </div>
+                </span>
+                <div className="go-button" onClick={this.handleGoClick.bind(this)}>go</div>
+              </div>
             </Panel>
           </div>
 
