@@ -67,7 +67,7 @@ class d3stackedChart {
         bar.append('text')
           .attr('class', 'textDiv')
           .text(function(d) {
-            return d.cat + ' (' + ((d.size/totalRefs)*100) + '%)';
+            return d.cat + ' (' + Math.floor((d.size/totalRefs)*100) + '%)';
           })
           .attr('transform', function(d) {
             const thisX = totalX;
