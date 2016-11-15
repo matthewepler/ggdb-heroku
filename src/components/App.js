@@ -162,7 +162,7 @@ class App extends Component {
   }
 
   handleGoClick(e) {
-    window.location = `http://localhost:5000/?season=${this.season.value}&episode=${this.episode.value}`
+    window.location = `http://gg-db.com/?season=${this.season.value}&episode=${this.episode.value}`
   }
 
   editOn(data) {

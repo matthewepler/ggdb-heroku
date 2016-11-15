@@ -130,7 +130,7 @@ class AddRefForm extends Component {
 							var thisEpisode = parseFloat(self.season.value + '.' + self.episode.value);
 
 							if (user && userArray) {
-								if (userArray.indexOf(thisEpisode) >= 0) {
+								if (userArray.indexOf(thisEpisode) >= 0 || userArray.indexOf('super') >= 0) {
 							 	 	self.validateData();
 							 	} else {
 							 		self.addError("You do not have permissions for this season/episode.");
