@@ -45,13 +45,13 @@ class Timeline extends Component {
 
     removeChart() {
         if (document.getElementById(this.state.elementId)) {
-            console.log('removing chart', this.state.elementId);
+            // console.log('removing chart', this.state.elementId);
             d3.select(document.getElementById(this.state.elementId).remove());
         }
     }
                 
     renderChart(newId, subject, datum) {  
-        console.log('rendering chart', newId);
+        // console.log('rendering chart', newId);
         const divWidth = document.getElementById(this.props.reference.id).getBoundingClientRect().width;
         fromToTimeline = new timeline(this.graphElement, newId, subject, datum, this.props.allRefs, this.props.reference.season, 0.9 * divWidth);
     }

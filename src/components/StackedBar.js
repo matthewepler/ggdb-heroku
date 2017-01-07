@@ -34,7 +34,7 @@ class StackedBar extends Component {
 
     removeChart() {
         if (document.getElementById(this.state.elementId)) {
-            console.log('removing chart', this.state.elementId);
+            // console.log('removing chart', this.state.elementId);
             d3.select(document.getElementById(this.state.elementId).remove());
         }
     }

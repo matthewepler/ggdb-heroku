@@ -127,10 +127,12 @@ class AddRefForm extends Component {
 		const user = firebase.database().ref('users/' + firebase.auth().currentUser.uid).once('value')
 						.then(function(snap) {
 							var userArray = snap.val().episodes;
+							console.log(self.season.value + '.' + self.episode.value);
 							var thisEpisode = parseFloat(self.season.value + '.' + self.episode.value);
+							console.log(userArray);
 
 							if (user && userArray) {
-								if (userArray.indexOf(thisEpisode) >= 0 || userArray.indexOf('super') >= 0) {
+								if (userArray.indexOf(String(thisEpisode)) >= 0 || userArray.indexOf('super') >= 0) {
 							 	 	self.validateData();
 							 	} else {
 							 		self.addError("You do not have permissions for this season/episode.");
